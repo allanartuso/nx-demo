@@ -1,0 +1,14 @@
+:host {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  margin: 0.25rem 0;
+  min-width: 200px;
+
+  small {
+    margin: 0.1rem 0;
+    height: 1rem;
+    font-size: 85%;
+    color: red;
+  }
+}

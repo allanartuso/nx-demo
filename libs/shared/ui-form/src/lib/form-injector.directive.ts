@@ -3,7 +3,7 @@ import { FormControlName } from '@angular/forms';
 import { fromEvent, merge, Observable, Subject } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
 import { getErrorMessage } from './error-messages';
-import { ArviemFormControl } from './models/form.model';
+import { NoumenaFormControl } from './models/form.model';
 
 @Directive({
   // eslint-disable-next-line @angular-eslint/directive-selector
@@ -12,13 +12,13 @@ import { ArviemFormControl } from './models/form.model';
 export class FormControlInjectorDirective implements OnInit, AfterViewInit {
   @Input() label!: string;
   private readonly destroy$ = new Subject<void>();
-  private control!: ArviemFormControl;
+  private control!: NoumenaFormControl;
   private errorMessage$ = new Subject<string>();
 
   constructor(private readonly el: ElementRef, private readonly formControlName: FormControlName) {}
 
   ngOnInit(): void {
-    const control = this.formControlName.control as unknown as ArviemFormControl;
+    const control = this.formControlName.control as unknown as NoumenaFormControl;
     control.errorMessage$ = this.errorMessage$ as Observable<string>;
     this.control = control;
     this.isInvalidField();

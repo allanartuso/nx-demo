@@ -1,7 +1,7 @@
 import { AbstractControl } from '@angular/forms';
 import { Observable } from 'rxjs/internal/Observable';
 
-export interface ArviemFormControl extends AbstractControl {
+export interface NoumenaFormControl extends AbstractControl {
   errorMessage$: Observable<string>;
 }
 

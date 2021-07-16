@@ -1,5 +1,5 @@
 <label>{{ label }}</label>
-<select [(ngModel)]="value" (ngModelChange)="updateModel()" (blur)="onBlur()" (focus)="onFocus()">
+<select [(ngModel)]="value" (ngModelChange)="updateModel()" (blur)="onBlur()">
   <option *ngFor="let item of items" [value]="item.value">{{ item.text || item.value }}</option>
 </select>
-<small>{{ errorMsg }}</small>
+<small>{{ errorMessage }}</small>

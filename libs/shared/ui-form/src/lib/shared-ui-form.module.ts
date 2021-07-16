@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { NoumenaInputComponent } from './components/sg-input/sg-input.component';
-import { SgSelectComponent } from './components/sg-select/sg-select.component';
+import { FormsModule } from '@angular/forms';
+import { NoumenaInputComponent } from './components/noumena-input/noumena-input.component';
+import { NoumenaSelectComponent } from './components/noumena-select/noumena-select.component';
 
 @NgModule({
-  imports: [CommonModule],
-  declarations: [NoumenaInputComponent, SgSelectComponent]
+  imports: [CommonModule, FormsModule],
+  declarations: [NoumenaInputComponent, NoumenaSelectComponent]
 })
 export class SharedUiFormModule {}
