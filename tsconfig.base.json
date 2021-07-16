@@ -13,11 +13,11 @@
     "lib": ["es2017", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
+    "strictNullChecks": false,
     "baseUrl": ".",
     "paths": {
-      "@noumena/shared/util-configuration": [
-        "libs/shared/util-configuration/src/index.ts"
-      ]
+      "@noumena/shared/ui-form": ["libs/shared/ui-form/src/index.ts"],
+      "@noumena/shared/util-configuration": ["libs/shared/util-configuration/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

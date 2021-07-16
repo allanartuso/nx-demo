@@ -1,0 +1,10 @@
+<label>{{ label }}</label>
+<input
+  #input
+  (blur)="onBlur()"
+  (focus)="onFocus()"
+  [readonly]="readonly"
+  (keyup)="onChangeInput($event)"
+  [type]="type"
+/>
+<small>{{ errorMsg }}</small>

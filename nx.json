@@ -34,6 +34,9 @@
       "tags": [],
       "implicitDependencies": ["noumena"]
     },
+    "shared-ui-form": {
+      "tags": []
+    },
     "shared-util-configuration": {
       "tags": []
     }

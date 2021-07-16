@@ -17,10 +17,7 @@
             "polyfills": "apps/noumena/src/polyfills.ts",
             "tsConfig": "apps/noumena/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": [
-              "apps/noumena/src/favicon.ico",
-              "apps/noumena/src/assets"
-            ],
+            "assets": ["apps/noumena/src/favicon.ico", "apps/noumena/src/assets"],
             "styles": ["apps/noumena/src/styles.scss"],
             "scripts": []
           },
@@ -78,10 +75,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/noumena/src/**/*.ts",
-              "apps/noumena/src/**/*.html"
-            ]
+            "lintFilePatterns": ["apps/noumena/src/**/*.ts", "apps/noumena/src/**/*.html"]
           }
         },
         "test": {
@@ -116,6 +110,28 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["apps/noumena-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    },
+    "shared-ui-form": {
+      "projectType": "library",
+      "root": "libs/shared/ui-form",
+      "sourceRoot": "libs/shared/ui-form/src",
+      "prefix": "noumena",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/shared/ui-form"],
+          "options": {
+            "jestConfig": "libs/shared/ui-form/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/shared/ui-form/src/**/*.ts", "libs/shared/ui-form/src/**/*.html"]
           }
         }
       }
