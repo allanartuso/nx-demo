@@ -1,24 +1,24 @@
 {
   "version": 1,
   "projects": {
-    "noumena": {
+    "demo": {
       "projectType": "application",
-      "root": "apps/noumena",
-      "sourceRoot": "apps/noumena/src",
+      "root": "apps/demo",
+      "sourceRoot": "apps/demo/src",
       "prefix": "noumena",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "outputs": ["{options.outputPath}"],
           "options": {
-            "outputPath": "dist/apps/noumena",
-            "index": "apps/noumena/src/index.html",
-            "main": "apps/noumena/src/main.ts",
-            "polyfills": "apps/noumena/src/polyfills.ts",
-            "tsConfig": "apps/noumena/tsconfig.app.json",
+            "outputPath": "dist/apps/demo",
+            "index": "apps/demo/src/index.html",
+            "main": "apps/demo/src/main.ts",
+            "polyfills": "apps/demo/src/polyfills.ts",
+            "tsConfig": "apps/demo/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": ["apps/noumena/src/favicon.ico", "apps/noumena/src/assets"],
-            "styles": ["apps/noumena/src/styles.scss"],
+            "assets": ["apps/demo/src/favicon.ico", "apps/demo/src/assets"],
+            "styles": ["apps/demo/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -37,8 +37,8 @@
               ],
               "fileReplacements": [
                 {
-                  "replace": "apps/noumena/src/environments/environment.ts",
-                  "with": "apps/noumena/src/environments/environment.prod.ts"
+                  "replace": "apps/demo/src/environments/environment.ts",
+                  "with": "apps/demo/src/environments/environment.prod.ts"
                 }
               ],
               "outputHashing": "all"
@@ -58,10 +58,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "noumena:build:production"
+              "browserTarget": "demo:build:production"
             },
             "development": {
-              "browserTarget": "noumena:build:development"
+              "browserTarget": "demo:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -69,47 +69,47 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "noumena:build"
+            "browserTarget": "demo:build"
           }
         },
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/noumena/src/**/*.ts", "apps/noumena/src/**/*.html"]
+            "lintFilePatterns": ["apps/demo/src/**/*.ts", "apps/demo/src/**/*.html"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/noumena"],
+          "outputs": ["coverage/apps/demo"],
           "options": {
-            "jestConfig": "apps/noumena/jest.config.js",
+            "jestConfig": "apps/demo/jest.config.js",
             "passWithNoTests": true
           }
         }
       }
     },
-    "noumena-e2e": {
-      "root": "apps/noumena-e2e",
-      "sourceRoot": "apps/noumena-e2e/src",
+    "demo-e2e": {
+      "root": "apps/demo-e2e",
+      "sourceRoot": "apps/demo-e2e/src",
       "projectType": "application",
       "architect": {
         "e2e": {
           "builder": "@nrwl/cypress:cypress",
           "options": {
-            "cypressConfig": "apps/noumena-e2e/cypress.json",
-            "tsConfig": "apps/noumena-e2e/tsconfig.e2e.json",
-            "devServerTarget": "noumena:serve:development"
+            "cypressConfig": "apps/demo-e2e/cypress.json",
+            "tsConfig": "apps/demo-e2e/tsconfig.e2e.json",
+            "devServerTarget": "demo:serve:development"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "noumena:serve:production"
+              "devServerTarget": "demo:serve:production"
             }
           }
         },
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/noumena-e2e/**/*.{js,ts}"]
+            "lintFilePatterns": ["apps/demo-e2e/**/*.{js,ts}"]
           }
         }
       }
@@ -192,5 +192,5 @@
       "style": "scss"
     }
   },
-  "defaultProject": "noumena"
+  "defaultProject": "demo"
 }

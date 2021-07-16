@@ -27,12 +27,12 @@
     ]
   },
   "projects": {
-    "noumena": {
+    "demo": {
       "tags": []
     },
-    "noumena-e2e": {
+    "demo-e2e": {
       "tags": [],
-      "implicitDependencies": ["noumena"]
+      "implicitDependencies": ["demo"]
     },
     "shared-ui-form": {
       "tags": []
