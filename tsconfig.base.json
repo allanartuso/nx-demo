@@ -16,6 +16,7 @@
     "strictNullChecks": false,
     "baseUrl": ".",
     "paths": {
+      "@noumena/demo/feature-users": ["libs/demo/feature-users/src/index.ts"],
       "@noumena/shared/ui-form": ["libs/shared/ui-form/src/index.ts"],
       "@noumena/shared/util-configuration": ["libs/shared/util-configuration/src/index.ts"]
     }

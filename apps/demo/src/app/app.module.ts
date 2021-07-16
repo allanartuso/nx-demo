@@ -1,12 +1,30 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { RouterModule, Routes } from '@angular/router';
 import { APP_CONFIGURATION } from '@noumena/shared/util-configuration';
 import { AppComponent } from './app.component';
 import { getAppConfiguration } from './environment-configuration.model';
 
+const ROUTES: Routes = [
+  {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'users'
+  },
+  {
+    path: 'users',
+    loadChildren: () => import('@noumena/demo/feature-users').then(module => module.DemoFeatureUsersModule)
+  }
+];
+
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule],
+  imports: [
+    BrowserModule,
+    RouterModule.forRoot(ROUTES, {
+      scrollPositionRestoration: 'enabled'
+    })
+  ],
   providers: [
     {
       provide: APP_CONFIGURATION,

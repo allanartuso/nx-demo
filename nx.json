@@ -34,6 +34,9 @@
       "tags": [],
       "implicitDependencies": ["demo"]
     },
+    "demo-feature-users": {
+      "tags": []
+    },
     "shared-ui-form": {
       "tags": []
     },

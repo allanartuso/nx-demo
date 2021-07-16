@@ -114,6 +114,28 @@
         }
       }
     },
+    "demo-feature-users": {
+      "projectType": "library",
+      "root": "libs/demo/feature-users",
+      "sourceRoot": "libs/demo/feature-users/src",
+      "prefix": "noumena",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/demo/feature-users"],
+          "options": {
+            "jestConfig": "libs/demo/feature-users/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/demo/feature-users/src/**/*.ts", "libs/demo/feature-users/src/**/*.html"]
+          }
+        }
+      }
+    },
     "shared-ui-form": {
       "projectType": "library",
       "root": "libs/shared/ui-form",

@@ -1,0 +1,31 @@
+<div class="arviem-user-settings" [formGroup]="form">
+  <arviem-combo-box
+    [singleSelection]="true"
+    [items]="languageListItems"
+    [label]="translate('users.language')"
+    [readonly]="!canEdit"
+    formControlName="language"
+  ></arviem-combo-box>
+
+  <div>
+    <arviem-info-icon
+      class="arviem-user-settings-info-icon"
+      [infoMessage]="translate('users.displayDensityInfo')"
+    ></arviem-info-icon>
+    <arviem-combo-box
+      [singleSelection]="true"
+      [items]="displayDensityListItems"
+      [label]="translate('users.displayDensity')"
+      [readonly]="!canEdit"
+      formControlName="displayDensity"
+    ></arviem-combo-box>
+  </div>
+
+  <arviem-combo-box
+    [singleSelection]="true"
+    [items]="themeListItems"
+    [label]="translate('users.theme')"
+    [readonly]="!canEdit"
+    formControlName="theme"
+  ></arviem-combo-box>
+</div>
