@@ -33,6 +33,9 @@
     "noumena-e2e": {
       "tags": [],
       "implicitDependencies": ["noumena"]
+    },
+    "shared-util-configuration": {
+      "tags": []
     }
   }
 }

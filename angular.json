@@ -119,6 +119,31 @@
           }
         }
       }
+    },
+    "shared-util-configuration": {
+      "projectType": "library",
+      "root": "libs/shared/util-configuration",
+      "sourceRoot": "libs/shared/util-configuration/src",
+      "prefix": "noumena",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/shared/util-configuration"],
+          "options": {
+            "jestConfig": "libs/shared/util-configuration/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/shared/util-configuration/src/**/*.ts",
+              "libs/shared/util-configuration/src/**/*.html"
+            ]
+          }
+        }
+      }
     }
   },
   "cli": {
