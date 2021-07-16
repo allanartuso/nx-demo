@@ -1,0 +1,155 @@
+{
+  "version": 1,
+  "projects": {
+    "noumena": {
+      "projectType": "application",
+      "root": "apps/noumena",
+      "sourceRoot": "apps/noumena/src",
+      "prefix": "noumena",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/noumena",
+            "index": "apps/noumena/src/index.html",
+            "main": "apps/noumena/src/main.ts",
+            "polyfills": "apps/noumena/src/polyfills.ts",
+            "tsConfig": "apps/noumena/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "apps/noumena/src/favicon.ico",
+              "apps/noumena/src/assets"
+            ],
+            "styles": ["apps/noumena/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "apps/noumena/src/environments/environment.ts",
+                  "with": "apps/noumena/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "noumena:build:production"
+            },
+            "development": {
+              "browserTarget": "noumena:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "noumena:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/noumena/src/**/*.ts",
+              "apps/noumena/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/noumena"],
+          "options": {
+            "jestConfig": "apps/noumena/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "noumena-e2e": {
+      "root": "apps/noumena-e2e",
+      "sourceRoot": "apps/noumena-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/noumena-e2e/cypress.json",
+            "tsConfig": "apps/noumena-e2e/tsconfig.e2e.json",
+            "devServerTarget": "noumena:serve:development"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "noumena:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/noumena-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/angular"
+  },
+  "schematics": {
+    "@nrwl/angular": {
+      "application": {
+        "linter": "eslint"
+      },
+      "library": {
+        "linter": "eslint"
+      },
+      "storybook-configuration": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/angular:application": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest"
+    },
+    "@nrwl/angular:component": {
+      "style": "scss"
+    }
+  },
+  "defaultProject": "noumena"
+}
