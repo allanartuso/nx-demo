@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
+import { RequestState } from '@demo/shared/data-access';
 import { select, Store } from '@ngrx/store';
-import { RequestState } from '@demo/shared/ui-form';
 import { Observable } from 'rxjs';
 import { formActions } from '../../+state/user/user.actions';
 import { formSelectors } from '../../+state/user/user.selectors';

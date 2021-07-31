@@ -59,4 +59,6 @@ export function getLastPageNumber<T>(summaries: T[], pagingOptions: PagingOption
   if (summaries.length < pagingOptions.pageSize) {
     return pagingOptions.page;
   }
+
+  return undefined;
 }

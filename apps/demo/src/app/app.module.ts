@@ -1,7 +1,8 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
-import { APP_CONFIGURATION } from '@demo/shared/util-configuration';
+import { APP_CONFIGURATION, SharedUtilConfigurationModule } from '@demo/shared/util-configuration';
 import { SharedUtilStoreModule } from '@demo/shared/util-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
@@ -23,12 +24,14 @@ const ROUTES: Routes = [
 @NgModule({
   declarations: [AppComponent],
   imports: [
+    HttpClientModule,
     BrowserModule,
     RouterModule.forRoot(ROUTES, {
       scrollPositionRestoration: 'enabled'
     }),
     SharedUtilStoreModule,
-    !environment.production ? StoreDevtoolsModule.instrument() : []
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
+    SharedUtilConfigurationModule
   ],
   providers: [
     {

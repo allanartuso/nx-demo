@@ -3,8 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AbstractFormComponent } from '@demo/shared/ui-form';
 import { UserDto } from '../../models/user.dto';
 
-
-
 @Component({
   selector: 'demo-user-form',
   templateUrl: './user-form.component.html',
@@ -20,13 +18,12 @@ export class UserFormComponent extends AbstractFormComponent<UserDto> {
       email: [
         {
           value: user.email,
-          disabled: true
+          disabled: false
         },
         [Validators.required, Validators.email]
       ],
-      firstName: [user.firstName,],
-      lastName: [user.lastName, [Validators.maxLength(40)]],
-
+      firstName: [user.firstName],
+      lastName: [user.lastName, [Validators.maxLength(40)]]
     });
   }
 
@@ -35,7 +32,7 @@ export class UserFormComponent extends AbstractFormComponent<UserDto> {
       ...super.getFormDefaultValue(user),
       email: user?.email,
       firstName: user?.firstName,
-      lastName: user?.lastName,
+      lastName: user?.lastName
     };
   }
 }

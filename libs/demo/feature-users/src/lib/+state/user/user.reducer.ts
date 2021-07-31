@@ -1,25 +1,11 @@
+import { createFormReducer, FormState } from '@demo/shared/util-store';
 import { Action } from '@ngrx/store';
-import { RequestState } from '@demo/shared/ui-form';
 import { UserDto } from '../../models/user.dto';
+import { formActions } from './user.actions';
 
 export const USER_FEATURE_KEY = 'user';
+const reducer = createFormReducer(formActions);
 
-export interface UserState {
-  user: UserDto;
-  requestState: RequestState;
-}
-
-const initialState: UserState = {
-  user: undefined,
-  requestState: RequestState.IDLE
-};
-
-const reducer = createReducer<UserState>(
-  initialState,
-  on(btCandlesActions.load, (): UserState => initialState),
-  on(btCandlesActions.loadSuccess, (state, { resources }): UserState => ({ ...state, resources }))
-);
-
-export function userReducer(state: UserState, action: Action): UserState {
+export function userReducer(state: FormState<UserDto>, action: Action): FormState<UserDto> {
   return reducer(state, action);
 }

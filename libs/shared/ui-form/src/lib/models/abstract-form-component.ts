@@ -51,7 +51,9 @@ export abstract class AbstractFormComponent<T> implements ControlValueAccessor, 
 
   protected listenValueChanges() {
     this.form.valueChanges.pipe(takeUntil(this.destroy$)).subscribe(() => {
-      this.onChange(this.form.getRawValue());
+      if (this.onChange) {
+        this.onChange(this.form.getRawValue());
+      }
     });
   }
 

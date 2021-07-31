@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
+import { SharedUiFormModule } from '@demo/shared/ui-form';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { UserEffects } from './+state/user/user.effects';
@@ -34,11 +35,9 @@ export const usersRoutes: Routes = [
     StoreModule.forFeature(USER_FEATURE_KEY, userReducer),
     EffectsModule.forFeature([UserEffects]),
     ReactiveFormsModule,
-    RouterModule.forChild(usersRoutes)
+    RouterModule.forChild(usersRoutes),
+    SharedUiFormModule
   ],
-  declarations:[
-    UserComponent,
-    UserFormComponent
-  ]
+  declarations: [UserComponent, UserFormComponent]
 })
 export class DemoFeatureUsersModule {}

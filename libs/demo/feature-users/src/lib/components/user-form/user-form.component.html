@@ -1,7 +1,7 @@
-<form [formGroup]="form" (submit)="submit()">
-  <demo-input label="email" formControlName="email"></demo-input>
-  <demo-input label="firstName" formControlName="firstName"></demo-input>
-  <demo-input label="lastName" formControlName="lastName" maxLength="40"></demo-input>
+<form [formGroup]="form" (submit)="submit()" class="user-form">
+  <demo-input label="Email" formControlName="email"></demo-input>
+  <demo-input label="First name" formControlName="firstName"></demo-input>
+  <demo-input label="Last name" formControlName="lastName" maxLength="40"></demo-input>
 
   <div>
     <button (click)="cancel()" [disabled]="form.pristine">Cancel</button>

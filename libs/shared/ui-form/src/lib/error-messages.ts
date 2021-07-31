@@ -6,8 +6,8 @@ const errorMessages: Record<string, string> = {
   minlength: '{{fieldName}} must be at least {{requiredLength}} characters long.'
 };
 
-export function getErrorMessage(errorKey: string, replacements: Record<string, string>) {
-  return errorMessages[errorKey].replace(/{{(\w+)}}/g, (placeholderWithDelimiters, placeholderWithoutDelimiters) =>
+export function getErrorMessage(errorKey: string, replacements: Record<string, string>): string {
+  return errorMessages[errorKey]?.replace(/{{(\w+)}}/g, (placeholderWithDelimiters, placeholderWithoutDelimiters) =>
     replacements[placeholderWithoutDelimiters] ? replacements[placeholderWithoutDelimiters] : placeholderWithDelimiters
   );
 }

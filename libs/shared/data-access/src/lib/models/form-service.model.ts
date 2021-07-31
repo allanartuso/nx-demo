@@ -6,7 +6,7 @@ export interface FormService<T> {
 
   saveResource?(resource: T): Observable<T>;
 
-  deleteResource?(id: string): Observable<T>;
+  deleteResource?(id: string): Observable<void>;
 
   createResource?(resource: T): Observable<T>;
 }

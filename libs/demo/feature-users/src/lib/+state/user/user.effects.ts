@@ -1,83 +1,15 @@
 import { Injectable } from '@angular/core';
-import { changePasswordAction, logoutAction } from '@demo/acm/feature-authentication';
-import { AbstractFormEffects } from '@demo/acm/feature/common/form';
-import { UserDto, UserService, USERS_I18N_SCOPE } from '@demo/shared/acm/data-access/users';
-import { displayConfirmationDialogAction, selectConfirmationDialogResponse } from '@demo/shared/util-notification';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { select, Store } from '@ngrx/store';
-import { exhaustMap, filter, first, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { AbstractFormEffects } from '@demo/shared/util-store';
+import { Actions } from '@ngrx/effects';
+import { Store } from '@ngrx/store';
+import { UserDto } from '../../models/user.dto';
+import { UserService } from '../../services/user.service';
 import { formActions } from './user.actions';
-import { formSelectors } from './user.selectors';
 
 @Injectable()
 export class UserEffects extends AbstractFormEffects<UserDto> {
-  showRemovalConfirmation$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(formActions.showRemovalConfirmation),
-      withLatestFrom(this.store.pipe(select(formSelectors.getResource))),
-      tap(([action, resource]) => {
-        this.store.dispatch(
-          displayConfirmationDialogAction({
-            settings: {
-              i18nScope: USERS_I18N_SCOPE,
-              title: 'deleteUserConfirmationTitle',
-              message: 'deleteUserConfirmationText',
-              label: 'username',
-              confirmationInput: true,
-              expectedInput: resource.email
-            }
-          })
-        );
-      }),
-      switchMap(([action, resource]) =>
-        this.store.pipe(
-          select(selectConfirmationDialogResponse),
-          first(confirmation => !!confirmation),
-          map(() => formActions.delete({ resourceId: resource.resourceId }))
-        )
-      )
-    )
-  );
-
-  showChangePasswordConfirmation$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(formActions.showChangePasswordConfirmation),
-      tap(() =>
-        this.store.dispatch(
-          displayConfirmationDialogAction({
-            settings: {
-              i18nScope: USERS_I18N_SCOPE,
-              title: 'changePasswordConfirmationTitle',
-              message: 'changePasswordConfirmationText'
-            }
-          })
-        )
-      ),
-      switchMap(() =>
-        this.store.pipe(
-          select(selectConfirmationDialogResponse),
-          first(confirmation => confirmation !== undefined)
-        )
-      ),
-      filter(confirmation => !!confirmation),
-      map(() => changePasswordAction())
-    )
-  );
-
-  logout$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(formActions.deleteSuccess),
-      exhaustMap(() =>
-        this.store.pipe(
-          select(formSelectors.getResource),
-          first(currentUser => !currentUser),
-          map(() => logoutAction())
-        )
-      )
-    )
-  );
-
-  constructor(actions$: Actions, store: Store, userService: UserService) {
-    super(actions$, store, userService, formActions, formSelectors, undefined, USERS_I18N_SCOPE);
+  constructor(router: Router, actions$: Actions, store: Store, userService: UserService) {
+    super(router, actions$, store, userService, formActions);
   }
 }
