@@ -136,6 +136,28 @@
         }
       }
     },
+    "shared-data-access": {
+      "projectType": "library",
+      "root": "libs/shared/data-access",
+      "sourceRoot": "libs/shared/data-access/src",
+      "prefix": "demo",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/shared/data-access"],
+          "options": {
+            "jestConfig": "libs/shared/data-access/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/shared/data-access/src/**/*.ts", "libs/shared/data-access/src/**/*.html"]
+          }
+        }
+      }
+    },
     "shared-ui-form": {
       "projectType": "library",
       "root": "libs/shared/ui-form",
@@ -179,6 +201,28 @@
               "libs/shared/util-configuration/src/**/*.ts",
               "libs/shared/util-configuration/src/**/*.html"
             ]
+          }
+        }
+      }
+    },
+    "shared-util-store": {
+      "projectType": "library",
+      "root": "libs/shared/util-store",
+      "sourceRoot": "libs/shared/util-store/src",
+      "prefix": "demo",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/shared/util-store"],
+          "options": {
+            "jestConfig": "libs/shared/util-store/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/shared/util-store/src/**/*.ts", "libs/shared/util-store/src/**/*.html"]
           }
         }
       }

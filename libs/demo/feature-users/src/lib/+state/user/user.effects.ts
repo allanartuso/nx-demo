@@ -1,13 +1,7 @@
 import { Injectable } from '@angular/core';
 import { changePasswordAction, logoutAction } from '@demo/acm/feature-authentication';
 import { AbstractFormEffects } from '@demo/acm/feature/common/form';
-import {
-    CreateUserDto,
-    PatchUserDto,
-    UpdateUserDto,
-    UserDto, UserService,
-    UserSummaryDto, USERS_I18N_SCOPE
-} from '@demo/shared/acm/data-access/users';
+import { UserDto, UserService, USERS_I18N_SCOPE } from '@demo/shared/acm/data-access/users';
 import { displayConfirmationDialogAction, selectConfirmationDialogResponse } from '@demo/shared/util-notification';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
@@ -16,13 +10,7 @@ import { formActions } from './user.actions';
 import { formSelectors } from './user.selectors';
 
 @Injectable()
-export class UserEffects extends AbstractFormEffects<
-  UserDto,
-  CreateUserDto,
-  UpdateUserDto,
-  PatchUserDto,
-  UserSummaryDto
-> {
+export class UserEffects extends AbstractFormEffects<UserDto> {
   showRemovalConfirmation$ = createEffect(() =>
     this.actions$.pipe(
       ofType(formActions.showRemovalConfirmation),

@@ -37,10 +37,16 @@
     "demo-feature-users": {
       "tags": []
     },
+    "shared-data-access": {
+      "tags": []
+    },
     "shared-ui-form": {
       "tags": []
     },
     "shared-util-configuration": {
+      "tags": []
+    },
+    "shared-util-store": {
       "tags": []
     }
   }

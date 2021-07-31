@@ -1,8 +1,8 @@
 import { Directive, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { ControlValueAccessor, FormGroup } from '@angular/forms';
+import { RequestState } from '@demo/shared/data-access';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { RequestState } from './form.model';
 
 @Directive()
 export abstract class AbstractFormComponent<T> implements ControlValueAccessor, OnDestroy, OnInit {
