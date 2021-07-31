@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { ListState } from '@arviem/acm/feature/common/list';
+import { ListState } from '@demo/acm/feature/common/list';
 import {
   createNewResourceRoutePath,
   createResourceId,
@@ -7,11 +7,11 @@ import {
   ErrorsVm,
   GeneralErrorCode,
   ListService
-} from '@arviem/shared/acm/data-access/common';
-import { errorsModelFixture, resourceDtoFixture } from '@arviem/shared/acm/data-access/common/test';
-import { ORGANIZATION_MEMBERS_RESOURCE_BASE_PATH } from '@arviem/shared/acm/data-access/organization-members';
-import { DEFAULT_REQUEST_OPTIONS, RequestState } from '@arviem/shared/data-access';
-import { navigateToAction } from '@arviem/shared/util-router-store';
+} from '@demo/shared/acm/data-access/common';
+import { errorsModelFixture, resourceDtoFixture } from '@demo/shared/acm/data-access/common/test';
+import { ORGANIZATION_MEMBERS_RESOURCE_BASE_PATH } from '@demo/shared/acm/data-access/organization-members';
+import { DEFAULT_REQUEST_OPTIONS, RequestState } from '@demo/shared/data-access';
+import { navigateToAction } from '@demo/shared/util-router-store';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Action } from '@ngrx/store';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';

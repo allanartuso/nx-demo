@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { ErrorsVm, ListService, PatchResourceDto, ResourceDto } from '@arviem/shared/acm/data-access/common';
-import { resourceDtoFixture } from '@arviem/shared/acm/data-access/common/test';
-import { commonFixture } from '@arviem/shared/data-access/test';
+import { ErrorsVm, ListService, PatchResourceDto, ResourceDto } from '@demo/shared/acm/data-access/common';
+import { resourceDtoFixture } from '@demo/shared/acm/data-access/common/test';
+import { commonFixture } from '@demo/shared/data-access/test';
 import { Actions } from '@ngrx/effects';
 import { ActionCreator, createFeatureSelector, Store } from '@ngrx/store';
 import { TypedAction } from '@ngrx/store/src/models';

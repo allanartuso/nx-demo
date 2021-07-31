@@ -1,10 +1,12 @@
-<form [formGroup]="form" (submit)="submit()" class="user-form">
+<demo-form
+  [formGroup]="form"
+  [formRequestState]="[formRequestState]"
+  [isSubmitDisabled]="isSubmitDisabled"
+  [isCancelDisabled]="!form.pristine"
+  (submitted)="submit()"
+  (cancelled)="cancel()"
+>
   <demo-input label="Email" formControlName="email"></demo-input>
   <demo-input label="First name" formControlName="firstName"></demo-input>
   <demo-input label="Last name" formControlName="lastName" maxLength="40"></demo-input>
-
-  <div>
-    <button (click)="cancel()" [disabled]="form.pristine">Cancel</button>
-    <button [disabled]="isSubmitDisabled">Submit</button>
-  </div>
-</form>
+</demo-form>

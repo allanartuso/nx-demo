@@ -1,3 +1,15 @@
-<label>{{ label }}</label>
-<input #input (blur)="onBlur()" [readonly]="readonly" (keyup)="onChangeInput($event)" [type]="type" />
-<small>{{ errorMessage }}</small>
+<div class="demo-input">
+  <label class="demo-input__label" [class.demo-input__label--error]="errorMessage">{{ label }}</label>
+  <input
+    class="demo-input__input"
+    [class.demo-input__input--error]="errorMessage"
+    #input
+    (blur)="onBlur()"
+    [readonly]="readonly"
+    (keyup)="onChangeInput($event)"
+    [type]="type"
+  />
+  <span class="demo-input__error">
+    <small class="demo-input__error-message">{{ errorMessage }}</small>
+  </span>
+</div>

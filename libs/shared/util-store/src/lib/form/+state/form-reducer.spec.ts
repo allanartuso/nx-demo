@@ -1,4 +1,4 @@
-jest.mock('@arviem/shared/acm/data-access/common', () => ({
+jest.mock('@demo/shared/acm/data-access/common', () => ({
   createLoadingStateActionHandlers: jest.fn().mockReturnValue([]),
   createRequestStateActionHandlers: jest.fn().mockReturnValue([])
 }));
@@ -6,8 +6,8 @@ jest.mock('@arviem/shared/acm/data-access/common', () => ({
 import {
   createLoadingStateActionHandlers,
   createRequestStateActionHandlers
-} from '@arviem/shared/acm/data-access/common';
-import { RequestState } from '@arviem/shared/data-access';
+} from '@demo/shared/acm/data-access/common';
+import { RequestState } from '@demo/shared/data-access';
 import { CreateTestResource, createTestResourceDto, TestResourceDto, UpdateTestResource } from '../models/form.fixture';
 import { FormState } from '../models/form.model';
 import { createFormActions } from './form-actions';

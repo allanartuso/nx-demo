@@ -1,4 +1,4 @@
-import { displayUserNotificationAction, NotificationType } from '@arviem/shared/util-notification';
+import { displayUserNotificationAction, NotificationType } from '@demo/shared/util-notification';
 import { Action, createAction, props } from '@ngrx/store';
 import { hot } from '@nrwl/angular/testing';
 import { Observable } from 'rxjs';

@@ -1,0 +1,15 @@
+<div class="demo-submit-button">
+  <button
+    [disabled]="disabled"
+    [type]="type"
+    [class.success]="isSuccess"
+    [class.failure]="isFailure"
+    [class.in-progress]="isInProgress"
+    data-test="demo-submit-button"
+  >
+    <span *ngIf="isIdle || !state">{{ text }}</span>
+    <span *ngIf="isFailure">{{ retryText }}</span>
+    <span *ngIf="isInProgress">Processing...</span>
+    <span *ngIf="isSuccess">Ok</span>
+  </button>
+</div>

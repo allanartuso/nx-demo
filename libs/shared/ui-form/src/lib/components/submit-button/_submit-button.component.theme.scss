@@ -1,0 +1,26 @@
+@mixin demo-submit-button-theme(
+  $success-background-color: #28a745,
+  $success-text-color: white,
+  $failure-background-color: #ea5a58,
+  $in-progress-color: #a7a528,
+  $vertical-spacer: 0.5rem
+) {
+  .demo-submit-button {
+    margin-top: $vertical-spacer;
+    margin-bottom: $vertical-spacer;
+
+    .success,
+    .igx-button--disabled.success {
+      background-color: $success-background-color;
+      color: $success-text-color;
+    }
+
+    .failure {
+      background-color: $failure-background-color;
+    }
+
+    .in-progress {
+      background-color: $in-progress-color;
+    }
+  }
+}

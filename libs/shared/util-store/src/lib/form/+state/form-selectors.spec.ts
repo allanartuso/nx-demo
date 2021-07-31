@@ -1,6 +1,6 @@
-import { ResourceDto } from '@arviem/shared/acm/data-access/common';
-import { resourceDtoFixture } from '@arviem/shared/acm/data-access/common/test';
-import { RequestState } from '@arviem/shared/data-access';
+import { ResourceDto } from '@demo/shared/acm/data-access/common';
+import { resourceDtoFixture } from '@demo/shared/acm/data-access/common/test';
+import { RequestState } from '@demo/shared/data-access';
 import { createFeatureSelector } from '@ngrx/store';
 import { FormState } from '../models/form.model';
 import { createFormSelectors } from './form-selectors';

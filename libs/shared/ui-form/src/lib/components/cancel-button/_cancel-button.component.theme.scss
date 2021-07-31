@@ -1,0 +1,6 @@
+@mixin demo-cancel-button-theme($vertical-spacer: 0.5rem) {
+  .demo-cancel-button {
+    margin-top: $vertical-spacer;
+    margin-bottom: $vertical-spacer;
+  }
+}

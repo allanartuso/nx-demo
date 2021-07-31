@@ -1,6 +1,6 @@
-import { ResourceDto } from '@arviem/shared/acm/data-access/common';
-import { resourceDtoFixture } from '@arviem/shared/acm/data-access/common/test';
-import { DEFAULT_REQUEST_OPTIONS, DEFAULT_STORED_PAGES, RequestState } from '@arviem/shared/data-access';
+import { ResourceDto } from '@demo/shared/acm/data-access/common';
+import { resourceDtoFixture } from '@demo/shared/acm/data-access/common/test';
+import { DEFAULT_REQUEST_OPTIONS, DEFAULT_STORED_PAGES, RequestState } from '@demo/shared/data-access';
 import { createFeatureSelector } from '@ngrx/store';
 import { ListState } from '../models/list.model';
 import { createListEntityAdapter } from './list-reducer';

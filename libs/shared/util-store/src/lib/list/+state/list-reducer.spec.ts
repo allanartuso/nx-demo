@@ -1,15 +1,15 @@
-jest.mock('@arviem/shared/acm/data-access/common', () => ({
-  ...jest.requireActual('@arviem/shared/acm/data-access/common'),
+jest.mock('@demo/shared/acm/data-access/common', () => ({
+  ...jest.requireActual('@demo/shared/acm/data-access/common'),
   createLoadingStateActionHandlers: jest.fn().mockReturnValue([]),
   createRequestStateActionHandlers: jest.fn().mockReturnValue([])
 }));
 
-import { createListEntityAdapter, createListReducer } from '@arviem/acm/feature/common/list';
+import { createListEntityAdapter, createListReducer } from '@demo/acm/feature/common/list';
 import {
   createLoadingStateActionHandlers,
   createRequestStateActionHandlers
-} from '@arviem/shared/acm/data-access/common';
-import { resourceDtoFixture } from '@arviem/shared/acm/data-access/common/test';
+} from '@demo/shared/acm/data-access/common';
+import { resourceDtoFixture } from '@demo/shared/acm/data-access/common/test';
 import {
   DEFAULT_REQUEST_OPTIONS,
   FilteringField,
@@ -19,7 +19,7 @@ import {
   RequestState,
   SortingField,
   SortingOrder
-} from '@arviem/shared/data-access';
+} from '@demo/shared/data-access';
 import { EntityAdapter } from '@ngrx/entity';
 import { ActionReducer } from '@ngrx/store';
 import {

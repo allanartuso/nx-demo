@@ -1,4 +1,4 @@
-import { RequestState } from '@arviem/shared/data-access';
+import { RequestState } from '@demo/shared/data-access';
 import { Action, createAction, createReducer, props } from '@ngrx/store';
 import { ErrorsDto } from '../models/errors.dto';
 import { ErrorsVm } from '../models/errors.model';

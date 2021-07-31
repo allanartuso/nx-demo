@@ -1,0 +1,49 @@
+.demo-form {
+  &__content {
+    display: flex;
+    flex-direction: column;
+    width: calc(100% - 2rem);
+    border: 1px solid;
+    border-radius: 5px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: flex-end;
+
+    > * {
+      margin: 0 1rem;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+
+  &__profile {
+    display: flex;
+    flex-wrap: wrap;
+
+    &-image {
+      flex: 0 0 200px;
+      position: relative;
+      margin: 0 auto 20px;
+
+      &:empty {
+        display: none;
+      }
+    }
+
+    &-inputs {
+      flex: 2 1;
+      min-width: 300px;
+      margin: 0 0 0 5%;
+
+      &:empty {
+        display: none;
+      }
+    }
+  }
+}

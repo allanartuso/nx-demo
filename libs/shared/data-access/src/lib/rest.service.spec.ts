@@ -7,10 +7,10 @@ import {
   createResourcePath,
   PatchResourceDto,
   UpdateResourceDto
-} from '@arviem/shared/acm/data-access/common';
-import { FilteringLogic, FilteringOperator, RequestOptions, SortingOrder } from '@arviem/shared/data-access';
-import { ConfigurationService } from '@arviem/shared/util-configuration';
-import { configurationServiceFixture } from '@arviem/shared/util-configuration/test';
+} from '@demo/shared/acm/data-access/common';
+import { FilteringLogic, FilteringOperator, RequestOptions, SortingOrder } from '@demo/shared/data-access';
+import { ConfigurationService } from '@demo/shared/util-configuration';
+import { configurationServiceFixture } from '@demo/shared/util-configuration/test';
 import { EMPTY } from 'rxjs';
 import { ErrorsDto } from '../models/errors.dto';
 import { createFieldError, createGeneralError } from '../models/errors.dto.fixture';

@@ -9,11 +9,11 @@ import {
   getCurrentTenantId,
   getResourceRoutePath,
   getResourcesRoutePath
-} from '@arviem/shared/acm/data-access/common';
-import { RequestState } from '@arviem/shared/data-access';
-import { commonFixture } from '@arviem/shared/data-access/test';
-import { displaySuccessNotification } from '@arviem/shared/util-notification';
-import { navigateToAction, selectUrl } from '@arviem/shared/util-router-store';
+} from '@demo/shared/acm/data-access/common';
+import { RequestState } from '@demo/shared/data-access';
+import { commonFixture } from '@demo/shared/data-access/test';
+import { displaySuccessNotification } from '@demo/shared/util-notification';
+import { navigateToAction, selectUrl } from '@demo/shared/util-router-store';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Action } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';

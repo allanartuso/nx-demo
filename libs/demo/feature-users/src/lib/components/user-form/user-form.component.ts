@@ -15,13 +15,7 @@ export class UserFormComponent extends AbstractFormComponent<UserDto> {
 
   protected createForm(user: UserDto): FormGroup {
     return this.formBuilder.group({
-      email: [
-        {
-          value: user.email,
-          disabled: false
-        },
-        [Validators.required, Validators.email]
-      ],
+      email: [user.email, [Validators.required, Validators.email]],
       firstName: [user.firstName],
       lastName: [user.lastName, [Validators.maxLength(40)]]
     });
