@@ -1,4 +1,4 @@
-import { AppConfiguration, EnvironmentConfiguration } from '@noumena/shared/util-configuration';
+import { AppConfiguration, EnvironmentConfiguration } from '@demo/shared/util-configuration';
 import { environment } from '../environments/environment';
 
 const ENVIRONMENT_CONFIGURATION: EnvironmentConfiguration = {

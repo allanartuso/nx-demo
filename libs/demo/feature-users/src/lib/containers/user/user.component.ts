@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { RequestState } from '@noumena/shared/ui-form';
+import { RequestState } from '@demo/shared/ui-form';
 import { Observable } from 'rxjs';
 import { formActions } from '../../+state/user/user.actions';
 import { formSelectors } from '../../+state/user/user.selectors';
 import { UserDto } from '../../models/user.dto';
 
 @Component({
-  selector: 'noumena-user',
+  selector: 'demo-user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.scss']
 })

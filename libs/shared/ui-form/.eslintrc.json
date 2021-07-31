@@ -10,7 +10,7 @@
           "error",
           {
             "type": "attribute",
-            "prefix": "noumena",
+            "prefix": "demo",
             "style": "camelCase"
           }
         ],
@@ -18,7 +18,7 @@
           "error",
           {
             "type": "element",
-            "prefix": "noumena",
+            "prefix": "demo",
             "style": "kebab-case"
           }
         ]

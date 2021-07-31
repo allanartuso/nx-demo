@@ -1,77 +1,10 @@
-<arviem-form
-  [formGroup]="form"
-  [formRequestState]="[formRequestState]"
-  [isSubmitDisabled]="isSubmitDisabled"
-  [isCancelDisabled]="!formValuesChanged"
-  [canEdit]="canEdit"
-  (submitted)="save()"
-  (cancelled)="cancel()"
->
-  <arviem-image-input-form
-    profileImage
-    #avatarUploadForm
-    formControlName="avatar"
-    [formViewModel]="userFormViewModel.avatarFormViewModel"
-    [translate]="translate"
-    [label]="translate('users.avatar')"
-    [placeholderImageUrl]="'/assets/images/blank-profile.png'"
-    [imageLoadingState]="avatarLoadingState"
-    [formRequestState]="formRequestState"
-    [canEdit]="canEdit"
-    [serverFieldErrors]="avatarServerFieldErrors"
-    [maintainAspectRatio]="true"
-  >
-    <ng-template #imageResetButtonIconTemplate>
-      <fa-icon icon="trash-alt"></fa-icon>
-    </ng-template>
-    <ng-template #imageSelectButtonIconTemplate>
-      <fa-icon icon="file-image"></fa-icon>
-    </ng-template>
-    <ng-template #imageLoadingIndicatorTemplate>
-      <fa-icon icon="spinner" [spin]="true"></fa-icon>
-    </ng-template>
-  </arviem-image-input-form>
+<form [formGroup]="form" (submit)="submit()">
+  <demo-input label="email" formControlName="email"></demo-input>
+  <demo-input label="firstName" formControlName="firstName"></demo-input>
+  <demo-input label="lastName" formControlName="lastName" maxLength="40"></demo-input>
 
-  <div profileInputs>
-    <arviem-input [label]="translate('users.email')" formControlName="email"></arviem-input>
-    <arviem-input
-      [label]="translate('users.firstName')"
-      formControlName="firstName"
-      [readonly]="!canEdit"
-    ></arviem-input>
-
-    <arviem-input
-      [label]="translate('users.lastName')"
-      formControlName="lastName"
-      maxLength="40"
-      [readonly]="!canEdit"
-    ></arviem-input>
-
-    <arviem-input
-      [label]="translate('users.jobTitle')"
-      formControlName="jobTitle"
-      maxLength="60"
-      [readonly]="!canEdit"
-    ></arviem-input>
-
-    <arviem-phone-number-input
-      [label]="translate('users.phoneNumber')"
-      [readonly]="!canEdit"
-      formControlName="phoneNumber"
-    ></arviem-phone-number-input>
+  <div>
+    <button (click)="cancel()" [disabled]="form.pristine">Cancel</button>
+    <button [disabled]="isSubmitDisabled">Submit</button>
   </div>
-
-  <arviem-user-settings
-    formControlName="settings"
-    [translate]="translate"
-    [formViewModel]="userFormViewModel.displaySettingsFormViewModel"
-    [serverFieldErrors]="serverFieldErrors['settings']"
-    [languageListItems]="languageListItems"
-    [displayDensityListItems]="displayDensityListItems"
-    [themeListItems]="themeListItems"
-    [canEdit]="canEdit"
-    (languageChanged)="onLanguageChanged($event)"
-    (displayDensityChanged)="onDisplayDensityChanged($event)"
-    (themeChanged)="onThemeChanged($event)"
-  ></arviem-user-settings>
-</arviem-form>
+</form>

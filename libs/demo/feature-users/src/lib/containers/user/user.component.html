@@ -1,19 +1,6 @@
-<arviem-user-form
+<demo-user-form
   #userProfileForm
-  *transloco="let translate; scope: 'users'"
-  [translate]="translate"
-  [formViewModel]="formViewModel$ | async"
-  [serverFieldErrors]="userServerFieldErrors$ | async"
-  [formRequestState]="formRequestState$ | async"
+  [formViewModel]="user$ | async"
+  [formRequestState]="requestState$ | async"
   (submitted)="onUserSaved($event)"
-  (languageChanged)="onLanguageChanged($event)"
-  (displayDensityChanged)="onDisplayDensityChanged($event)"
-  (themeChanged)="onThemeChanged($event)"
-  [avatarLoadingState]="avatarLoadingState$ | async"
-  [languageListItems]="languageListItems$ | async"
-  [displayDensityListItems]="displayDensityListItems$ | async"
-  [themeListItems]="themeListItems$ | async"
-  [avatarServerFieldErrors]="avatarServerFieldErrors$ | async"
-  (avatarSaved)="onAvatarSaved($event)"
-  (avatarDeleted)="onAvatarDeleted($event)"
-></arviem-user-form>
+></demo-user-form>

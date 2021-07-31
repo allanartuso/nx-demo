@@ -1,11 +1,11 @@
 const mockReducerFunction = jest.fn();
-jest.mock('@arviem/acm/feature/common/form', () => ({
+jest.mock('@demo/acm/feature/common/form', () => ({
   createFormActions: jest.fn(),
   createFormReducer: jest.fn().mockReturnValue(mockReducerFunction)
 }));
 
-import { createFormActions, createFormReducer, FormState } from '@arviem/acm/feature/common/form';
-import { UserDto } from '@arviem/shared/acm/data-access/users';
+import { createFormActions, createFormReducer, FormState } from '@demo/acm/feature/common/form';
+import { UserDto } from '@demo/shared/acm/data-access/users';
 import { Action } from '@ngrx/store';
 import { userReducer } from './user.reducer';
 

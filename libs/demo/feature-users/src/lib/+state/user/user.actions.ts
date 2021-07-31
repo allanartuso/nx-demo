@@ -1,5 +1,5 @@
-import { createFormActions } from '@arviem/acm/feature/common/form';
-import { CreateUserDto, UpdateUserDto, UserDto } from '@arviem/shared/acm/data-access/users';
+import { createFormActions } from '@demo/acm/feature/common/form';
+import { CreateUserDto, UpdateUserDto, UserDto } from '@demo/shared/acm/data-access/users';
 import { createAction } from '@ngrx/store';
 
 const showRemovalConfirmation = createAction('[User Page] Show User Removal Confirmation');

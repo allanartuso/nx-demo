@@ -1,13 +1,13 @@
 import { AfterViewInit, Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Language, Theme, UserSettingsDto } from '@arviem/shared/acm/data-access/users';
-import { SelectionListItem } from '@arviem/shared/acm/ui/common/forms';
-import { AbstractFormComponent, createControlValueAccessorProviders } from '@arviem/shared/acm/util-form';
+import { Language, Theme, UserSettingsDto } from '@demo/shared/acm/data-access/users';
+import { SelectionListItem } from '@demo/shared/acm/ui/common/forms';
+import { AbstractFormComponent, createControlValueAccessorProviders } from '@demo/shared/acm/util-form';
 import { DisplayDensity } from 'igniteui-angular';
 import { filter, takeUntil } from 'rxjs/operators';
 
 @Component({
-  selector: 'arviem-user-settings',
+  selector: 'demo-user-settings',
   templateUrl: './user-settings.component.html',
   styleUrls: ['./user-settings.component.scss'],
   providers: createControlValueAccessorProviders(UserSettingsComponent)

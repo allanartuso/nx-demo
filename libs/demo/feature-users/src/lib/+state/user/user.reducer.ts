@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { RequestState } from '@noumena/shared/ui-form';
+import { RequestState } from '@demo/shared/ui-form';
 import { UserDto } from '../../models/user.dto';
 
 export const USER_FEATURE_KEY = 'user';

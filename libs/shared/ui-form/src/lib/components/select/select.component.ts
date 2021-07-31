@@ -3,18 +3,18 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { AbstractInputComponent } from '../../models/abstract-input-component';
 
 @Component({
-  selector: 'noumena-select',
-  templateUrl: './noumena-select.component.html',
-  styleUrls: ['./noumena-select.component.scss'],
+  selector: 'demo-select',
+  templateUrl: './select.component.html',
+  styleUrls: ['./select.component.scss'],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => NoumenaSelectComponent),
+      useExisting: forwardRef(() => DemoSelectComponent),
       multi: true
     }
   ]
 })
-export class NoumenaSelectComponent extends AbstractInputComponent {
+export class DemoSelectComponent extends AbstractInputComponent {
   @Input() items: { value: string; text?: string }[];
 
   value = '';

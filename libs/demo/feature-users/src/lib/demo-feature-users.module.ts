@@ -6,6 +6,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { UserEffects } from './+state/user/user.effects';
 import { userReducer, USER_FEATURE_KEY } from './+state/user/user.reducer';
+import { UserFormComponent } from './components/user-form/user-form.component';
 import { UserComponent } from './containers/user/user.component';
 import { UserResolver } from './services/user.resolver';
 
@@ -34,6 +35,10 @@ export const usersRoutes: Routes = [
     EffectsModule.forFeature([UserEffects]),
     ReactiveFormsModule,
     RouterModule.forChild(usersRoutes)
+  ],
+  declarations:[
+    UserComponent,
+    UserFormComponent
   ]
 })
 export class DemoFeatureUsersModule {}

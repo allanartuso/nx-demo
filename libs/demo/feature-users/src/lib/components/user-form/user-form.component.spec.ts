@@ -2,26 +2,26 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Language, Theme, UserDto } from '@arviem/shared/acm/data-access/users';
-import { userDtoFixture } from '@arviem/shared/acm/data-access/users/test';
+import { Language, Theme, UserDto } from '@demo/shared/acm/data-access/users';
+import { userDtoFixture } from '@demo/shared/acm/data-access/users/test';
 import {
-  ArviemComboBoxComponent,
-  ArviemCountryContainsAutocompletePipe,
-  ArviemImageInputComponent,
-  ArviemImageInputFormComponent,
-  ArviemInfoIconComponent,
-  ArviemInputComponent,
-  ArviemPhoneNumberInputComponent
-} from '@arviem/shared/acm/ui/common/forms';
-import { AbstractFormComponent, SharedAcmUtilFormModule } from '@arviem/shared/acm/util-form';
-import { Image } from '@arviem/shared/data-access';
-import { getI18nTestingModule } from '@arviem/shared/util-i18n/test';
+    DemoComboBoxComponent,
+    DemoCountryContainsAutocompletePipe,
+    DemoImageInputComponent,
+    DemoImageInputFormComponent,
+    DemoInfoIconComponent,
+    DemoInputComponent,
+    DemoPhoneNumberInputComponent
+} from '@demo/shared/acm/ui/common/forms';
+import { AbstractFormComponent, SharedAcmUtilFormModule } from '@demo/shared/acm/util-form';
+import { Image } from '@demo/shared/data-access';
+import { getI18nTestingModule } from '@demo/shared/util-i18n/test';
 import {
-  DisplayDensity,
-  IgxComboModule,
-  IgxInputGroupModule,
-  IgxSelectModule,
-  IgxTooltipModule
+    DisplayDensity,
+    IgxComboModule,
+    IgxInputGroupModule,
+    IgxSelectModule,
+    IgxTooltipModule
 } from 'igniteui-angular';
 import { of } from 'rxjs';
 import { UserSettingsComponent } from '../user-settings/user-settings.component';
@@ -31,7 +31,7 @@ describe('UserProfileFormComponent', () => {
   let userForm: UserFormComponent;
   let userFormFixture: ComponentFixture<UserFormComponent>;
   let testUser: UserDto;
-  const mockAvatarForm: Partial<ArviemImageInputFormComponent> = {
+  const mockAvatarForm: Partial<DemoImageInputFormComponent> = {
     save: jest.fn(),
     cancel: jest.fn(),
     deactivatePreventLeaveConfirmation: jest.fn()
@@ -59,13 +59,13 @@ describe('UserProfileFormComponent', () => {
         ],
         declarations: [
           UserFormComponent,
-          ArviemCountryContainsAutocompletePipe,
-          ArviemPhoneNumberInputComponent,
-          ArviemInputComponent,
-          ArviemInfoIconComponent,
-          ArviemComboBoxComponent,
-          ArviemImageInputFormComponent,
-          ArviemImageInputComponent,
+          DemoCountryContainsAutocompletePipe,
+          DemoPhoneNumberInputComponent,
+          DemoInputComponent,
+          DemoInfoIconComponent,
+          DemoComboBoxComponent,
+          DemoImageInputFormComponent,
+          DemoImageInputComponent,
           UserSettingsComponent
         ],
         schemas: [NO_ERRORS_SCHEMA]

@@ -1,16 +1,14 @@
 import { Injectable } from '@angular/core';
-import { changePasswordAction, logoutAction } from '@arviem/acm/feature-authentication';
-import { AbstractFormEffects } from '@arviem/acm/feature/common/form';
+import { changePasswordAction, logoutAction } from '@demo/acm/feature-authentication';
+import { AbstractFormEffects } from '@demo/acm/feature/common/form';
 import {
-  CreateUserDto,
-  PatchUserDto,
-  UpdateUserDto,
-  UserDto,
-  USERS_I18N_SCOPE,
-  UserService,
-  UserSummaryDto
-} from '@arviem/shared/acm/data-access/users';
-import { displayConfirmationDialogAction, selectConfirmationDialogResponse } from '@arviem/shared/util-notification';
+    CreateUserDto,
+    PatchUserDto,
+    UpdateUserDto,
+    UserDto, UserService,
+    UserSummaryDto, USERS_I18N_SCOPE
+} from '@demo/shared/acm/data-access/users';
+import { displayConfirmationDialogAction, selectConfirmationDialogResponse } from '@demo/shared/util-notification';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { exhaustMap, filter, first, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';

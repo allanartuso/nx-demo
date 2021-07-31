@@ -2,14 +2,14 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Language, Theme } from '@arviem/shared/acm/data-access/users';
+import { Language, Theme } from '@demo/shared/acm/data-access/users';
 import {
-  ArviemComboBoxComponent,
-  ArviemInfoIconComponent,
-  ArviemInputComponent
-} from '@arviem/shared/acm/ui/common/forms';
-import { SharedAcmUtilFormModule } from '@arviem/shared/acm/util-form';
-import { getI18nTestingModule } from '@arviem/shared/util-i18n/test';
+    DemoComboBoxComponent,
+    DemoInfoIconComponent,
+    DemoInputComponent
+} from '@demo/shared/acm/ui/common/forms';
+import { SharedAcmUtilFormModule } from '@demo/shared/acm/util-form';
+import { getI18nTestingModule } from '@demo/shared/util-i18n/test';
 import { DisplayDensity, IgxComboModule, IgxSelectModule, IgxTooltipModule } from 'igniteui-angular';
 import { UserSettingsComponent } from './user-settings.component';
 
@@ -29,7 +29,7 @@ describe('UserSettingsComponent', () => {
         IgxTooltipModule,
         IgxComboModule
       ],
-      declarations: [UserSettingsComponent, ArviemInputComponent, ArviemInfoIconComponent, ArviemComboBoxComponent],
+      declarations: [UserSettingsComponent, DemoInputComponent, DemoInfoIconComponent, DemoComboBoxComponent],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   });

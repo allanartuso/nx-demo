@@ -1,35 +1,23 @@
 import { Injectable } from '@angular/core';
-import { createResourcePath, FormService, GLOBAL_TENANT_ID, RestService } from '@arviem/shared/acm/data-access/common';
-import { RequestOptions } from '@arviem/shared/data-access';
+import { RestService } from '@demo/shared/acm/data-access/common';
 import { Observable } from 'rxjs';
-import { CreateUserDto, UpdateUserDto, UserDto, USERS_RESOURCE_BASE_PATH } from '../models/user.dto';
+import { UserDto } from '../models/user.dto';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserService implements FormService<UserDto, CreateUserDto, UpdateUserDto> {
+export class UserService {
   constructor(private readonly restService: RestService) {}
 
-  loadResource(resourceId: string): Observable<UserDto> {
-    return this.restService.loadResource<UserDto>(resourceId);
+  loadResource(id: string): Observable<UserDto> {
+    return this.restService.loadResource<UserDto>(id);
   }
 
-  loadUsers(requestOptions: RequestOptions): Observable<UserDto[]> {
-    return this.restService.loadResources<UserDto>(
-      createResourcePath(GLOBAL_TENANT_ID, USERS_RESOURCE_BASE_PATH),
-      requestOptions
-    );
+  saveResource(user: UserDto): Observable<UserDto> {
+    return this.restService.updateResource(user.id, user);
   }
 
-  createResource(tenantId: number, user: CreateUserDto): Observable<UserDto> {
-    return this.restService.createResource(createResourcePath(GLOBAL_TENANT_ID, USERS_RESOURCE_BASE_PATH), user);
-  }
-
-  saveResource(user: UpdateUserDto): Observable<UserDto> {
-    return this.restService.updateResource(user.resourceId, user);
-  }
-
-  deleteResource(resourceId: string): Observable<UserDto> {
-    return this.restService.deleteResource(resourceId);
+  deleteResource(id: string): Observable<UserDto> {
+    return this.restService.deleteResource(id);
   }
 }

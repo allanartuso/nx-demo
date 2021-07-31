@@ -1,8 +1,8 @@
 import { TestBed } from '@angular/core/testing';
-import { changePasswordAction, logoutAction } from '@arviem/acm/feature-authentication';
-import { UserDto, UserService, USERS_I18N_SCOPE } from '@arviem/shared/acm/data-access/users';
-import { userDtoFixture } from '@arviem/shared/acm/data-access/users/test';
-import { displayConfirmationDialogAction, selectConfirmationDialogResponse } from '@arviem/shared/util-notification';
+import { changePasswordAction, logoutAction } from '@demo/acm/feature-authentication';
+import { UserDto, UserService, USERS_I18N_SCOPE } from '@demo/shared/acm/data-access/users';
+import { userDtoFixture } from '@demo/shared/acm/data-access/users/test';
+import { displayConfirmationDialogAction, selectConfirmationDialogResponse } from '@demo/shared/util-notification';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Action } from '@ngrx/store';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
-import { APP_CONFIGURATION } from '@noumena/shared/util-configuration';
+import { APP_CONFIGURATION } from '@demo/shared/util-configuration';
 import { AppComponent } from './app.component';
 import { getAppConfiguration } from './environment-configuration.model';
 
@@ -13,7 +13,7 @@ const ROUTES: Routes = [
   },
   {
     path: 'users',
-    loadChildren: () => import('@noumena/demo/feature-users').then(module => module.DemoFeatureUsersModule)
+    loadChildren: () => import('@demo/demo/feature-users').then(module => module.DemoFeatureUsersModule)
   }
 ];
 

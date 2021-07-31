@@ -2,7 +2,7 @@ import { AfterViewInit, Directive, Input, OnInit } from '@angular/core';
 import { AbstractControl, ControlContainer, ControlValueAccessor } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { NoumenaFormControl } from './form.model';
+import { DemoFormControl } from './form.model';
 
 @Directive()
 export abstract class AbstractInputComponent implements OnInit, ControlValueAccessor, AfterViewInit {
@@ -12,7 +12,7 @@ export abstract class AbstractInputComponent implements OnInit, ControlValueAcce
   @Input() readonly: boolean;
   @Input() required: boolean;
 
-  protected control: NoumenaFormControl;
+  protected control: DemoFormControl;
   protected onChange: (value: string) => void;
   protected onTouched: () => void;
   protected readonly destroy$ = new Subject<void>();
@@ -20,7 +20,7 @@ export abstract class AbstractInputComponent implements OnInit, ControlValueAcce
   constructor(private readonly controlContainer: ControlContainer) {}
 
   ngOnInit(): void {
-    this.control = this.controlContainer.control.get(this.formControlName) as NoumenaFormControl;
+    this.control = this.controlContainer.control.get(this.formControlName) as DemoFormControl;
     this.setRequiredState();
   }
 

@@ -1,6 +1,6 @@
-import { createFormSelectors, FormState } from '@arviem/acm/feature/common/form';
-import { UserDto } from '@arviem/shared/acm/data-access/users';
-import { RequestState } from '@arviem/shared/data-access';
+import { createFormSelectors, FormState } from '@demo/acm/feature/common/form';
+import { UserDto } from '@demo/shared/acm/data-access/users';
+import { RequestState } from '@demo/shared/data-access';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { avatarSelectors } from '../avatar/avatar.selectors';
 import { USER_FEATURE_KEY } from './user.reducer';

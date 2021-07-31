@@ -1,7 +1,7 @@
-import { ImageDto } from '@arviem/shared/acm/data-access/common';
-import { UserDto } from '@arviem/shared/acm/data-access/users';
-import { avatarDtoFixture, userDtoFixture } from '@arviem/shared/acm/data-access/users/test';
-import { RequestState } from '@arviem/shared/data-access';
+import { ImageDto } from '@demo/shared/acm/data-access/common';
+import { UserDto } from '@demo/shared/acm/data-access/users';
+import { avatarDtoFixture, userDtoFixture } from '@demo/shared/acm/data-access/users/test';
+import { RequestState } from '@demo/shared/data-access';
 import { formSelectors } from './user.selectors';
 
 describe('users formSelectors', () => {
