@@ -1,0 +1,11 @@
+<demo-sidebar
+  [header]="header"
+  [bodyItems]="bodyItems"
+  [footerItems]="footerItems"
+  [expanded]="expanded$ | async"
+  (closingSidebar)="onClosingSidebar()"
+  (menuItemHoveredOn)="onMenuItemHoveredOn($event)"
+  (menuItemHoveredOff)="onMenuItemHoveredOff($event)"
+  (menuItemClicked)="onMenuItemClicked($event)"
+  (menuItemToggled)="onMenuItemToggled($event)"
+></demo-sidebar>

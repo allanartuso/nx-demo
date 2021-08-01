@@ -2,6 +2,8 @@
   height: 100%;
   display: flex;
   flex-direction: column;
+  width: 75px;
+  background: var(--sidebar-background);
 
   .demo-sidebar-header-container {
     flex: 0 1 auto;
@@ -23,23 +25,28 @@
     padding: 0;
     width: 100%;
     text-align: center;
-    margin-top: 2.5rem;
 
     li.demo-menu-item {
       display: flex;
       justify-content: center;
       flex-wrap: nowrap;
       width: 100%;
+
+      &.active {
+        background: var(--sidebar-active-item-background);
+      }
     }
   }
 
   &.expanded {
+    width: 280px;
+
     ul.demo-menu {
-      padding-left: 20px;
       text-align: left;
 
       li.demo-menu-item {
-        padding: 0.75rem 0.5rem;
+        width: calc(100% - 3rem);
+        padding: 0rem 1.5rem;
       }
     }
   }

@@ -1,27 +1,25 @@
-import { AccessibleOrganizationDto } from '@demo/shared/acm/data-access/user-context';
-import { IconName } from '@fortawesome/fontawesome-svg-core';
-
 export interface MenuItem {
   name: string;
-  icon?: IconName;
+  icon?: string;
   link?: string;
-  target?: string;
   group?: boolean;
   selected?: boolean;
   expanded?: boolean;
   display?: boolean;
   displayChildren?: boolean;
+  hover?: boolean;
   children?: MenuItem[];
   clickAction?: ClickActionType;
+}
+
+export interface MenuHeader {
+  logo: string;
+  alt: string;
+  name: string;
+  shortName: string;
 }
 
 export enum ClickActionType {
   LOGOUT = 'logout',
   SIDE_BAR_TOGGLE = 'sideBarToggle'
-}
-
-export interface OrganizationSelector {
-  accessibleOrganizations: AccessibleOrganizationDto[];
-  displaySelector: boolean;
-  icon: IconName;
 }

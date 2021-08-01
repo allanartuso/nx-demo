@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { MenuItem } from '../models/sidebar.models';
+import { MenuHeader, MenuItem } from '../../models/sidebar.models';
 
 @Component({
   selector: 'demo-sidebar',
@@ -9,12 +9,7 @@ import { MenuItem } from '../models/sidebar.models';
 export class SidebarComponent {
   @Input() expanded: boolean;
 
-  @Input() expandedWidth = '280px';
-  @Input() compactedWidth = '75px';
-
-  @Input() applicationLogo: string;
-  @Input() applicationName: string;
-  @Input() applicationShortName: string;
+  @Input() header: MenuHeader;
   @Input() bodyItems: MenuItem[] = [];
   @Input() footerItems: MenuItem[] = [];
 

@@ -1,0 +1,19 @@
+<div class="demo-sidebar-header" *ngIf="expanded; else compactSidebarHeader">
+  <div class="demo-sidebar-header-logo" *ngIf="header.logo">
+    <img [src]="header.logo" [alt]="header.alt" data-test="sidebar-logo" />
+  </div>
+  <div class="demo-sidebar-header-title" *ngIf="header.name" data-test="sidebar-applicationName">
+    {{ header.name }}
+  </div>
+</div>
+
+<ng-template #compactSidebarHeader>
+  <div class="demo-sidebar-header" *ngIf="header.logo">
+    <div class="demo-sidebar-header-logo">
+      <img [src]="header.logo" [alt]="header.alt" data-test="sidebar-logo" />
+    </div>
+    <div class="demo-sidebar-header-title" *ngIf="header.shortName" data-test="sidebar-applicationShortName">
+      {{ header.shortName }}
+    </div>
+  </div>
+</ng-template>

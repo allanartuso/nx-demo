@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { MenuItem } from '../models/sidebar.models';
+import { MenuItem } from '../../models/sidebar.models';
 
 @Component({
   selector: 'demo-sidebar-menu-item',

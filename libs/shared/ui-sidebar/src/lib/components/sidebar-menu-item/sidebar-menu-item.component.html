@@ -11,7 +11,6 @@
   <a
     *ngIf="menuItem.link && !menuItem.children && !menuItem.group"
     [routerLink]="menuItem.link"
-    [attr.target]="menuItem.target"
     [attr.title]="menuItem.name"
     [class.active]="menuItem.selected"
     class="demo-menu-item-link"
@@ -35,7 +34,6 @@
 
   <a
     *ngIf="menuItem.children"
-    [attr.target]="menuItem.target"
     [attr.title]="menuItem.name"
     [class.active]="menuItem.selected"
     (click)="$event.preventDefault(); onMenuItemToggled(menuItem)"

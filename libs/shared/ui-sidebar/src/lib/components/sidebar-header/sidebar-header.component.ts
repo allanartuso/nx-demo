@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { MenuHeader } from '../../models/sidebar.models';
 
 @Component({
   selector: 'demo-sidebar-header',
@@ -7,7 +8,5 @@ import { Component, Input } from '@angular/core';
 })
 export class SidebarHeaderComponent {
   @Input() expanded: boolean;
-  @Input() applicationLogo: string;
-  @Input() applicationName: string;
-  @Input() applicationShortName: string;
+  @Input() header: MenuHeader;
 }

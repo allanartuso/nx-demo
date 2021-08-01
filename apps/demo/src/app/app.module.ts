@@ -1,14 +1,15 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
+import { DemoFeatureSidebarModule } from '@demo/demo/feature-sidebar';
 import { APP_CONFIGURATION, SharedUtilConfigurationModule } from '@demo/shared/util-configuration';
 import { SharedUtilStoreModule } from '@demo/shared/util-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { getAppConfiguration } from './environment-configuration.model';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const ROUTES: Routes = [
   {
@@ -33,7 +34,8 @@ const ROUTES: Routes = [
     SharedUtilStoreModule,
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     SharedUtilConfigurationModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    DemoFeatureSidebarModule
   ],
   providers: [
     {

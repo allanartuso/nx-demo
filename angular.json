@@ -114,6 +114,28 @@
         }
       }
     },
+    "demo-feature-sidebar": {
+      "projectType": "library",
+      "root": "libs/demo/feature-sidebar",
+      "sourceRoot": "libs/demo/feature-sidebar/src",
+      "prefix": "demo",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/demo/feature-sidebar"],
+          "options": {
+            "jestConfig": "libs/demo/feature-sidebar/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/demo/feature-sidebar/src/**/*.ts", "libs/demo/feature-sidebar/src/**/*.html"]
+          }
+        }
+      }
+    },
     "demo-feature-users": {
       "projectType": "library",
       "root": "libs/demo/feature-users",

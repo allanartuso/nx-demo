@@ -8,6 +8,7 @@ module.exports = {
     '<rootDir>/libs/shared/util-store',
     '<rootDir>/libs/shared/data-access',
     '<rootDir>/libs/shared/ui-list',
-    '<rootDir>/libs/shared/ui-sidebar'
+    '<rootDir>/libs/shared/ui-sidebar',
+    '<rootDir>/libs/demo/feature-sidebar'
   ]
 };

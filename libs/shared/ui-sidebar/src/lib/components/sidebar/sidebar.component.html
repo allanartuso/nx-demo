@@ -1,11 +1,6 @@
 <div class="demo-sidebar" [class.expanded]="expanded" [class.collapsed]="!expanded">
   <div class="demo-sidebar-header-container">
-    <demo-sidebar-header
-      [expanded]="expanded"
-      [applicationLogo]="applicationLogo"
-      [applicationName]="applicationName"
-      [applicationShortName]="applicationShortName"
-    ></demo-sidebar-header>
+    <demo-sidebar-header [expanded]="expanded" [header]="header"></demo-sidebar-header>
   </div>
 
   <ul class="demo-sidebar-body-container demo-menu">
@@ -13,7 +8,7 @@
       *ngFor="let menuItem of bodyItems"
       [class.demo-menu-item-group]="menuItem.group"
       class="demo-menu-item"
-      [class.active]="menuItem.displayChildren === true"
+      [class.active]="menuItem.hover === true"
     >
       <demo-sidebar-menu-item
         [menuItem]="menuItem"
@@ -31,7 +26,7 @@
       *ngFor="let menuItem of footerItems"
       [class.demo-menu-item-group]="menuItem.group"
       class="demo-menu-item"
-      [class.active]="menuItem.displayChildren === true"
+      [class.active]="menuItem.hover === true"
     >
       <demo-sidebar-menu-item
         [menuItem]="menuItem"

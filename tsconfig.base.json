@@ -16,6 +16,7 @@
     "strictNullChecks": false,
     "baseUrl": ".",
     "paths": {
+      "@demo/demo/feature-sidebar": ["libs/demo/feature-sidebar/src/index.ts"],
       "@demo/demo/feature-users": ["libs/demo/feature-users/src/index.ts"],
       "@demo/shared/data-access": ["libs/shared/data-access/src/index.ts"],
       "@demo/shared/data-access/test": ["libs/shared/data-access/src/index-test.ts"],

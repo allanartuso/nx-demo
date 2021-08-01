@@ -1,0 +1,38 @@
+.demo-page-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+
+  .demo-page-body-container {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+
+    .demo-page-sidebar-container {
+      flex: 0 1 auto;
+      z-index: 2;
+    }
+
+    .demo-page-content-container {
+      flex: 1 1 auto;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
+
+      .demo-page-content-header-container {
+        flex: 0 1 auto;
+      }
+
+      .demo-page-content-body-container {
+        flex: 1 1 auto;
+        overflow: auto;
+        position: relative;
+        padding: 2rem;
+      }
+    }
+  }
+}
