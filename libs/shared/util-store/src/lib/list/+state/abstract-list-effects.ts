@@ -137,7 +137,7 @@ export abstract class AbstractListEffects<T, S = T> {
   loadSelected$ = createEffect(() =>
     this.actions$.pipe(
       ofType(this.listActions.loadSelected),
-      withLatestFrom(this.store.pipe(select(this.listSelectors.getSelected))),
+      withLatestFrom(this.store.pipe(select(this.listSelectors.getSelectionRecord))),
       switchMap(([{ selectedResourceIds }, selected]) => {
         const areAlreadyLoaded = selectedResourceIds.every(resourceId => !!selected[resourceId]);
         if (areAlreadyLoaded) {

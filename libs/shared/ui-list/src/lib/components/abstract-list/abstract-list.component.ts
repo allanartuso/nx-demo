@@ -1,23 +1,27 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { SelectionModel } from '@angular/cdk/collections';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Sort } from '@angular/material/sort';
 import {
   DEFAULT_PAGE,
   DEFAULT_PAGE_SIZE,
   FilteringOptions,
   PagingOptions,
   SortingField,
-  SortingOptions
+  SortingOptions,
+  SortingOrder
 } from '@demo/shared/data-access';
 import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   template: ''
 })
 export abstract class AbstractListComponent<T> implements OnInit, OnDestroy {
-  @ViewChild('grid', { static: true }) protected grid: any;
+  selection = new SelectionModel<T>(true, []);
 
   @Input() set gridData(gridData: T[]) {
     this._gridData = gridData;
-    // this.grid.selectRows(this.selectedResourceIds, true);
+    this.selection.select(...this.selectedItems);
   }
 
   get gridData() {
@@ -44,14 +48,14 @@ export abstract class AbstractListComponent<T> implements OnInit, OnDestroy {
     return this._filteringOptions;
   }
 
-  @Input() set selectedResourceIds(selectedResourceIds: string[]) {
-    this._selectedResourceIds = selectedResourceIds;
-    // this.grid.selectRows(selectedResourceIds, true);
+  @Input() set selectedItems(selectedItems: T[]) {
+    this._selectedItems = selectedItems;
+    this.selection.select(...this.selectedItems);
   }
-  get selectedResourceIds() {
-    return this._selectedResourceIds;
+  get selectedItems() {
+    return this._selectedItems;
   }
-  private _selectedResourceIds: string[] = [];
+  private _selectedItems: T[] = [];
 
   @Output() sortingChanged = new EventEmitter<SortingField>();
   @Output() filteringChanged = new EventEmitter<FilteringOptions>();
@@ -60,7 +64,7 @@ export abstract class AbstractListComponent<T> implements OnInit, OnDestroy {
   @Output() previousPageSelected = new EventEmitter<void>();
   @Output() nextPageSelected = new EventEmitter<void>();
   @Output() pageSizeChanged = new EventEmitter<number>();
-  @Output() rowSelected = new EventEmitter<string[]>();
+  @Output() rowSelected = new EventEmitter<T[]>();
 
   private _filteringOptions: FilteringOptions;
   private _gridData: T[] = [];
@@ -73,12 +77,42 @@ export abstract class AbstractListComponent<T> implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     // this.grid.selectRowOnClick = false;
-    // this.grid.onSortingDone.pipe(takeUntil(this.destroy$)).subscribe(() => {
-    //   this.sortingChanged.emit(sortingField);
-    // });
+
     // this.grid.filteringExpressionsTreeChange.pipe(takeUntil(this.destroy$), debounceTime(300)).subscribe(() => {
     //   this.onFilteringChanged(filteringOptions);
     // });
+
+    this.selection.changed.pipe(takeUntil(this.destroy$)).subscribe(() => {
+      this.rowSelected.emit(this.selection.selected);
+    });
+  }
+
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.gridData.length;
+    return numSelected === numRows;
+  }
+
+  masterToggle() {
+    if (this.isAllSelected()) {
+      this.selection.clear();
+      return;
+    }
+
+    this.selection.select(...this.gridData);
+  }
+
+  onSortingChanged(sortingField: Sort): void {
+    let order = SortingOrder.NONE;
+
+    if (sortingField.direction) {
+      order = sortingField.direction === 'asc' ? SortingOrder.ASCENDING : SortingOrder.DESCENDING;
+    }
+
+    this.sortingChanged.emit({
+      name: sortingField.active,
+      order
+    });
   }
 
   onFilteringChanged(filteringOptions: FilteringOptions): void {
@@ -112,10 +146,6 @@ export abstract class AbstractListComponent<T> implements OnInit, OnDestroy {
   onPageSizeChanged(size: number): void {
     this.pageSize = size;
     this.pageSizeChanged.emit(this.pageSize);
-  }
-
-  onRowSelected(event: any): void {
-    this.rowSelected.emit(event.newSelection);
   }
 
   ngOnDestroy(): void {

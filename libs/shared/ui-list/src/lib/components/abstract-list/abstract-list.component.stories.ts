@@ -58,7 +58,7 @@ DefaultLocationsList.args = {
   pagingOptions: DEFAULT_REQUEST_OPTIONS.pagingOptions,
   sortingOptions: DEFAULT_REQUEST_OPTIONS.sortingOptions,
   filteringOptions: DEFAULT_REQUEST_OPTIONS.filteringOptions,
-  selectedResourceIds: []
+  selectedItems: []
 } as ListComponent;
 
 export const FilteredLocationsList = template.bind({});
@@ -70,5 +70,5 @@ FilteredLocationsList.args = {
 export const SelectedLocationsList = template.bind({});
 SelectedLocationsList.args = {
   ...DefaultLocationsList.args,
-  selectedResourceIds: summaries.slice(2).map(location => location.resourceId)
+  selectedItems: summaries.slice(2).map(location => location.resourceId)
 } as ListComponent;

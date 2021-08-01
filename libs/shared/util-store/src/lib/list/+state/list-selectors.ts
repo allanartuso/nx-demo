@@ -50,6 +50,13 @@ export function createListSelectors<T>(
   const getSelected = createSelector(
     getSelectedResourceIds,
     createSelector(getListState, entityAdapter.getSelectors().selectEntities),
+    (selectedResourceIds, resources): T[] =>
+      selectedResourceIds.map(selectedResourceId => resources[selectedResourceId])
+  );
+
+  const getSelectionRecord = createSelector(
+    getSelectedResourceIds,
+    createSelector(getListState, entityAdapter.getSelectors().selectEntities),
     (selectedResourceIds, resources): Record<string, T> =>
       selectedResourceIds.reduce((selected, selectedResourceId) => {
         selected[selectedResourceId] = resources[selectedResourceId];
@@ -71,7 +78,7 @@ export function createListSelectors<T>(
 
   const areSelectedReady = createSelector(
     getSelectedResourceIds,
-    getSelected,
+    getSelectionRecord,
     getLoadingState,
     (selectedResourceIds, resources, loadingState) => {
       return selectedResourceIds.every(resourceId => !!resources[resourceId]) && loadingState === RequestState.SUCCESS;
@@ -98,6 +105,7 @@ export function createListSelectors<T>(
     getLoadingState,
     getSelectedResourceIds,
     getSelected,
+    getSelectionRecord,
     getRequestState,
     getErrors,
     getBulkOperationSuccess,

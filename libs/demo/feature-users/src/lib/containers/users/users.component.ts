@@ -20,7 +20,7 @@ export class UsersComponent {
   sortingOptions$: Observable<SortingOptions> = this.store.pipe(select(listSelectors.getSortingOptions), first());
   filteringOptions$: Observable<FilteringOptions> = this.store.pipe(select(listSelectors.getFilteringOptions), first());
 
-  selectedResourceIds$: Observable<string[]> = this.store.pipe(select(listSelectors.getSelectedResourceIds));
+  selectedItems$: Observable<UserDto[]> = this.store.pipe(select(listSelectors.getSelected));
 
   constructor(private readonly router: Router, private readonly store: Store) {}
 
@@ -52,8 +52,8 @@ export class UsersComponent {
     this.store.dispatch(listActions.refresh());
   }
 
-  onRowSelected(selectedResourceIds: string[]): void {
-    this.store.dispatch(listActions.changeSelected({ selectedResourceIds }));
+  onRowSelected(users: UserDto[]): void {
+    this.store.dispatch(listActions.changeSelected({ selectedResourceIds: users.map(user => user.id) }));
   }
 
   onNameCellSelected(resourceId: string): void {
