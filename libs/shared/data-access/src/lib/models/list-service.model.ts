@@ -10,10 +10,10 @@ export interface BulkOperationSuccess {
   response: unknown;
 }
 
-export interface ListService<T, S> {
+export interface ListService<T, S = T> {
   queryResources(options: RequestOptions): Observable<S[]>;
 
   deleteResources(resourceIds: string[]): Observable<Array<T | ListErrors>>;
 
-  patchResources?(resourceIds: string[], resource: T): Observable<Array<T | ListErrors>>;
+  patchResources?(resourceIds: string[], resource: Partial<T>): Observable<Array<T | ListErrors>>;
 }

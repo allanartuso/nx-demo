@@ -15,7 +15,7 @@ import {
 } from '../../utils/action-handlers';
 import { ListActions, ListState } from '../models/list.model';
 
-export function createListEntityAdapter<T extends { [key: string]: string }>(idKey = 'id'): EntityAdapter<T> {
+export function createListEntityAdapter<T extends { [key: string]: any }>(idKey = 'id'): EntityAdapter<T> {
   return createEntityAdapter({
     selectId: resource => resource[idKey]
   });

@@ -17,11 +17,11 @@ export type TestSummaryDto = TestResourceDto;
 
 export function createTestResourceDtos(
   tenantId: number = commonFixture.getPositiveNumber(),
-  nbOfForwarders = 3
+  nbOfUsers = 3
 ): TestResourceDto[] {
   const result: TestResourceDto[] = [];
 
-  for (let i = 0; i < nbOfForwarders; i++) {
+  for (let i = 0; i < nbOfUsers; i++) {
     result.push(createTestResourceDto(tenantId));
   }
 

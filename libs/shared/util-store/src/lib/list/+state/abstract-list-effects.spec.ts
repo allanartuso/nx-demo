@@ -255,7 +255,7 @@ describe('TestEffects', () => {
   });
 
   describe('copySelected$', () => {
-    it('navigates to the create Forwarder route without cleaning the current Forwarder data from the store', () => {
+    it('navigates to the create User route without cleaning the current User data from the store', () => {
       const testTenantId = 2;
       const testResourceBasePath = 'testResourceBasePath';
       const selectedResourceIds = [createResourceId(testTenantId, testResourceBasePath, 3)];

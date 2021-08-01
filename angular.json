@@ -18,7 +18,7 @@
             "tsConfig": "apps/demo/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": ["apps/demo/src/favicon.ico", "apps/demo/src/assets"],
-            "styles": ["apps/demo/src/styles.scss"],
+            "styles": ["./node_modules/@angular/material/prebuilt-themes/indigo-pink.css", "apps/demo/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -176,6 +176,28 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["libs/shared/ui-form/src/**/*.ts", "libs/shared/ui-form/src/**/*.html"]
+          }
+        }
+      }
+    },
+    "shared-ui-list": {
+      "projectType": "library",
+      "root": "libs/shared/ui-list",
+      "sourceRoot": "libs/shared/ui-list/src",
+      "prefix": "demo",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/shared/ui-list"],
+          "options": {
+            "jestConfig": "libs/shared/ui-list/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/shared/ui-list/src/**/*.ts", "libs/shared/ui-list/src/**/*.html"]
           }
         }
       }

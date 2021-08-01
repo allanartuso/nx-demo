@@ -8,6 +8,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { getAppConfiguration } from './environment-configuration.model';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const ROUTES: Routes = [
   {
@@ -31,7 +32,8 @@ const ROUTES: Routes = [
     }),
     SharedUtilStoreModule,
     !environment.production ? StoreDevtoolsModule.instrument() : [],
-    SharedUtilConfigurationModule
+    SharedUtilConfigurationModule,
+    BrowserAnimationsModule
   ],
   providers: [
     {

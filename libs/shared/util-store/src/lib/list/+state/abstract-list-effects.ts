@@ -42,8 +42,8 @@ export abstract class AbstractListEffects<T, S = T> {
         this.store.pipe(select(this.listSelectors.isLastPage)),
         this.store.pipe(select(this.listSelectors.getCurrentPageNumber))
       ),
-      filter(([action, isLastPage]) => !isLastPage),
-      map(([action, isLastPage, currentPageNumber]) => this.listActions.loadPage({ pageNumber: currentPageNumber + 1 }))
+      filter(([, isLastPage]) => !isLastPage),
+      map(([, , currentPageNumber]) => this.listActions.loadPage({ pageNumber: currentPageNumber + 1 }))
     )
   );
 
@@ -51,7 +51,7 @@ export abstract class AbstractListEffects<T, S = T> {
     this.actions$.pipe(
       ofType(this.listActions.refresh),
       withLatestFrom(this.store.pipe(select(this.listSelectors.getCurrentPageNumber))),
-      switchMap(([action, currentPageNumber]) => [
+      switchMap(([, currentPageNumber]) => [
         this.listActions.loadPage({ pageNumber: currentPageNumber }),
         this.listActions.loadPage({ pageNumber: currentPageNumber + 1 })
       ])
@@ -168,7 +168,7 @@ export abstract class AbstractListEffects<T, S = T> {
       this.actions$.pipe(
         ofType(this.listActions.copySelected),
         withLatestFrom(this.store.pipe(select(this.listSelectors.getSelectedResourceIds))),
-        tap(([action, resourceIds]) => {
+        tap(([, resourceIds]) => {
           this.router.navigate([resourceIds[0]], { state: { selectedResourceId: resourceIds[0] } });
         })
       ),
@@ -195,7 +195,7 @@ export abstract class AbstractListEffects<T, S = T> {
   );
 
   protected constructor(
-    private readonly router: Router,
+    protected readonly router: Router,
     protected readonly actions$: Actions,
     protected readonly store: Store,
     private readonly service: ListService<T, S>,

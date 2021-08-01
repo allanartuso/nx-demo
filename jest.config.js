@@ -6,6 +6,7 @@ module.exports = {
     '<rootDir>/apps/demo',
     '<rootDir>/libs/demo/feature-users',
     '<rootDir>/libs/shared/util-store',
-    '<rootDir>/libs/shared/data-access'
+    '<rootDir>/libs/shared/data-access',
+    '<rootDir>/libs/shared/ui-list'
   ]
 };

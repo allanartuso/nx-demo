@@ -66,7 +66,7 @@ export function createListSelectors<T>(
   const isReady = createSelector(
     getAll,
     getLoadingState,
-    (forwarders, loadingState) => !!forwarders && loadingState === RequestState.SUCCESS
+    (users, loadingState) => !!users && loadingState === RequestState.SUCCESS
   );
 
   const areSelectedReady = createSelector(

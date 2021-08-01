@@ -1,0 +1,17 @@
+<demo-users-list
+  [gridData]="users$ | async"
+  [isLastPage]="isLastPage$ | async"
+  [sortingOptions]="sortingOptions$ | async"
+  [pagingOptions]="pagingOptions$ | async"
+  [selectedResourceIds]="selectedResourceIds$ | async"
+  [filteringOptions]="filteringOptions$ | async"
+  (sortingChanged)="onSortingChanged($event)"
+  (filteringChanged)="onFilteringChanged($event)"
+  (refreshPageSelected)="onRefreshPageSelected()"
+  (firstPageSelected)="onFirstPageSelected()"
+  (previousPageSelected)="onPreviousPageSelected()"
+  (nextPageSelected)="onNextPageSelected()"
+  (pageSizeChanged)="onPageSizeChanged($event)"
+  (nameCellSelected)="onNameCellSelected($event)"
+  (rowSelected)="onRowSelected($event)"
+></demo-users-list>

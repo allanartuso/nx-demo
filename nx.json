@@ -43,6 +43,9 @@
     "shared-ui-form": {
       "tags": []
     },
+    "shared-ui-list": {
+      "tags": []
+    },
     "shared-util-configuration": {
       "tags": []
     },

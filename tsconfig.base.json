@@ -18,10 +18,11 @@
     "paths": {
       "@demo/demo/feature-users": ["libs/demo/feature-users/src/index.ts"],
       "@demo/shared/data-access": ["libs/shared/data-access/src/index.ts"],
+      "@demo/shared/data-access/test": ["libs/shared/data-access/src/index-test.ts"],
       "@demo/shared/ui-form": ["libs/shared/ui-form/src/index.ts"],
+      "@demo/shared/ui-list": ["libs/shared/ui-list/src/index.ts"],
       "@demo/shared/util-configuration": ["libs/shared/util-configuration/src/index.ts"],
-      "@demo/shared/util-store": ["libs/shared/util-store/src/index.ts"],
-      "@demo/shared/data-access/test": ["libs/shared/data-access/src/index-test.ts"]
+      "@demo/shared/util-store": ["libs/shared/util-store/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
