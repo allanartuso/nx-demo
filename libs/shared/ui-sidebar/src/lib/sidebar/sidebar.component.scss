@@ -1,0 +1,46 @@
+.demo-sidebar {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .demo-sidebar-header-container {
+    flex: 0 1 auto;
+    overflow: hidden;
+  }
+
+  .demo-sidebar-body-container {
+    flex: 1 1 auto;
+  }
+
+  .demo-sidebar-footer-container {
+    flex: 0 1 auto;
+
+    margin-top: 0.5rem;
+  }
+
+  ul.demo-menu {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+    text-align: center;
+    margin-top: 2.5rem;
+
+    li.demo-menu-item {
+      display: flex;
+      justify-content: center;
+      flex-wrap: nowrap;
+      width: 100%;
+    }
+  }
+
+  &.expanded {
+    ul.demo-menu {
+      padding-left: 20px;
+      text-align: left;
+
+      li.demo-menu-item {
+        padding: 0.75rem 0.5rem;
+      }
+    }
+  }
+}

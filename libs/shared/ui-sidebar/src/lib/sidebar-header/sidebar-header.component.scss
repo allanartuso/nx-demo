@@ -1,0 +1,32 @@
+.demo-sidebar-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 0.5rem;
+
+  .demo-sidebar-header-logo {
+    margin: 0.5rem 0;
+    min-height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+      max-height: 50px;
+      max-width: 80%;
+    }
+  }
+
+  .demo-sidebar-header-title {
+    white-space: nowrap;
+  }
+}
+
+:host-context(.expanded) {
+  .demo-sidebar-header-logo {
+    img {
+      max-height: 80px;
+      max-width: 80%;
+    }
+  }
+}

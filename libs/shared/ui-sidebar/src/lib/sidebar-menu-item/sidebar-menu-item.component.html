@@ -1,0 +1,69 @@
+<div
+  class="demo-menu-item-content"
+  (mouseenter)="onMenuItemHoveredOn(menuItem)"
+  (mouseleave)="onMenuItemHoveredOff(menuItem)"
+>
+  <span *ngIf="menuItem.group">
+    <mat-icon *ngIf="menuItem.icon" class="demo-menu-item-icon">{{ menuItem.icon }}</mat-icon>
+    <span *ngIf="expanded">{{ menuItem.name }}</span>
+  </span>
+
+  <a
+    *ngIf="menuItem.link && !menuItem.children && !menuItem.group"
+    [routerLink]="menuItem.link"
+    [attr.target]="menuItem.target"
+    [attr.title]="menuItem.name"
+    [class.active]="menuItem.selected"
+    class="demo-menu-item-link"
+    [attr.data-test]="'ar-page-sidebar-' + menuItem.name + '-menu-item'"
+  >
+    <mat-icon *ngIf="menuItem.icon" class="demo-menu-item-icon">{{ menuItem.icon }}</mat-icon>
+    <span *ngIf="expanded" class="demo-menu-item-title">{{ menuItem.name }}</span>
+  </a>
+
+  <a
+    *ngIf="menuItem.clickAction && !menuItem.children && !menuItem.group"
+    [attr.title]="menuItem.name"
+    [class.active]="menuItem.selected"
+    (click)="onMenuItemClicked(menuItem)"
+    class="demo-menu-item-link"
+    [attr.data-test]="'ar-page-sidebar-' + menuItem.name + '-menu-item'"
+  >
+    <mat-icon *ngIf="menuItem.icon" class="demo-menu-item-icon">{{ menuItem.icon }}</mat-icon>
+    <span *ngIf="expanded" class="demo-menu-item-title">{{ menuItem.name }}</span>
+  </a>
+
+  <a
+    *ngIf="menuItem.children"
+    [attr.target]="menuItem.target"
+    [attr.title]="menuItem.name"
+    [class.active]="menuItem.selected"
+    (click)="$event.preventDefault(); onMenuItemToggled(menuItem)"
+    href="#"
+  >
+    <mat-icon *ngIf="menuItem.icon" class="demo-menu-item-icon">{{ menuItem.icon }}</mat-icon>
+    <span *ngIf="expanded" class="demo-menu-item-title">{{ menuItem.name }}</span>
+
+    <mat-icon *ngIf="expanded && menuItem.displayChildren" class="demo-menu-item-toggle-icon">chevron_left</mat-icon>
+    <mat-icon *ngIf="expanded && !menuItem.displayChildren" class="demo-menu-item-toggle-icon">chevron_right</mat-icon>
+  </a>
+
+  <ul *ngIf="menuItem.children && menuItem.displayChildren" class="demo-menu-items">
+    <ng-container *ngFor="let menuItem of menuItem.children">
+      <li
+        [class.demo-menu-item-group]="menuItem.group"
+        class="demo-menu-item"
+        [class.active]="menuItem.displayChildren === true"
+      >
+        <demo-sidebar-menu-item
+          [menuItem]="menuItem"
+          [expanded]="expanded"
+          (menuItemHoveredOn)="onMenuItemHoveredOn($event)"
+          (menuItemHoveredOff)="onMenuItemHoveredOff($event)"
+          (menuItemClicked)="onMenuItemClicked($event)"
+          (menuItemToggled)="onMenuItemToggled($event)"
+        ></demo-sidebar-menu-item>
+      </li>
+    </ng-container>
+  </ul>
+</div>

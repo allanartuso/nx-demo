@@ -1,0 +1,46 @@
+<div class="demo-sidebar" [class.expanded]="expanded" [class.collapsed]="!expanded">
+  <div class="demo-sidebar-header-container">
+    <demo-sidebar-header
+      [expanded]="expanded"
+      [applicationLogo]="applicationLogo"
+      [applicationName]="applicationName"
+      [applicationShortName]="applicationShortName"
+    ></demo-sidebar-header>
+  </div>
+
+  <ul class="demo-sidebar-body-container demo-menu">
+    <li
+      *ngFor="let menuItem of bodyItems"
+      [class.demo-menu-item-group]="menuItem.group"
+      class="demo-menu-item"
+      [class.active]="menuItem.displayChildren === true"
+    >
+      <demo-sidebar-menu-item
+        [menuItem]="menuItem"
+        [expanded]="expanded"
+        (menuItemHoveredOn)="onMenuItemHoveredOn($event)"
+        (menuItemHoveredOff)="onMenuItemHoveredOff($event)"
+        (menuItemClicked)="onMenuItemClicked($event)"
+        (menuItemToggled)="onMenuItemToggled($event)"
+      ></demo-sidebar-menu-item>
+    </li>
+  </ul>
+
+  <ul class="demo-sidebar-footer-container demo-menu">
+    <li
+      *ngFor="let menuItem of footerItems"
+      [class.demo-menu-item-group]="menuItem.group"
+      class="demo-menu-item"
+      [class.active]="menuItem.displayChildren === true"
+    >
+      <demo-sidebar-menu-item
+        [menuItem]="menuItem"
+        [expanded]="expanded"
+        (menuItemHoveredOn)="onMenuItemHoveredOn($event)"
+        (menuItemHoveredOff)="onMenuItemHoveredOff($event)"
+        (menuItemClicked)="onMenuItemClicked($event)"
+        (menuItemToggled)="onMenuItemToggled($event)"
+      ></demo-sidebar-menu-item>
+    </li>
+  </ul>
+</div>

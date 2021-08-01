@@ -202,6 +202,28 @@
         }
       }
     },
+    "shared-ui-sidebar": {
+      "projectType": "library",
+      "root": "libs/shared/ui-sidebar",
+      "sourceRoot": "libs/shared/ui-sidebar/src",
+      "prefix": "demo",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/shared/ui-sidebar"],
+          "options": {
+            "jestConfig": "libs/shared/ui-sidebar/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/shared/ui-sidebar/src/**/*.ts", "libs/shared/ui-sidebar/src/**/*.html"]
+          }
+        }
+      }
+    },
     "shared-util-configuration": {
       "projectType": "library",
       "root": "libs/shared/util-configuration",
