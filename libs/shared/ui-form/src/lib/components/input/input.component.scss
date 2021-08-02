@@ -1,32 +1,7 @@
 .demo-input {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.5rem;
 
-  &__label {
-    margin-bottom: 0.2rem;
-
-    &--error {
-      color: red;
-    }
-  }
-
-  &__input {
-    padding: 0.2rem;
-
-    &--error {
-      color: red;
-      border-color: red;
-    }
-  }
-
-  &__error {
-    margin-top: 0.2rem;
-    margin-left: 0.2rem;
-    color: red;
-
-    &-message {
-      position: absolute;
-    }
+  &__form-field {
+    width: 100%;
   }
 }

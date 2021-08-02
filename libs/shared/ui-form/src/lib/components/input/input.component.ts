@@ -1,4 +1,4 @@
-import { Component, ElementRef, forwardRef, Input, ViewChild } from '@angular/core';
+import { Component, forwardRef, Input } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { AbstractInputComponent } from '../../models/abstract-input-component';
 
@@ -15,18 +15,19 @@ import { AbstractInputComponent } from '../../models/abstract-input-component';
   ]
 })
 export class DemoInputComponent extends AbstractInputComponent {
-  @ViewChild('input', { static: true }) inputRef: ElementRef;
-
   @Input() type = 'text';
 
+  value: string;
+
   writeValue(value: string): void {
-    this.inputRef.nativeElement.value = value;
+    this.value = value;
   }
 
   onChangeInput(event: Event): void {
     const input = event.target as HTMLInputElement;
 
     if (input.value || this.control.value !== input.value) {
+      this.value = input.value;
       this.onChange(input.value);
     }
   }

@@ -1,11 +1,14 @@
-import { AfterViewInit, Directive, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Directive, Input, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, ControlContainer, ControlValueAccessor } from '@angular/forms';
+import { MatInput } from '@angular/material/input';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { DemoFormControl } from './form.model';
 
 @Directive()
 export abstract class AbstractInputComponent implements OnInit, ControlValueAccessor, AfterViewInit {
+  @ViewChild('input', { read: MatInput, static: true }) inputDirective: MatInput;
+
   @Input() formControlName: string;
   @Input() errorMessage: string;
   @Input() label: string;
@@ -41,6 +44,7 @@ export abstract class AbstractInputComponent implements OnInit, ControlValueAcce
 
   private initializeErrorListener(): void {
     this.control?.errorMessage$.pipe(takeUntil(this.destroy$)).subscribe(errorMessage => {
+      this.inputDirective.errorState = !!errorMessage;
       this.errorMessage = errorMessage;
     });
   }

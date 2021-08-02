@@ -2,7 +2,7 @@
   [formGroup]="form"
   [formRequestState]="[formRequestState]"
   [isSubmitDisabled]="isSubmitDisabled"
-  [isCancelDisabled]="!form.pristine"
+  [isCancelDisabled]="!form.dirty"
   (submitted)="submit()"
   (cancelled)="cancel()"
 >

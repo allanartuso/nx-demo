@@ -1,16 +1,8 @@
-<div class="demo-form__card">
+<mat-card class="demo-form__card">
   <div class="demo-form__content">
-    <div class="demo-form__profile">
-      <div class="demo-form__profile-image">
-        <ng-content select="[profileImage]"></ng-content>
-      </div>
-      <div class="demo-form__profile-inputs">
-        <ng-content select="[profileInputs]"></ng-content>
-      </div>
-    </div>
     <ng-content></ng-content>
   </div>
-</div>
+</mat-card>
 
 <div class="demo-form__buttons" *ngIf="canEdit">
   <demo-cancel-button (click)="onCancel()" [disabled]="isCancelDisabled"></demo-cancel-button>
