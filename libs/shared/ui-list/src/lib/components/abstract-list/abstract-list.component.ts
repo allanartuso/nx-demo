@@ -1,5 +1,6 @@
 import { SelectionModel } from '@angular/cdk/collections';
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
 import { Sort } from '@angular/material/sort';
 import {
   DEFAULT_PAGE,
@@ -87,13 +88,13 @@ export abstract class AbstractListComponent<T> implements OnInit, OnDestroy {
     });
   }
 
-  isAllSelected() {
+  isAllSelected(): boolean {
     const numSelected = this.selection.selected.length;
     const numRows = this.gridData.length;
     return numSelected === numRows;
   }
 
-  masterToggle() {
+  masterToggle(): void {
     if (this.isAllSelected()) {
       this.selection.clear();
       return;
@@ -123,7 +124,19 @@ export abstract class AbstractListComponent<T> implements OnInit, OnDestroy {
     this.refreshPageSelected.emit();
   }
 
-  onFirstPageSelected(): void {
+  onPageEvent(pageEvent: PageEvent): void {
+    if (pageEvent.pageSize !== this.pageSize) {
+      this.onPageSizeChanged(pageEvent.pageSize);
+    } else if (pageEvent.pageIndex === pageEvent.previousPageIndex + 1) {
+      this.onNextPageSelected();
+    } else if (pageEvent.pageIndex === pageEvent.previousPageIndex - 1) {
+      this.onPreviousPageSelected();
+    } else if (pageEvent.pageIndex === 0) {
+      this.onFirstPageSelected();
+    }
+  }
+
+  private onFirstPageSelected(): void {
     this.onPageChanged(1);
     this.firstPageSelected.emit();
   }
@@ -133,17 +146,17 @@ export abstract class AbstractListComponent<T> implements OnInit, OnDestroy {
     this.firstPage = page === 1;
   }
 
-  onPreviousPageSelected(): void {
+  private onPreviousPageSelected(): void {
     this.onPageChanged(this.pageNumber - 1);
     this.previousPageSelected.emit();
   }
 
-  onNextPageSelected(): void {
+  private onNextPageSelected(): void {
     this.onPageChanged(this.pageNumber + 1);
     this.nextPageSelected.emit();
   }
 
-  onPageSizeChanged(size: number): void {
+  private onPageSizeChanged(size: number): void {
     this.pageSize = size;
     this.pageSizeChanged.emit(this.pageSize);
   }

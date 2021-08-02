@@ -4,4 +4,8 @@ table {
 
 .demo-list__row {
   cursor: pointer;
+
+  &:hover {
+    background: cadetblue;
+  }
 }
