@@ -1,8 +1,6 @@
-<mat-card class="demo-form__card">
-  <div class="demo-form__content">
-    <ng-content></ng-content>
-  </div>
-</mat-card>
+<div class="demo-form__content">
+  <ng-content></ng-content>
+</div>
 
 <div class="demo-form__buttons" *ngIf="canEdit">
   <demo-cancel-button (click)="onCancel()" [disabled]="isCancelDisabled"></demo-cancel-button>

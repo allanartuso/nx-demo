@@ -49,6 +49,9 @@
     "shared-ui-list": {
       "tags": []
     },
+    "shared-ui-notification": {
+      "tags": []
+    },
     "shared-ui-sidebar": {
       "tags": []
     },

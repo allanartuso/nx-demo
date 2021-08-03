@@ -224,6 +224,28 @@
         }
       }
     },
+    "shared-ui-notification": {
+      "projectType": "library",
+      "root": "libs/shared/ui-notification",
+      "sourceRoot": "libs/shared/ui-notification/src",
+      "prefix": "demo",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/shared/ui-notification"],
+          "options": {
+            "jestConfig": "libs/shared/ui-notification/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/shared/ui-notification/src/**/*.ts", "libs/shared/ui-notification/src/**/*.html"]
+          }
+        }
+      }
+    },
     "shared-ui-sidebar": {
       "projectType": "library",
       "root": "libs/shared/ui-sidebar",

@@ -1,3 +1,9 @@
+<div class="demo-list-toolbar">
+  <button mat-mini-fab color="accent" class="demo-list-toolbar__button" (click)="onDeleteSelected()">
+    <mat-icon class="demo-list-toolbar__icon">delete</mat-icon>
+  </button>
+</div>
+
 <div class="demo-list mat-elevation-z8">
   <table mat-table matSort [dataSource]="gridData" (matSortChange)="onSortingChanged($event)">
     <!-- Checkbox Column -->

@@ -60,4 +60,8 @@ export class UsersComponent {
   onNameCellSelected(resourceId: string): void {
     this.router.navigate([USERS_RESOURCE_BASE_PATH, resourceId]);
   }
+
+  onDeleteSelected() {
+    this.store.dispatch(listActions.showRemovalsConfirmation());
+  }
 }

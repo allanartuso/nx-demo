@@ -66,6 +66,7 @@ export abstract class AbstractListComponent<T> implements OnInit, OnDestroy {
   @Output() nextPageSelected = new EventEmitter<void>();
   @Output() pageSizeChanged = new EventEmitter<number>();
   @Output() rowSelected = new EventEmitter<T[]>();
+  @Output() deleteSelected = new EventEmitter<void>();
 
   private _filteringOptions: FilteringOptions;
   private _gridData: T[] = [];
@@ -134,6 +135,10 @@ export abstract class AbstractListComponent<T> implements OnInit, OnDestroy {
     } else if (pageEvent.pageIndex === 0) {
       this.onFirstPageSelected();
     }
+  }
+
+  onDeleteSelected() {
+    this.deleteSelected.emit();
   }
 
   private onFirstPageSelected(): void {

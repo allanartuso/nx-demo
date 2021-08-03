@@ -9,6 +9,7 @@ module.exports = {
     '<rootDir>/libs/shared/data-access',
     '<rootDir>/libs/shared/ui-list',
     '<rootDir>/libs/shared/ui-sidebar',
-    '<rootDir>/libs/demo/feature-sidebar'
+    '<rootDir>/libs/demo/feature-sidebar',
+    '<rootDir>/libs/shared/ui-notification'
   ]
 };

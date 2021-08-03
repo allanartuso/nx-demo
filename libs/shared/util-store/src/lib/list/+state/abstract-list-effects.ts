@@ -1,3 +1,4 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import {
   createFilteringByResourceIds,
@@ -134,6 +135,17 @@ export abstract class AbstractListEffects<T, S = T> {
     )
   );
 
+  deleteUsersSuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(this.listActions.deleteSuccess),
+        tap(({ resourceIds }) => {
+          this.snackBar.open('The resources were deleted successfully');
+        })
+      ),
+    { dispatch: false }
+  );
+
   loadSelected$ = createEffect(() =>
     this.actions$.pipe(
       ofType(this.listActions.loadSelected),
@@ -198,6 +210,7 @@ export abstract class AbstractListEffects<T, S = T> {
     protected readonly router: Router,
     protected readonly actions$: Actions,
     protected readonly store: Store,
+    protected readonly snackBar: MatSnackBar,
     private readonly service: ListService<T, S>,
     private readonly listActions: ListActions<T, S>,
     private readonly listSelectors: ListSelectors<S>

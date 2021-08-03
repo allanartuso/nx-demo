@@ -2,6 +2,12 @@ table {
   width: 100%;
 }
 
+.demo-list-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  padding: 1rem 0;
+}
+
 .demo-list__row {
   cursor: pointer;
 

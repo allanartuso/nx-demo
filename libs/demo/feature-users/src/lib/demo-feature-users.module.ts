@@ -1,9 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
 import { RouterModule, Routes } from '@angular/router';
 import { SharedUiFormModule } from '@demo/shared/ui-form';
 import { SharedUiListModule } from '@demo/shared/ui-list';
+import { SharedUiNotificationModule } from '@demo/shared/ui-notification';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { UserEffects } from './+state/user/user.effects';
@@ -49,7 +53,11 @@ export const usersRoutes: Routes = [
     ReactiveFormsModule,
     RouterModule.forChild(usersRoutes),
     SharedUiFormModule,
-    SharedUiListModule
+    SharedUiListModule,
+    MatIconModule,
+    MatButtonModule,
+    MatDialogModule,
+    SharedUiNotificationModule
   ],
   declarations: [UserComponent, UserFormComponent, UsersComponent, UsersListComponent]
 })

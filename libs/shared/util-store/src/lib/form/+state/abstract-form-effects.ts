@@ -1,3 +1,4 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { FormErrors, FormService } from '@demo/shared/data-access';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
@@ -59,8 +60,8 @@ export abstract class AbstractFormEffects<T> {
   deleteSuccess$ = createEffect(() =>
     this.actions$.pipe(
       ofType(this.formActions.deleteSuccess),
-      // map(() => displaySuccessNotification('resourceRemovedSuccessfully')),
       tap(() => {
+        this.snackBar.open('The resource was removed successfully', 'OK');
         this.router.navigate(['..']);
       })
     )
@@ -116,6 +117,7 @@ export abstract class AbstractFormEffects<T> {
     protected readonly actions$: Actions,
     protected readonly store: Store,
     private readonly service: FormService<T>,
-    private readonly formActions: FormActions<T>
+    private readonly formActions: FormActions<T>,
+    private readonly snackBar: MatSnackBar
   ) {}
 }
