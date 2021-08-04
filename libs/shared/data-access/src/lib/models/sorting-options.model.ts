@@ -1,7 +1,7 @@
 export enum SortingOrder {
-  ASCENDING = 'ASCENDING',
-  DESCENDING = 'DESCENDING',
-  NONE = 'NONE'
+  ASCENDING = 'asc',
+  DESCENDING = 'desc',
+  NONE = ''
 }
 
 export const DEFAULT_SORTING_ORDER = SortingOrder.ASCENDING;

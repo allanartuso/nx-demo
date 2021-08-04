@@ -1,7 +1,7 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Directive, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
-import { Sort } from '@angular/material/sort';
+import { Sort, SortDirection } from '@angular/material/sort';
 import {
   DEFAULT_PAGE,
   DEFAULT_PAGE_SIZE,
@@ -14,15 +14,13 @@ import {
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-@Component({
-  template: ''
-})
+@Directive()
 export abstract class AbstractListComponent<T> implements OnInit, OnDestroy {
   selection = new SelectionModel<T>(true, []);
 
   @Input() set gridData(gridData: T[]) {
     this._gridData = gridData;
-    this.selection.select(...this.selectedItems);
+    this.selection.clear();
   }
 
   get gridData() {
@@ -38,7 +36,9 @@ export abstract class AbstractListComponent<T> implements OnInit, OnDestroy {
   }
 
   @Input() set sortingOptions(sortingOptions: SortingOptions) {
-    console.log(sortingOptions);
+    const firstSort = Object.values(sortingOptions)[0];
+    this.sortActive = firstSort?.name;
+    this.sortDirection = firstSort?.order;
   }
 
   @Input() set filteringOptions(filteringOptions: FilteringOptions) {
@@ -71,12 +71,12 @@ export abstract class AbstractListComponent<T> implements OnInit, OnDestroy {
   pageNumber = DEFAULT_PAGE;
   pageSize = DEFAULT_PAGE_SIZE;
   firstPage = true;
+  sortActive: string;
+  sortDirection: SortDirection;
 
   protected readonly destroy$ = new Subject<void>();
 
   ngOnInit(): void {
-    // this.grid.selectRowOnClick = false;
-
     // this.grid.filteringExpressionsTreeChange.pipe(takeUntil(this.destroy$), debounceTime(300)).subscribe(() => {
     //   this.onFilteringChanged(filteringOptions);
     // });

@@ -45,7 +45,6 @@ export class UsersComponent {
   }
 
   onRefreshPageSelected(): void {
-    console.log('onRefreshPageSelected');
     this.store.dispatch(listActions.refresh());
   }
 

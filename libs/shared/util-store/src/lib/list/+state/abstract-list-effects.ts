@@ -70,7 +70,7 @@ export abstract class AbstractListEffects<T, S = T> {
           return this.listActions.loadNextPage();
         } else if (action.pagingOptions.page === pagingOptions.page - 1) {
           return this.listActions.loadPreviousPage();
-        } else if (action.pagingOptions.page === 0) {
+        } else if (action.pagingOptions.page === 1) {
           return this.listActions.loadFirstPage();
         }
 

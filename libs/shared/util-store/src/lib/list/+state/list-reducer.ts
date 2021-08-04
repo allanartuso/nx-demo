@@ -142,6 +142,10 @@ function createListActionHandlers<T, S>(
       return createNextPageSuccessState(entityAdapter, state, pagingOptions, resources);
     }),
     on(actions.loadSelectedSuccess, (state: ListState<S>, { resources }) => entityAdapter.addMany(resources, state)),
+    on(actions.deleteSuccess, (state: ListState<S>) => ({
+      ...state,
+      selectedResourceIds: [] as string[]
+    })),
     on(actions.navigateToSelected, (state: ListState<S>, { resourceId }) => ({
       ...state,
       currentResourceId: resourceId
