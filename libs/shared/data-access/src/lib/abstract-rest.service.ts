@@ -34,7 +34,7 @@ export abstract class AbstractRestService {
   }
 
   protected createUrl(resourcePath: string): string {
-    return `${this.apiBaseUrl}${resourcePath}`;
+    return `${this.apiBaseUrl}/${resourcePath}`;
   }
 
   /**

@@ -16,6 +16,11 @@ export function createListActions<T, S = T>(featureName: string): ListActions<T,
     `[${featureName} Page] Change ${featureName} Page Size`,
     props<{ pageSize: number }>()
   );
+
+  const changePagingOptions = createAction(
+    `[${featureName} Page] Change ${featureName} Page Options`,
+    props<{ pagingOptions: PagingOptions }>()
+  );
   const changeSorting = createAction(
     `[${featureName} Page] Change ${featureName} Sorting`,
     props<{ sortingField: SortingField }>()
@@ -107,6 +112,7 @@ export function createListActions<T, S = T>(featureName: string): ListActions<T,
     patchFailure,
     resetRequestState,
     copySelected,
-    navigateToSelected
+    navigateToSelected,
+    changePagingOptions
   };
 }

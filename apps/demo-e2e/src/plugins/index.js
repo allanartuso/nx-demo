@@ -12,8 +12,23 @@
 // the project's config changing)
 
 const { preprocessTypescript } = require('@nrwl/cypress/plugins/preprocessor');
+// const { preprocessTypescript } = require('./typescript-preprocessor');
+
+// const fs = require('fs');
+// const glob = require('glob');
+const path = require('path');
+const root = path.join(__dirname, '..');
+
+// glob(`${root}/integration/**/*.spec.ts`, (err, files) => {
+//   let code = '';
+//   files.forEach(file => {
+//     code += `require('${file.replace(root, '..')}');\n`;
+//   });
+//   fs.writeFileSync(`${root}/integration-local/main.spec.ts`, code);
+// });
 
 module.exports = (on, config) => {
+  config.env.tsConfig = path.join(root, '..', 'tsconfig.json');
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
 

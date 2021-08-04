@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { FilteringOptions, PagingOptions, SortingField, SortingOptions } from '@demo/shared/data-access';
 import { select, Store } from '@ngrx/store';
@@ -15,7 +16,7 @@ import { UserDto, USERS_RESOURCE_BASE_PATH } from '../../models/user.dto';
 })
 export class UsersComponent {
   users$: Observable<UserDto[]> = this.store.pipe(select(listSelectors.getCurrentPageData));
-  isLastPage$: Observable<boolean> = this.store.pipe(select(listSelectors.isLastPage));
+  totalCount$: Observable<number> = this.store.pipe(select(listSelectors.getTotalCount));
   pagingOptions$: Observable<PagingOptions> = this.store.pipe(select(listSelectors.getPagingOptions), first());
   sortingOptions$: Observable<SortingOptions> = this.store.pipe(select(listSelectors.getSortingOptions), first());
   filteringOptions$: Observable<FilteringOptions> = this.store.pipe(select(listSelectors.getFilteringOptions), first());
@@ -23,10 +24,6 @@ export class UsersComponent {
   selectedItems$: Observable<UserDto[]> = this.store.pipe(select(listSelectors.getSelected));
 
   constructor(private readonly router: Router, private readonly store: Store) {}
-
-  onPageSizeChanged(size: number): void {
-    this.store.dispatch(listActions.changePageSize({ pageSize: size }));
-  }
 
   onFilteringChanged(filteringOptions: FilteringOptions): void {
     this.store.dispatch(listActions.changeFiltering({ filteringOptions }));
@@ -36,16 +33,15 @@ export class UsersComponent {
     this.store.dispatch(listActions.changeSorting({ sortingField }));
   }
 
-  onFirstPageSelected(): void {
-    this.store.dispatch(listActions.loadFirstPage());
-  }
-
-  onPreviousPageSelected(): void {
-    this.store.dispatch(listActions.loadPreviousPage());
-  }
-
-  onNextPageSelected(): void {
-    this.store.dispatch(listActions.loadNextPage());
+  onPageOptionsChanged(pageEvent: PageEvent): void {
+    this.store.dispatch(
+      listActions.changePagingOptions({
+        pagingOptions: {
+          page: pageEvent.pageIndex + 1,
+          pageSize: pageEvent.pageSize
+        }
+      })
+    );
   }
 
   onRefreshPageSelected(): void {

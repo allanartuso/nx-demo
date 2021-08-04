@@ -92,6 +92,18 @@ export function createListSelectors<T>(
     selectedResourceIds => selectedResourceIds.length !== 1
   );
 
+  const getTotalCount = createSelector(
+    getPagingOptions,
+    isLastPage,
+    getCurrentPageData,
+    (pagingOptions, isLastPage, currentPageData) => {
+      if (isLastPage) {
+        return (pagingOptions.page - 1) * pagingOptions.pageSize + currentPageData.length;
+      }
+      return (pagingOptions.page + 1) * pagingOptions.pageSize;
+    }
+  );
+
   return {
     getAll,
     getRequestOptions,
@@ -112,6 +124,7 @@ export function createListSelectors<T>(
     areSelectedReady,
     isReady,
     isDeleteDisabled,
-    isCopyDisabled
+    isCopyDisabled,
+    getTotalCount
   };
 }

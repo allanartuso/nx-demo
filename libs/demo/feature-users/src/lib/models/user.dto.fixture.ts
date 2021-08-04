@@ -1,8 +1,17 @@
-import faker from 'faker';
+import { commonFixture } from '@demo/shared/data-access/test';
 import { UserDto } from './user.dto';
-faker.setLocale('en');
 
-export function createPersistentUser(id: string = getAlphaNumeric()): UserDto {
+export function createUsers(n = 3): UserDto[] {
+  const result: UserDto[] = [];
+
+  for (let i = 0; i < n; i++) {
+    result.push(createPersistentUser());
+  }
+
+  return result;
+}
+
+export function createPersistentUser(id: string = commonFixture.getAlphaNumeric()): UserDto {
   return {
     id,
     ...createTransientUser()
@@ -10,26 +19,12 @@ export function createPersistentUser(id: string = getAlphaNumeric()): UserDto {
 }
 
 export function createTransientUser(): UserDto {
-  const name = getFirstName();
+  const firstName = commonFixture.getFirstName();
+  const lastName = commonFixture.getLastName();
 
   return {
-    email: getEmail(name),
-    name
+    email: commonFixture.getEmail(firstName, lastName),
+    firstName,
+    lastName
   };
-}
-
-export function getWord(): string {
-  return faker.random.word();
-}
-
-export function getFirstName(): string {
-  return `${faker.name.firstName()} ${faker.name.lastName()}`;
-}
-
-export function getEmail(name?: string): string {
-  return faker.internet.email(name).toLocaleLowerCase();
-}
-
-export function getAlphaNumeric(nOfCharacters = 8): string {
-  return faker.random.alphaNumeric(nOfCharacters);
 }

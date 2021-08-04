@@ -40,10 +40,15 @@ export interface ListSelectors<T> {
   isReady: MemoizedSelector<object, boolean>;
   isDeleteDisabled: MemoizedSelector<object, boolean>;
   isCopyDisabled: MemoizedSelector<object, boolean>;
+  getTotalCount: MemoizedSelector<object, number>;
 }
 
 export interface ListActions<T, S = T> {
   initializeRequestOptions: ActionCreator<string, () => TypedAction<string>>;
+  changePagingOptions: ActionCreator<
+    string,
+    (props: { pagingOptions: PagingOptions }) => { pagingOptions: PagingOptions } & TypedAction<string>
+  >;
   changePageSize: ActionCreator<string, (props: { pageSize: number }) => { pageSize: number } & TypedAction<string>>;
   changeSorting: ActionCreator<
     string,

@@ -10,20 +10,19 @@ export class UserService implements FormService<UserDto>, ListService<UserDto> {
   constructor(private readonly restService: RestService) {}
 
   loadResource(id: string): Observable<UserDto> {
-    console.log('loadResource', id);
-    return of({
-      id,
-      email: 'allan.artuso@gmail.com',
-      firstName: 'Allan',
-      lastName: 'Artuso'
-    });
+    // return of({
+    //   id,
+    //   email: 'allan.artuso@gmail.com',
+    //   firstName: 'Allan',
+    //   lastName: 'Artuso'
+    // });
 
     return this.restService.loadResource<UserDto>(`${USERS_RESOURCE_BASE_PATH}/${id}`);
   }
 
   saveResource(user: UserDto): Observable<UserDto> {
     console.log('saveResource', user.id, user);
-    return of(user);
+    // return of(user);
 
     return this.restService.updateResource(`${USERS_RESOURCE_BASE_PATH}/${user.id}`, user);
   }
@@ -38,20 +37,20 @@ export class UserService implements FormService<UserDto>, ListService<UserDto> {
   queryResources(options: RequestOptions): Observable<UserDto[]> {
     console.log(options);
 
-    return of([
-      {
-        id: '1',
-        email: 'allan.artuso@gmail.com',
-        firstName: 'Allan',
-        lastName: 'Artuso'
-      },
-      {
-        id: '2',
-        email: 'b.ramos@hotmail.com',
-        firstName: 'B',
-        lastName: 'Ramos'
-      }
-    ]);
+    // return of([
+    //   {
+    //     id: '1',
+    //     email: 'allan.artuso@gmail.com',
+    //     firstName: 'Allan',
+    //     lastName: 'Artuso'
+    //   },
+    //   {
+    //     id: '2',
+    //     email: 'b.ramos@hotmail.com',
+    //     firstName: 'B',
+    //     lastName: 'Ramos'
+    //   }
+    // ]);
 
     return this.restService.queryResources(USERS_RESOURCE_BASE_PATH, options);
   }

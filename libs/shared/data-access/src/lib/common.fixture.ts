@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import faker from 'faker';
-
 faker.setLocale('en');
 
 export const DEFAULT_RESOURCE_COLLECTION_SIZE = 50;

@@ -8,5 +8,11 @@
   "video": true,
   "videosFolder": "../../dist/cypress/apps/demo-e2e/videos",
   "screenshotsFolder": "../../dist/cypress/apps/demo-e2e/screenshots",
-  "chromeWebSecurity": false
+  "chromeWebSecurity": false,
+  "baseUrl": "http://localhost:4200",
+  "viewportWidth": 1280,
+  "viewportHeight": 720,
+  "watchForFileChanges": false,
+  "numTestsKeptInMemory": 10,
+  "nodeVersion": "bundled"
 }

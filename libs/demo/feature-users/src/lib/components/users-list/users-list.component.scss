@@ -15,3 +15,9 @@ table {
     background: cadetblue;
   }
 }
+
+::ng-deep {
+  .mat-paginator-navigation-last {
+    display: none !important;
+  }
+}

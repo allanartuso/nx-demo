@@ -29,7 +29,7 @@ export abstract class AbstractListComponent<T> implements OnInit, OnDestroy {
     return this._gridData;
   }
 
-  @Input() isLastPage: boolean;
+  @Input() totalCount: number;
 
   @Input() set pagingOptions(pagingOptions: PagingOptions) {
     this.pageNumber = pagingOptions.page;
@@ -61,10 +61,7 @@ export abstract class AbstractListComponent<T> implements OnInit, OnDestroy {
   @Output() sortingChanged = new EventEmitter<SortingField>();
   @Output() filteringChanged = new EventEmitter<FilteringOptions>();
   @Output() refreshPageSelected = new EventEmitter<void>();
-  @Output() firstPageSelected = new EventEmitter<void>();
-  @Output() previousPageSelected = new EventEmitter<void>();
-  @Output() nextPageSelected = new EventEmitter<void>();
-  @Output() pageSizeChanged = new EventEmitter<number>();
+  @Output() pageOptionsChanged = new EventEmitter<PageEvent>();
   @Output() rowSelected = new EventEmitter<T[]>();
   @Output() deleteSelected = new EventEmitter<void>();
 
@@ -126,44 +123,11 @@ export abstract class AbstractListComponent<T> implements OnInit, OnDestroy {
   }
 
   onPageEvent(pageEvent: PageEvent): void {
-    if (pageEvent.pageSize !== this.pageSize) {
-      this.onPageSizeChanged(pageEvent.pageSize);
-    } else if (pageEvent.pageIndex === pageEvent.previousPageIndex + 1) {
-      this.onNextPageSelected();
-    } else if (pageEvent.pageIndex === pageEvent.previousPageIndex - 1) {
-      this.onPreviousPageSelected();
-    } else if (pageEvent.pageIndex === 0) {
-      this.onFirstPageSelected();
-    }
+    this.pageOptionsChanged.emit(pageEvent);
   }
 
   onDeleteSelected() {
     this.deleteSelected.emit();
-  }
-
-  private onFirstPageSelected(): void {
-    this.onPageChanged(1);
-    this.firstPageSelected.emit();
-  }
-
-  private onPageChanged(page: number): void {
-    this.pageNumber = page;
-    this.firstPage = page === 1;
-  }
-
-  private onPreviousPageSelected(): void {
-    this.onPageChanged(this.pageNumber - 1);
-    this.previousPageSelected.emit();
-  }
-
-  private onNextPageSelected(): void {
-    this.onPageChanged(this.pageNumber + 1);
-    this.nextPageSelected.emit();
-  }
-
-  private onPageSizeChanged(size: number): void {
-    this.pageSize = size;
-    this.pageSizeChanged.emit(this.pageSize);
   }
 
   ngOnDestroy(): void {

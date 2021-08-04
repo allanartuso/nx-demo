@@ -18,6 +18,7 @@
     "paths": {
       "@demo/demo/feature-sidebar": ["libs/demo/feature-sidebar/src/index.ts"],
       "@demo/demo/feature-users": ["libs/demo/feature-users/src/index.ts"],
+      "@demo/demo/feature-users/test": ["libs/demo/feature-users/src/index-test.ts"],
       "@demo/shared/data-access": ["libs/shared/data-access/src/index.ts"],
       "@demo/shared/data-access/test": ["libs/shared/data-access/src/index-test.ts"],
       "@demo/shared/ui-form": ["libs/shared/ui-form/src/index.ts"],

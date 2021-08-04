@@ -10,7 +10,7 @@ import {
   SortingOptions
 } from '@demo/shared/data-access';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { ActionCreator, select, Store } from '@ngrx/store';
+import { ActionCreator, createAction, select, Store } from '@ngrx/store';
 import { TypedAction } from '@ngrx/store/src/models';
 import { Observable, of } from 'rxjs';
 import { catchError, concatMap, exhaustMap, filter, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
@@ -56,6 +56,26 @@ export abstract class AbstractListEffects<T, S = T> {
         this.listActions.loadPage({ pageNumber: currentPageNumber }),
         this.listActions.loadPage({ pageNumber: currentPageNumber + 1 })
       ])
+    )
+  );
+
+  changePagingOptions$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(this.listActions.changePagingOptions),
+      withLatestFrom(this.store.pipe(select(this.listSelectors.getPagingOptions))),
+      map(([action, pagingOptions]) => {
+        if (action.pagingOptions.pageSize !== pagingOptions.pageSize) {
+          return this.listActions.changePageSize({ pageSize: action.pagingOptions.pageSize });
+        } else if (action.pagingOptions.page === pagingOptions.page + 1) {
+          return this.listActions.loadNextPage();
+        } else if (action.pagingOptions.page === pagingOptions.page - 1) {
+          return this.listActions.loadPreviousPage();
+        } else if (action.pagingOptions.page === 0) {
+          return this.listActions.loadFirstPage();
+        }
+
+        return createAction('Not implement page options action');
+      })
     )
   );
 
