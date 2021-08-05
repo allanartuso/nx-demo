@@ -1,69 +1,16 @@
-<div class="demo-list-toolbar">
-  <button mat-mini-fab color="accent" class="demo-list-toolbar__button" (click)="onDeleteSelected()">
-    <mat-icon class="demo-list-toolbar__icon">delete</mat-icon>
-  </button>
-</div>
-
-<div class="demo-list mat-elevation-z8">
-  <table
-    mat-table
-    matSort
-    [dataSource]="gridData"
-    (matSortChange)="onSortingChanged($event)"
-    [matSortActive]="sortActive"
-    [matSortDirection]="sortDirection"
-  >
-    <!-- Checkbox Column -->
-    <ng-container matColumnDef="select">
-      <th mat-header-cell *matHeaderCellDef>
-        <mat-checkbox
-          (change)="$event ? masterToggle() : null"
-          [checked]="selection.hasValue() && isAllSelected()"
-          [indeterminate]="selection.hasValue() && !isAllSelected()"
-        >
-        </mat-checkbox>
-      </th>
-      <td mat-cell *matCellDef="let row">
-        <mat-checkbox
-          role="checkbox"
-          [aria-label]="row.email"
-          (click)="$event.stopPropagation()"
-          (change)="$event ? selection.toggle(row) : null"
-          [checked]="selection.isSelected(row)"
-        >
-        </mat-checkbox>
-      </td>
-    </ng-container>
-
-    <!-- Email Column -->
-    <ng-container matColumnDef="email">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
-      <td mat-cell (click)="onCellSelected(element)" *matCellDef="let element">{{ element.email }}</td>
-    </ng-container>
-
-    <!-- firstName Column -->
-    <ng-container matColumnDef="firstName">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>First Name</th>
-      <td mat-cell (click)="onCellSelected(element)" *matCellDef="let element">{{ element.firstName }}</td>
-    </ng-container>
-
-    <!-- lastName Column -->
-    <ng-container matColumnDef="lastName">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Last Name</th>
-      <td mat-cell (click)="onCellSelected(element)" *matCellDef="let element">{{ element.lastName }}</td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns" class="demo-list__row"></tr>
-  </table>
-
-  <mat-paginator
-    [pageSizeOptions]="[5, 10, 20, 50]"
-    [showFirstLastButtons]="true"
-    [pageIndex]="pageNumber - 1"
-    [pageSize]="pageSize"
-    [length]="totalCount"
-    (page)="onPageEvent($event)"
-  >
-  </mat-paginator>
-</div>
+<demo-list
+  #table
+  [dataSource]="gridData"
+  [sortingOptions]="sortingOptions"
+  [columns]="columns"
+  [totalCount]="totalCount"
+  [pageNumber]="pageNumber"
+  [pageSize]="pageSize"
+  [allowRowSelection]="true"
+  (sortingChanged)="onSortingChanged($event)"
+  (deleteSelected)="onDelete()"
+  (rowSelected)="onRowSelected($event)"
+  (cellSelected)="onCellSelected($event)"
+  (pageOptionsChanged)="onPageEvent($event)"
+>
+</demo-list>

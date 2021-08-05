@@ -10,7 +10,11 @@ import { UserDto } from '../../models/user.dto';
 export class UsersListComponent extends AbstractListComponent<UserDto> {
   @Output() nameCellSelected = new EventEmitter<string>();
 
-  displayedColumns = ['select', 'email', 'firstName', 'lastName'];
+  columns = [
+    { key: 'email', name: 'Email' },
+    { key: 'firstName', name: 'First Name' },
+    { key: 'lastName', name: 'Last Name' }
+  ];
 
   onCellSelected(user: UserDto): void {
     this.nameCellSelected.emit(user.id);

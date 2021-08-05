@@ -1,0 +1,57 @@
+<div class="demo-list-toolbar">
+  <button mat-mini-fab color="accent" class="demo-list-toolbar__button" (click)="onDelete()">
+    <mat-icon class="demo-list-toolbar__icon">delete</mat-icon>
+  </button>
+</div>
+
+<div class="demo-list mat-elevation-z8">
+  <table
+    mat-table
+    matSort
+    [dataSource]="dataSource"
+    (matSortChange)="onSortingChanged($event)"
+    [matSortActive]="sortActive"
+    [matSortDirection]="sortDirection"
+  >
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns" class="demo-list__row"></tr>
+
+    <ng-container matColumnDef="select">
+      <th mat-header-cell *matHeaderCellDef>
+        <mat-checkbox
+          (change)="$event ? masterToggle() : null"
+          [checked]="selection.hasValue() && isAllSelected()"
+          [indeterminate]="selection.hasValue() && !isAllSelected()"
+        >
+        </mat-checkbox>
+      </th>
+      <td mat-cell *matCellDef="let row">
+        <mat-checkbox
+          role="checkbox"
+          [aria-label]="row.email"
+          (click)="$event.stopPropagation()"
+          (change)="$event ? selection.toggle(row) : null"
+          [checked]="selection.isSelected(row)"
+        >
+        </mat-checkbox>
+      </td>
+    </ng-container>
+
+    <ng-container *ngFor="let column of columns">
+      <ng-container [matColumnDef]="column.key">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ column.name }}</th>
+        <td mat-cell (click)="onCellSelected(element)" *matCellDef="let element">{{ element[column.key] }}</td>
+      </ng-container>
+    </ng-container>
+  </table>
+
+  <mat-paginator
+    [pageSizeOptions]="pageSizeOptions"
+    [showFirstLastButtons]="true"
+    [pageIndex]="pageNumber - 1"
+    [pageSize]="pageSize"
+    [length]="totalCount"
+    (page)="onPageEvent($event)"
+  >
+  </mat-paginator>
+</div>

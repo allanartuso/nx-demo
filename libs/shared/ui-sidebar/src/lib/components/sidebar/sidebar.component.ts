@@ -18,11 +18,6 @@ export class SidebarComponent {
   @Output() menuItemHoveredOn = new EventEmitter<MenuItem>();
   @Output() menuItemHoveredOff = new EventEmitter<MenuItem>();
   @Output() menuItemToggled = new EventEmitter<MenuItem>();
-  @Output() closingSidebar = new EventEmitter<void>();
-
-  // onClosing(): void {
-  //   this.closingSidebar.emit();
-  // }
 
   onMenuItemHoveredOff(item: MenuItem): void {
     this.menuItemHoveredOff.emit(item);

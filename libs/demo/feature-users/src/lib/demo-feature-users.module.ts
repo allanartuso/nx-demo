@@ -1,9 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
-import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { RouterModule, Routes } from '@angular/router';
 import { SharedUiFormModule } from '@demo/shared/ui-form';
@@ -56,8 +54,7 @@ export const usersRoutes: Routes = [
     RouterModule.forChild(usersRoutes),
     SharedUiFormModule,
     SharedUiListModule,
-    MatIconModule,
-    MatButtonModule,
+
     MatDialogModule,
     SharedUiNotificationModule
   ],

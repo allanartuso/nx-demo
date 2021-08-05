@@ -1,62 +1,45 @@
-import { SelectionModel } from '@angular/cdk/collections';
-import { Directive, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Directive, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
-import { Sort, SortDirection } from '@angular/material/sort';
 import {
   DEFAULT_PAGE,
   DEFAULT_PAGE_SIZE,
   FilteringOptions,
   PagingOptions,
   SortingField,
-  SortingOptions,
-  SortingOrder
+  SortingOptions
 } from '@demo/shared/data-access';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { ListComponent } from '../list/list.component';
 
 @Directive()
-export abstract class AbstractListComponent<T> implements OnInit, OnDestroy {
-  selection = new SelectionModel<T>(true, []);
+export abstract class AbstractListComponent<T> {
+  @ViewChild('table') table: ListComponent<T>;
+
+  @Input() totalCount: number;
+  @Input() sortingOptions: SortingOptions;
+  @Input() filteringOptions: FilteringOptions;
 
   @Input() set gridData(gridData: T[]) {
     this._gridData = gridData;
-    this.selection.clear();
+    this.table?.clearSelection();
   }
-
   get gridData() {
     return this._gridData;
   }
-
-  @Input() totalCount: number;
-
-  @Input() set pagingOptions(pagingOptions: PagingOptions) {
-    this.pageNumber = pagingOptions.page;
-    this.pageSize = pagingOptions.pageSize;
-    this.firstPage = this.pageNumber === 1;
-  }
-
-  @Input() set sortingOptions(sortingOptions: SortingOptions) {
-    const firstSort = Object.values(sortingOptions)[0];
-    this.sortActive = firstSort?.name;
-    this.sortDirection = firstSort?.order;
-  }
-
-  @Input() set filteringOptions(filteringOptions: FilteringOptions) {
-    this._filteringOptions = filteringOptions;
-  }
-
-  get filteringOptions(): FilteringOptions {
-    return this._filteringOptions;
-  }
+  private _gridData: T[] = [];
 
   @Input() set selectedItems(selectedItems: T[]) {
     this._selectedItems = selectedItems;
-    this.selection.select(...this.selectedItems);
+    this.table?.selectItems(this.selectedItems);
   }
   get selectedItems() {
     return this._selectedItems;
   }
   private _selectedItems: T[] = [];
+
+  @Input() set pagingOptions(pagingOptions: PagingOptions) {
+    this.pageNumber = pagingOptions.page;
+    this.pageSize = pagingOptions.pageSize;
+  }
 
   @Output() sortingChanged = new EventEmitter<SortingField>();
   @Output() filteringChanged = new EventEmitter<FilteringOptions>();
@@ -65,53 +48,11 @@ export abstract class AbstractListComponent<T> implements OnInit, OnDestroy {
   @Output() rowSelected = new EventEmitter<T[]>();
   @Output() deleteSelected = new EventEmitter<void>();
 
-  private _filteringOptions: FilteringOptions;
-  private _gridData: T[] = [];
-
   pageNumber = DEFAULT_PAGE;
   pageSize = DEFAULT_PAGE_SIZE;
-  firstPage = true;
-  sortActive: string;
-  sortDirection: SortDirection;
 
-  protected readonly destroy$ = new Subject<void>();
-
-  ngOnInit(): void {
-    // this.grid.filteringExpressionsTreeChange.pipe(takeUntil(this.destroy$), debounceTime(300)).subscribe(() => {
-    //   this.onFilteringChanged(filteringOptions);
-    // });
-
-    this.selection.changed.pipe(takeUntil(this.destroy$)).subscribe(() => {
-      this.rowSelected.emit(this.selection.selected);
-    });
-  }
-
-  isAllSelected(): boolean {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.gridData.length;
-    return numSelected === numRows;
-  }
-
-  masterToggle(): void {
-    if (this.isAllSelected()) {
-      this.selection.clear();
-      return;
-    }
-
-    this.selection.select(...this.gridData);
-  }
-
-  onSortingChanged(sortingField: Sort): void {
-    let order = SortingOrder.NONE;
-
-    if (sortingField.direction) {
-      order = sortingField.direction === 'asc' ? SortingOrder.ASCENDING : SortingOrder.DESCENDING;
-    }
-
-    this.sortingChanged.emit({
-      name: sortingField.active,
-      order
-    });
+  onSortingChanged(sortingField: SortingField): void {
+    this.sortingChanged.emit(sortingField);
   }
 
   onFilteringChanged(filteringOptions: FilteringOptions): void {
@@ -126,12 +67,11 @@ export abstract class AbstractListComponent<T> implements OnInit, OnDestroy {
     this.pageOptionsChanged.emit(pageEvent);
   }
 
-  onDeleteSelected() {
+  onDelete(): void {
     this.deleteSelected.emit();
   }
 
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
+  onRowSelected(selectedItems: T[]): void {
+    this.rowSelected.emit(selectedItems);
   }
 }
