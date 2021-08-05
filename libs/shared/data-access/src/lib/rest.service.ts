@@ -2,14 +2,20 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ConfigurationService } from '@demo/shared/util-configuration';
 import { Observable } from 'rxjs';
-import { FilteringField, FilteringOptions, SortingOptions, SortingOrder } from '..';
+import { FilteringField, FilteringOptions, SortingDirection, SortingField, SortingOptions } from '..';
 import { AbstractRestService } from './abstract-rest.service';
 import { PagingOptions } from './models/paging-options.model';
 import { RequestOptions } from './models/request-options.model';
 
-/**
- * Provides common Rest service functionality to interact with the ACM API.
- */
+// TODO: move to demo/data-access
+
+export interface QueryOptionsDto {
+  filter?: FilteringOptions;
+  sort?: SortingField[];
+  page?: number;
+  pageSize?: number;
+}
+
 @Injectable({ providedIn: 'root' })
 export class RestService extends AbstractRestService {
   constructor(http: HttpClient, configurationService: ConfigurationService) {
@@ -50,8 +56,8 @@ export class RestService extends AbstractRestService {
 
     if (options) {
       const fieldNames = Object.keys(options)
-        .filter(fieldName => options[fieldName].order !== SortingOrder.NONE)
-        .map(fieldName => (options[fieldName].order === SortingOrder.DESCENDING ? `-${fieldName}` : fieldName));
+        .filter(fieldName => options[fieldName].direction !== SortingDirection.NONE)
+        .map(fieldName => (options[fieldName].direction === SortingDirection.DESCENDING ? `-${fieldName}` : fieldName));
 
       if (fieldNames.length > 0) {
         sortingParameters.sort = fieldNames.join();
@@ -93,11 +99,11 @@ export class RestService extends AbstractRestService {
 
     return {
       sort: Object.keys(options)
-        .filter(fieldName => options[fieldName].order !== SortingOrder.NONE)
+        .filter(fieldName => options[fieldName].direction !== SortingDirection.NONE)
         .map(fieldName => {
           return {
             field: fieldName,
-            direction: options[fieldName].order === SortingOrder.ASCENDING ? 'asc' : 'desc'
+            direction: options[fieldName].direction === SortingDirection.ASCENDING ? 'asc' : 'desc'
           };
         })
     };

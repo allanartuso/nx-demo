@@ -7,9 +7,9 @@ import {
   DEFAULT_PAGE_SIZE,
   FilteringOptions,
   PagingOptions,
+  SortingDirection,
   SortingField,
-  SortingOptions,
-  SortingOrder
+  SortingOptions
 } from '@demo/shared/data-access';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -28,8 +28,8 @@ export class TableComponent<T> implements OnInit, OnDestroy {
   @Input() allowRowSelection = false;
   @Input() set sortingOptions(sortingOptions: SortingOptions) {
     const firstSort = Object.values(sortingOptions)[0];
-    this.sortActive = firstSort?.name;
-    this.sortDirection = firstSort?.order;
+    this.sortActive = firstSort?.field;
+    this.sortDirection = firstSort?.direction;
   }
 
   @Input() set pagingOptions(pagingOptions: PagingOptions) {
@@ -93,8 +93,8 @@ export class TableComponent<T> implements OnInit, OnDestroy {
 
   onSortingChanged(sortingField: Sort): void {
     this.sortingChanged.emit({
-      name: sortingField.active,
-      order: sortingField.direction as SortingOrder
+      field: sortingField.active,
+      direction: sortingField.direction as SortingDirection
     });
   }
 

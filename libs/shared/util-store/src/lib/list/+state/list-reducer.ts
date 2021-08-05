@@ -3,7 +3,7 @@ import {
   DEFAULT_STORED_PAGES,
   PagingOptions,
   RequestState,
-  SortingOrder
+  SortingDirection
 } from '@demo/shared/data-access';
 import { createEntityAdapter, EntityAdapter } from '@ngrx/entity';
 import { ActionReducer, createReducer, on, ReducerTypes } from '@ngrx/store';
@@ -77,10 +77,10 @@ function createListActionHandlers<T, S>(
     })),
     on(actions.changeSorting, (state: ListState<S>, { sortingField }) => {
       const sortingOptions = { ...state.sortingOptions };
-      if (sortingField.order === SortingOrder.NONE) {
-        delete sortingOptions[sortingField.name];
+      if (sortingField.direction === SortingDirection.NONE) {
+        delete sortingOptions[sortingField.field];
       } else {
-        sortingOptions[sortingField.name] = sortingField;
+        sortingOptions[sortingField.field] = sortingField;
       }
       return {
         ...state,

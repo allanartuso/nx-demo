@@ -1,39 +1,22 @@
+import { UserDto } from '@demo/demo/feature-users';
+import { formSelectors } from '../../support/form/form';
+import { stubGetUser, stubUpdateUser, userFormRoutes, userFormSelectors } from '../../support/users/user-form';
+
 describe('User form', () => {
+  let updatedUser: UserDto;
+
   beforeEach(() => {
-    // cy.intercept('GET', '/api/users/1', {
-    //   fixture: 'user'
-    // }).as('getUser');
-
-    cy.intercept('GET', '/api/users/1', {
-      statusCode: 200,
-      body: {
-        id: '1',
-        email: 'allan.artuso@gmail.com',
-        firstName: 'Allan',
-        lastName: 'Artuso'
-      }
-    }).as('getUser');
-
-    cy.intercept('PUT', '/api/users/1', req => {
-      expect(req.body).to.deep.equal({ id: '1', email: 'artuso@gmail.com', firstName: 'Allan', lastName: 'Artuso' });
-
-      req.reply({
-        body: { id: '1', email: 'artuso@gmail.com', firstName: 'Allan', lastName: 'Artuso' }
-      });
-    }).as('saveUser');
-
+    stubGetUser();
+    updatedUser = stubUpdateUser();
     cy.visit('/users/1');
   });
 
   it('updates the form', () => {
-    cy.get('[label="Email"] input').updateInputValue('artuso@gmail.com');
-    cy.get('[data-test=demo-submit-button]').click();
+    cy.get(userFormSelectors.emailInput).updateInputValue(updatedUser.email);
+    cy.get(userFormSelectors.firstNameInput).updateInputValue(updatedUser.firstName);
+    cy.get(userFormSelectors.lastNameInput).updateInputValue(updatedUser.lastName);
+    cy.get(formSelectors.submitButton).click();
 
-    cy.wait('@saveUser').its('request.body').should('deep.equal', {
-      id: '1',
-      email: 'artuso@gmail.com',
-      firstName: 'Allan',
-      lastName: 'Artuso'
-    });
+    cy.wait(`@${userFormRoutes.updateUser}`).its('request.body').should('deep.equal', updatedUser);
   });
 });

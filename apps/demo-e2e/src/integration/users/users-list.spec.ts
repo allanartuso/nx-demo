@@ -1,55 +1,12 @@
-import { userDtoFixture } from '@demo/demo/feature-users/test';
-import { UserDto } from '@demo/shared/acm/data-access/users';
-import { DEFAULT_PAGE_SIZE } from '@demo/shared/data-access';
-
-const selectors = {
-  nextPageButton: '[aria-label="Next page"]',
-  previousPageButton: '[aria-label="Previous page"]',
-  firstPageButton: '[aria-label="First page"]',
-  checkbox: '[role="checkbox"]',
-  columnHeader: '[role="columnheader"]'
-};
-
-const routes = {
-  getUsers: 'getUsers',
-  deleteUsers: 'deleteUsers'
-};
-
-const apiUrls = {
-  query: '/api/users/query',
-  deleteUsers: '/api/users/bulk'
-};
-
-function stubUsers() {
-  const users = userDtoFixture.createUsers(35);
-
-  cy.intercept({ method: 'POST', url: apiUrls.query }, req => {
-    const requestOptions = req.body;
-
-    const pageIndex = requestOptions.page - 1;
-    const pageSize = requestOptions.pageSize;
-    const res = users.slice(pageIndex * pageSize, pageSize * (pageIndex + 1));
-    req.reply(res);
-  }).as(routes.getUsers);
-
-  return users;
-}
-
-function assertCorrectQueryRequested(page: number, sort?: Array<{ field: string; direction: string }>) {
-  let requestOptions: any = {
-    page,
-    pageSize: DEFAULT_PAGE_SIZE
-  };
-
-  if (sort) {
-    requestOptions = {
-      ...requestOptions,
-      sort
-    };
-  }
-
-  cy.wait(`@${routes.getUsers}`).its('request.body').should('deep.equal', requestOptions);
-}
+import { UserDto } from '@demo/demo/feature-users';
+import { SortingDirection, SortingField } from '@demo/shared/data-access';
+import {
+  assertCorrectQueryRequested,
+  stubDeleteUsers,
+  stubUsers,
+  usersListRoutes,
+  usersListSelectors
+} from '../../support/users/users-list';
 
 describe('Users list', () => {
   let users: UserDto[];
@@ -63,38 +20,38 @@ describe('Users list', () => {
   });
 
   it('paging through the table', () => {
-    cy.get(selectors.firstPageButton).should('be.disabled');
-    cy.get(selectors.previousPageButton).should('be.disabled');
+    cy.get(usersListSelectors.firstPageButton).should('be.disabled');
+    cy.get(usersListSelectors.previousPageButton).should('be.disabled');
 
-    cy.get(selectors.nextPageButton).click();
+    cy.get(usersListSelectors.nextPageButton).click();
     assertCorrectQueryRequested(3);
 
-    cy.get(selectors.firstPageButton).should('be.enabled');
-    cy.get(selectors.previousPageButton).should('be.enabled');
+    cy.get(usersListSelectors.firstPageButton).should('be.enabled');
+    cy.get(usersListSelectors.previousPageButton).should('be.enabled');
 
-    cy.get(selectors.nextPageButton).click();
+    cy.get(usersListSelectors.nextPageButton).click();
     assertCorrectQueryRequested(4);
 
-    cy.get(selectors.nextPageButton).click();
+    cy.get(usersListSelectors.nextPageButton).click();
 
-    cy.get(selectors.nextPageButton).should('be.disabled');
+    cy.get(usersListSelectors.nextPageButton).should('be.disabled');
 
-    cy.get(selectors.previousPageButton).click();
+    cy.get(usersListSelectors.previousPageButton).click();
     assertCorrectQueryRequested(2);
 
-    cy.get(selectors.nextPageButton).should('be.enabled');
+    cy.get(usersListSelectors.nextPageButton).should('be.enabled');
 
-    cy.get(selectors.firstPageButton).click();
+    cy.get(usersListSelectors.firstPageButton).click();
     assertCorrectQueryRequested(1);
     assertCorrectQueryRequested(2);
 
-    cy.get(selectors.firstPageButton).should('be.disabled');
-    cy.get(selectors.previousPageButton).should('be.disabled');
+    cy.get(usersListSelectors.firstPageButton).should('be.disabled');
+    cy.get(usersListSelectors.previousPageButton).should('be.disabled');
   });
 
   it('request sort', () => {
-    cy.get(selectors.columnHeader).contains('Email').click();
-    const sort = [{ field: 'email', direction: 'asc' }];
+    cy.get(usersListSelectors.columnHeader).contains('Email').click();
+    const sort: SortingField[] = [{ field: 'email', direction: SortingDirection.ASCENDING }];
     assertCorrectQueryRequested(1, sort);
     assertCorrectQueryRequested(2, sort);
   });
@@ -103,18 +60,12 @@ describe('Users list', () => {
     const indexes = [0, 1];
     const deletedUsers = indexes.map(index => users[index]);
 
-    cy.intercept({ method: 'DELETE', url: apiUrls.deleteUsers }, req => {
-      req.reply(deletedUsers);
-    }).as(routes.deleteUsers);
-
-    indexes.forEach(index => {
-      cy.get(selectors.checkbox).eq(index).click();
-    });
+    stubDeleteUsers(deletedUsers, indexes);
 
     cy.get('button').contains('delete').click();
     cy.get('button').contains('Confirm').click();
 
-    cy.wait(`@${routes.deleteUsers}`)
+    cy.wait(`@${usersListRoutes.deleteUsers}`)
       .its('request.body')
       .should(
         'deep.equal',

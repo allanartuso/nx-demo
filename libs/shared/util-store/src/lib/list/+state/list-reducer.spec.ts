@@ -17,8 +17,8 @@ import {
   FilteringOperator,
   FilteringOptions,
   RequestState,
-  SortingField,
-  SortingOrder
+  SortingDirection,
+  SortingField
 } from '@demo/shared/data-access';
 import { EntityAdapter } from '@ngrx/entity';
 import { ActionReducer } from '@ngrx/store';
@@ -141,7 +141,7 @@ describe('createListReducer', () => {
   });
 
   it('sets the sorting options', () => {
-    const sortingField: SortingField = { name: 'name', order: SortingOrder.ASCENDING };
+    const sortingField: SortingField = { name: 'name', order: SortingDirection.ASCENDING };
     const testAction = testListActions.changeSorting({ sortingField });
 
     const state = testReducer(undefined, testAction);
@@ -150,7 +150,7 @@ describe('createListReducer', () => {
       ...testInitialState,
       sortingOptions: {
         ...state.sortingOptions,
-        [sortingField.name]: sortingField
+        [sortingField.field]: sortingField
       }
     });
   });
