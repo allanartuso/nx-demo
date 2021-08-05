@@ -13,12 +13,15 @@ import { UserDto } from '../../models/user.dto';
 })
 export class UserComponent {
   user$: Observable<UserDto> = this.store.pipe(select(formSelectors.getResource));
-
   requestState$: Observable<RequestState> = this.store.pipe(select(formSelectors.getRequestState));
 
   constructor(private readonly store: Store) {}
 
   onUserSaved(user: UserDto): void {
-    this.store.dispatch(formActions.save({ resource: user }));
+    if (user.id) {
+      this.store.dispatch(formActions.save({ resource: user }));
+    } else {
+      this.store.dispatch(formActions.create({ resource: user }));
+    }
   }
 }

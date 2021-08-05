@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { AbstractTableComponent } from '@demo/shared/ui-list';
+import { AbstractTableComponent, TableColumn } from '@demo/shared/ui-list';
 import { UserDto } from '../../models/user.dto';
 
 @Component({
@@ -8,15 +8,15 @@ import { UserDto } from '../../models/user.dto';
   styleUrls: ['./users-table.component.scss']
 })
 export class UsersTableComponent extends AbstractTableComponent<UserDto> {
-  @Output() nameCellSelected = new EventEmitter<string>();
+  @Output() cellSelected = new EventEmitter<string>();
 
-  columns = [
+  columns: TableColumn[] = [
     { key: 'email', name: 'Email' },
     { key: 'firstName', name: 'First Name' },
     { key: 'lastName', name: 'Last Name' }
   ];
 
   onCellSelected(user: UserDto): void {
-    this.nameCellSelected.emit(user.id);
+    this.cellSelected.emit(user.id);
   }
 }

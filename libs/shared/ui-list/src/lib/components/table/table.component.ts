@@ -2,10 +2,18 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { Sort, SortDirection } from '@angular/material/sort';
-import { FilteringOptions, SortingField, SortingOptions, SortingOrder } from '@demo/shared/data-access';
+import {
+  DEFAULT_PAGE,
+  DEFAULT_PAGE_SIZE,
+  FilteringOptions,
+  PagingOptions,
+  SortingField,
+  SortingOptions,
+  SortingOrder
+} from '@demo/shared/data-access';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { TableColumns } from '../../models/table.model';
+import { TableColumn } from '../../models/table.model';
 
 @Component({
   selector: 'demo-table',
@@ -13,10 +21,8 @@ import { TableColumns } from '../../models/table.model';
   styleUrls: ['./table.component.scss']
 })
 export class TableComponent<T> implements OnInit, OnDestroy {
-  @Input() columns: TableColumns[] = [];
+  @Input() columns: TableColumn[] = [];
   @Input() totalCount = 0;
-  @Input() pageNumber = 1;
-  @Input() pageSize = 10;
   @Input() pageSizeOptions = [5, 10, 20, 30, 50];
   @Input() dataSource: T[] = [];
   @Input() allowRowSelection = false;
@@ -26,10 +32,15 @@ export class TableComponent<T> implements OnInit, OnDestroy {
     this.sortDirection = firstSort?.order;
   }
 
+  @Input() set pagingOptions(pagingOptions: PagingOptions) {
+    this.pageNumber = pagingOptions.page;
+    this.pageSize = pagingOptions.pageSize;
+  }
+
   @Output() sortingChanged = new EventEmitter<SortingField>();
   @Output() filteringChanged = new EventEmitter<FilteringOptions>();
   @Output() refreshPageSelected = new EventEmitter<void>();
-  @Output() pageOptionsChanged = new EventEmitter<PageEvent>();
+  @Output() pageOptionsChanged = new EventEmitter<PagingOptions>();
   @Output() rowSelected = new EventEmitter<T[]>();
   @Output() deleteSelected = new EventEmitter<void>();
   @Output() cellSelected = new EventEmitter<T>();
@@ -37,6 +48,8 @@ export class TableComponent<T> implements OnInit, OnDestroy {
   sortActive: string;
   sortDirection: SortDirection;
   selection = new SelectionModel<T>(true, []);
+  pageNumber = DEFAULT_PAGE;
+  pageSize = DEFAULT_PAGE_SIZE;
 
   get displayedColumns(): string[] {
     const displayedColumns = [...this.columns.map(column => column.key)];
@@ -94,7 +107,10 @@ export class TableComponent<T> implements OnInit, OnDestroy {
   }
 
   onPageEvent(pageEvent: PageEvent): void {
-    this.pageOptionsChanged.emit(pageEvent);
+    this.pageOptionsChanged.emit({
+      page: pageEvent.pageIndex + 1,
+      pageSize: pageEvent.pageSize
+    });
   }
 
   onDelete(): void {

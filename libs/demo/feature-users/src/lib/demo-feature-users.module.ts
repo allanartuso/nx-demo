@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
-import { MatPaginatorIntl } from '@angular/material/paginator';
 import { RouterModule, Routes } from '@angular/router';
 import { SharedUiFormModule } from '@demo/shared/ui-form';
 import { SharedUiListModule } from '@demo/shared/ui-list';
@@ -17,9 +16,8 @@ import { UserFormComponent } from './components/user-form/user-form.component';
 import { UsersTableComponent } from './components/users-table/users-table.component';
 import { UserComponent } from './containers/user/user.component';
 import { UsersComponent } from './containers/users/users.component';
-import { MatPaginatorIntlCro } from './services/custom-paginator.service';
-import { UserResolver } from './services/user.resolver';
-import { UsersResolver } from './services/users.resolver';
+import { UserResolver } from './resolvers/user.resolver';
+import { UsersResolver } from './resolvers/users.resolver';
 
 export const usersRoutes: Routes = [
   {
@@ -57,7 +55,6 @@ export const usersRoutes: Routes = [
     MatDialogModule,
     SharedUiNotificationModule
   ],
-  declarations: [UserComponent, UserFormComponent, UsersComponent, UsersTableComponent],
-  providers: [{ provide: MatPaginatorIntl, useClass: MatPaginatorIntlCro }]
+  declarations: [UserComponent, UserFormComponent, UsersComponent, UsersTableComponent]
 })
 export class DemoFeatureUsersModule {}

@@ -1,13 +1,5 @@
 import { Directive, EventEmitter, Input, Output, ViewChild } from '@angular/core';
-import { PageEvent } from '@angular/material/paginator';
-import {
-  DEFAULT_PAGE,
-  DEFAULT_PAGE_SIZE,
-  FilteringOptions,
-  PagingOptions,
-  SortingField,
-  SortingOptions
-} from '@demo/shared/data-access';
+import { FilteringOptions, PagingOptions, SortingField, SortingOptions } from '@demo/shared/data-access';
 import { TableComponent } from '../table/table.component';
 
 @Directive()
@@ -17,6 +9,7 @@ export abstract class AbstractTableComponent<T> {
   @Input() totalCount: number;
   @Input() sortingOptions: SortingOptions;
   @Input() filteringOptions: FilteringOptions;
+  @Input() pagingOptions: PagingOptions;
 
   @Input() set gridData(gridData: T[]) {
     this._gridData = gridData;
@@ -36,20 +29,12 @@ export abstract class AbstractTableComponent<T> {
   }
   private _selectedItems: T[] = [];
 
-  @Input() set pagingOptions(pagingOptions: PagingOptions) {
-    this.pageNumber = pagingOptions.page;
-    this.pageSize = pagingOptions.pageSize;
-  }
-
   @Output() sortingChanged = new EventEmitter<SortingField>();
   @Output() filteringChanged = new EventEmitter<FilteringOptions>();
   @Output() refreshPageSelected = new EventEmitter<void>();
-  @Output() pageOptionsChanged = new EventEmitter<PageEvent>();
+  @Output() pageOptionsChanged = new EventEmitter<PagingOptions>();
   @Output() rowSelected = new EventEmitter<T[]>();
   @Output() deleteSelected = new EventEmitter<void>();
-
-  pageNumber = DEFAULT_PAGE;
-  pageSize = DEFAULT_PAGE_SIZE;
 
   onSortingChanged(sortingField: SortingField): void {
     this.sortingChanged.emit(sortingField);
@@ -63,8 +48,8 @@ export abstract class AbstractTableComponent<T> {
     this.refreshPageSelected.emit();
   }
 
-  onPageEvent(pageEvent: PageEvent): void {
-    this.pageOptionsChanged.emit(pageEvent);
+  onPageOptionsChanged(pagingOptions: PagingOptions): void {
+    this.pageOptionsChanged.emit(pagingOptions);
   }
 
   onDelete(): void {

@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { FilteringOptions, PagingOptions, SortingField, SortingOptions } from '@demo/shared/data-access';
 import { select, Store } from '@ngrx/store';
@@ -20,7 +19,6 @@ export class UsersComponent {
   pagingOptions$: Observable<PagingOptions> = this.store.pipe(select(listSelectors.getPagingOptions), first());
   sortingOptions$: Observable<SortingOptions> = this.store.pipe(select(listSelectors.getSortingOptions), first());
   filteringOptions$: Observable<FilteringOptions> = this.store.pipe(select(listSelectors.getFilteringOptions), first());
-
   selectedItems$: Observable<UserDto[]> = this.store.pipe(select(listSelectors.getSelected));
 
   constructor(private readonly router: Router, private readonly store: Store) {}
@@ -33,15 +31,8 @@ export class UsersComponent {
     this.store.dispatch(listActions.changeSorting({ sortingField }));
   }
 
-  onPageOptionsChanged(pageEvent: PageEvent): void {
-    this.store.dispatch(
-      listActions.changePagingOptions({
-        pagingOptions: {
-          page: pageEvent.pageIndex + 1,
-          pageSize: pageEvent.pageSize
-        }
-      })
-    );
+  onPageOptionsChanged(pagingOptions: PagingOptions): void {
+    this.store.dispatch(listActions.changePagingOptions({ pagingOptions }));
   }
 
   onRefreshPageSelected(): void {
@@ -52,11 +43,11 @@ export class UsersComponent {
     this.store.dispatch(listActions.changeSelected({ selectedResourceIds: users.map(user => user.id) }));
   }
 
-  onNameCellSelected(resourceId: string): void {
+  onCellSelected(resourceId: string): void {
     this.router.navigate([USERS_RESOURCE_BASE_PATH, resourceId]);
   }
 
-  onDeleteSelected() {
+  onDelete(): void {
     this.store.dispatch(listActions.showRemovalsConfirmation());
   }
 }

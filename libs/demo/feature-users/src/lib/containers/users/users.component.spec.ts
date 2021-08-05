@@ -161,7 +161,7 @@ describe('UsersComponent', () => {
   it('emits navigate action when clicking a cell', () => {
     const resourceId = createResourceId(2, USERS_RESOURCE_BASE_PATH, 2);
 
-    component.onNameCellSelected(resourceId);
+    component.onCellSelected(resourceId);
 
     expect(store.dispatch).toHaveBeenCalledWith(navigateToAction({ path: getResourceRoutePath(resourceId) }));
   });

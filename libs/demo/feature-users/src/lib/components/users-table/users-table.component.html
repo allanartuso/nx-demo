@@ -4,13 +4,12 @@
   [sortingOptions]="sortingOptions"
   [columns]="columns"
   [totalCount]="totalCount"
-  [pageNumber]="pageNumber"
-  [pageSize]="pageSize"
+  [pagingOptions]="pagingOptions"
   [allowRowSelection]="true"
   (sortingChanged)="onSortingChanged($event)"
   (deleteSelected)="onDelete()"
   (rowSelected)="onRowSelected($event)"
   (cellSelected)="onCellSelected($event)"
-  (pageOptionsChanged)="onPageEvent($event)"
+  (pageOptionsChanged)="onPageOptionsChanged($event)"
 >
 </demo-table>

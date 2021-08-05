@@ -10,6 +10,20 @@ export const BODY_ITEMS: MenuItem[] = [
     name: 'Users',
     icon: 'person',
     display: true,
-    link: '/users'
+    link: '/users',
+    children: [
+      {
+        name: 'Users',
+        icon: 'contact_mail',
+        display: true,
+        link: '/users'
+      },
+      {
+        name: 'Create User',
+        icon: 'contact_mail',
+        display: true,
+        link: '/users/create'
+      }
+    ]
   }
 ];

@@ -1,3 +1,4 @@
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import {
@@ -9,6 +10,7 @@ import {
   PagingOptions,
   SortingOptions
 } from '@demo/shared/data-access';
+import { ConfirmationDialogComponent } from '@demo/shared/ui-notification';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { ActionCreator, createAction, select, Store } from '@ngrx/store';
 import { TypedAction } from '@ngrx/store/src/models';
@@ -18,6 +20,12 @@ import { handleFailureEffect } from '../../utils/effects-handle-failure';
 import { ListActions, ListSelectors } from '../models/list.model';
 
 export abstract class AbstractListEffects<T, S = T> {
+  texts = {
+    deleteConfirmationTitle: 'Delete resources',
+    deleteConfirmationMessage: 'Are you sure to delete the selected resources?',
+    deletedMessage: 'The resources were deleted successfully.'
+  };
+
   initialize$ = createEffect(() =>
     this.actions$.pipe(
       ofType(this.listActions.initialize, this.listActions.reinitialize),
@@ -143,6 +151,21 @@ export abstract class AbstractListEffects<T, S = T> {
     )
   );
 
+  showRemovalsDialog$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(this.listActions.showRemovalsConfirmation),
+      switchMap(() => {
+        const dialog = this.dialog.open(ConfirmationDialogComponent, {
+          data: { message: this.texts.deleteConfirmationMessage, title: this.texts.deleteConfirmationTitle }
+        });
+        return dialog.afterClosed();
+      }),
+      filter(confirmed => confirmed),
+      withLatestFrom(this.store.pipe(select(this.listSelectors.getSelectedResourceIds))),
+      map(([, resourceIds]) => this.listActions.delete({ resourceIds }))
+    )
+  );
+
   delete$ = createEffect(() =>
     this.actions$.pipe(
       ofType(this.listActions.delete),
@@ -160,7 +183,7 @@ export abstract class AbstractListEffects<T, S = T> {
       this.actions$.pipe(
         ofType(this.listActions.deleteSuccess),
         tap(({ resourceIds }) => {
-          this.snackBar.open('The resources were deleted successfully');
+          this.snackBar.open(this.texts.deletedMessage, 'Ok');
         })
       ),
     { dispatch: false }
@@ -233,7 +256,8 @@ export abstract class AbstractListEffects<T, S = T> {
     protected readonly snackBar: MatSnackBar,
     private readonly service: ListService<T, S>,
     private readonly listActions: ListActions<T, S>,
-    private readonly listSelectors: ListSelectors<S>
+    private readonly listSelectors: ListSelectors<S>,
+    private readonly dialog: MatDialog
   ) {}
 
   protected addGeneralErrorsArguments$(

@@ -1,4 +1,4 @@
-export interface TableColumns {
+export interface TableColumn {
   key: string;
   name: string;
 }

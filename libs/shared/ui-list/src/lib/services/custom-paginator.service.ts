@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 
 @Injectable()
-export class MatPaginatorIntlCro extends MatPaginatorIntl {
+export class DemoMatPaginatorIntl extends MatPaginatorIntl {
   getRangeLabel: (page: number, pageSize: number, length: number) => string = (
     page: number,
     pageSize: number,

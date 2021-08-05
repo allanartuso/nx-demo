@@ -86,6 +86,8 @@ export function createListActions<T, S = T>(featureName: string): ListActions<T,
     props<{ resourceId: string }>()
   );
 
+  const showRemovalsConfirmation = createAction(`[${featureName} Page] Show ${featureName} Removal Confirmation`);
+
   return {
     initializeRequestOptions,
     changePageSize,
@@ -113,6 +115,7 @@ export function createListActions<T, S = T>(featureName: string): ListActions<T,
     resetRequestState,
     copySelected,
     navigateToSelected,
-    changePagingOptions
+    changePagingOptions,
+    showRemovalsConfirmation
   };
 }

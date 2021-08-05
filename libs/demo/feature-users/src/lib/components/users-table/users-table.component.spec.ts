@@ -29,14 +29,14 @@ describe('UsersListComponent', () => {
 
   describe('cell selection', () => {
     it('emits userSelected event when selecting a cell from the name column', () => {
-      spyOn(component.nameCellSelected, 'emit');
+      spyOn(component.cellSelected, 'emit');
       const user = userDtoFixture.createPersistentUser();
       const field = 'name';
       const mockGridCell = { cell: { rowData: user, column: { field } } } as IGridCellEventArgs;
 
       component.onCellSelected(mockGridCell);
 
-      expect(component.nameCellSelected.emit).toHaveBeenCalledWith(user.resourceId);
+      expect(component.cellSelected.emit).toHaveBeenCalledWith(user.resourceId);
     });
   });
 });

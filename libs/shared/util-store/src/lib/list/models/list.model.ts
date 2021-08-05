@@ -108,4 +108,5 @@ export interface ListActions<T, S = T> {
     string,
     (props: { resourceId: string }) => { resourceId: string } & TypedAction<string>
   >;
+  showRemovalsConfirmation: ActionCreator<string, () => TypedAction<string>>;
 }
