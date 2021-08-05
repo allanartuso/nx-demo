@@ -5,19 +5,15 @@ import { Sort, SortDirection } from '@angular/material/sort';
 import { FilteringOptions, SortingField, SortingOptions, SortingOrder } from '@demo/shared/data-access';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-
-export interface ListColumns {
-  key: string;
-  name: string;
-}
+import { TableColumns } from '../../models/table.model';
 
 @Component({
-  selector: 'demo-list',
-  templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss']
+  selector: 'demo-table',
+  templateUrl: './table.component.html',
+  styleUrls: ['./table.component.scss']
 })
-export class ListComponent<T> implements OnInit, OnDestroy {
-  @Input() columns: ListColumns[] = [];
+export class TableComponent<T> implements OnInit, OnDestroy {
+  @Input() columns: TableColumns[] = [];
   @Input() totalCount = 0;
   @Input() pageNumber = 1;
   @Input() pageSize = 10;

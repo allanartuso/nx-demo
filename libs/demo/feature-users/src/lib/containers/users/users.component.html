@@ -1,4 +1,4 @@
-<demo-users-list
+<demo-users-table
   [gridData]="users$ | async"
   [totalCount]="totalCount$ | async"
   [sortingOptions]="sortingOptions$ | async"
@@ -12,4 +12,4 @@
   (nameCellSelected)="onNameCellSelected($event)"
   (rowSelected)="onRowSelected($event)"
   (deleteSelected)="onDeleteSelected()"
-></demo-users-list>
+></demo-users-table>

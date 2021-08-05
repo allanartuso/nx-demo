@@ -1,13 +1,13 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { AbstractListComponent } from '@demo/shared/ui-list';
+import { AbstractTableComponent } from '@demo/shared/ui-list';
 import { UserDto } from '../../models/user.dto';
 
 @Component({
-  selector: 'demo-users-list',
-  templateUrl: './users-list.component.html',
-  styleUrls: ['./users-list.component.scss']
+  selector: 'demo-users-table',
+  templateUrl: './users-table.component.html',
+  styleUrls: ['./users-table.component.scss']
 })
-export class UsersListComponent extends AbstractListComponent<UserDto> {
+export class UsersTableComponent extends AbstractTableComponent<UserDto> {
   @Output() nameCellSelected = new EventEmitter<string>();
 
   columns = [

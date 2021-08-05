@@ -3,24 +3,24 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { userDtoFixture } from '@demo/shared/acm/data-access/users/test';
 import { MockIgxGridComponent } from '@demo/shared/acm/ui/common/vendors/igniteui/test';
 import { IGridCellEventArgs } from 'igniteui-angular';
-import { UsersListComponent } from './users-list.component';
+import { UsersTableComponent } from './users-table.component';
 
 describe('UsersListComponent', () => {
-  let component: UsersListComponent;
-  let fixture: ComponentFixture<UsersListComponent>;
+  let component: UsersTableComponent;
+  let fixture: ComponentFixture<UsersTableComponent>;
   const users = userDtoFixture.createPersistentUsers();
 
   beforeEach(
     waitForAsync(() => {
       TestBed.configureTestingModule({
-        declarations: [UsersListComponent, MockIgxGridComponent],
+        declarations: [UsersTableComponent, MockIgxGridComponent],
         schemas: [NO_ERRORS_SCHEMA]
       }).compileComponents();
     })
   );
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(UsersListComponent);
+    fixture = TestBed.createComponent(UsersTableComponent);
     component = fixture.componentInstance;
     component.gridData = users;
     component.translate = jest.fn();

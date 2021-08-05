@@ -8,11 +8,11 @@ import {
   SortingField,
   SortingOptions
 } from '@demo/shared/data-access';
-import { ListComponent } from '../list/list.component';
+import { TableComponent } from '../table/table.component';
 
 @Directive()
-export abstract class AbstractListComponent<T> {
-  @ViewChild('table') table: ListComponent<T>;
+export abstract class AbstractTableComponent<T> {
+  @ViewChild('table') table: TableComponent<T>;
 
   @Input() totalCount: number;
   @Input() sortingOptions: SortingOptions;

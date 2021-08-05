@@ -14,7 +14,7 @@ import { userReducer, USER_FEATURE_KEY } from './+state/user/user.reducer';
 import { UsersEffects } from './+state/users/users.effects';
 import { usersReducer, USERS_FEATURE_KEY } from './+state/users/users.reducer';
 import { UserFormComponent } from './components/user-form/user-form.component';
-import { UsersListComponent } from './components/users-list/users-list.component';
+import { UsersTableComponent } from './components/users-table/users-table.component';
 import { UserComponent } from './containers/user/user.component';
 import { UsersComponent } from './containers/users/users.component';
 import { MatPaginatorIntlCro } from './services/custom-paginator.service';
@@ -54,11 +54,10 @@ export const usersRoutes: Routes = [
     RouterModule.forChild(usersRoutes),
     SharedUiFormModule,
     SharedUiListModule,
-
     MatDialogModule,
     SharedUiNotificationModule
   ],
-  declarations: [UserComponent, UserFormComponent, UsersComponent, UsersListComponent],
+  declarations: [UserComponent, UserFormComponent, UsersComponent, UsersTableComponent],
   providers: [{ provide: MatPaginatorIntl, useClass: MatPaginatorIntlCro }]
 })
 export class DemoFeatureUsersModule {}

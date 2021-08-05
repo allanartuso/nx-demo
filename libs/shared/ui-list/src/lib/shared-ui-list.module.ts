@@ -6,7 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
-import { ListComponent } from './components/list/list.component';
+import { TableComponent } from './components/table/table.component';
 
 @NgModule({
   imports: [
@@ -18,7 +18,7 @@ import { ListComponent } from './components/list/list.component';
     MatIconModule,
     MatButtonModule
   ],
-  declarations: [ListComponent],
-  exports: [ListComponent]
+  declarations: [TableComponent],
+  exports: [TableComponent]
 })
 export class SharedUiListModule {}
