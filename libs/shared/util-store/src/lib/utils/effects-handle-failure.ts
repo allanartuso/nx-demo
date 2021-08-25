@@ -1,17 +1,18 @@
+import { ErrorDto } from '@demo/shared/data-access';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Action, ActionCreator } from '@ngrx/store';
 import { filter, tap } from 'rxjs/operators';
 
-export function handleFailureEffect<T extends { generalErrors: string[] }>(
+export function handleFailureEffect(
   actions$: Actions<Action>,
-  ...actions: ActionCreator<string, (props: { error: T }) => { error: T }>[]
+  ...actions: ActionCreator<string, (props: { error: ErrorDto }) => { error: ErrorDto }>[]
 ) {
   return createEffect(
     () =>
       actions$.pipe(
         ofType(...actions),
-        filter(({ error }: { error: { generalErrors: string[] } }) => !!error.generalErrors?.length),
-        tap(({ error }: { error: { generalErrors: string[] } }) => {
+        filter(({ error }: { error: ErrorDto }) => !!error.message),
+        tap(({ error }: { error: ErrorDto }) => {
           console.log(error);
         })
 

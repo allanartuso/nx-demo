@@ -2,10 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ConfigurationService } from '@demo/shared/util-configuration';
 import { Observable } from 'rxjs';
-import { FilteringField, FilteringOptions, SortingDirection, SortingField, SortingOptions } from '..';
 import { AbstractRestService } from './abstract-rest.service';
+import { FilteringField, FilteringOptions } from './models/filtering-options.model';
 import { PagingOptions } from './models/paging-options.model';
 import { RequestOptions } from './models/request-options.model';
+import { SortingDirection, SortingField, SortingOptions } from './models/sorting-options.model';
 
 // TODO: move to demo/data-access
 

@@ -23,7 +23,7 @@ function createInitialFormState<T>(): FormState<T> {
     resource: undefined,
     loadingState: RequestState.IDLE,
     requestState: RequestState.IDLE,
-    errors: {}
+    error: undefined
   };
 }
 

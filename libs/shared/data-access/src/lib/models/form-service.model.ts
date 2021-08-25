@@ -20,8 +20,3 @@ export interface FieldError {
 export interface FieldErrors {
   [key: string]: FieldError[] | FieldErrors;
 }
-
-export interface FormErrors {
-  fieldErrors: FieldErrors;
-  generalErrors: string[];
-}

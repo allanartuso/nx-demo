@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { ListErrors } from '@demo/shared/data-access';
+import { ErrorDto } from '@demo/shared/data-access';
 import { AbstractListEffects } from '@demo/shared/util-store';
 import { Actions } from '@ngrx/effects';
 import { ActionCreator, Store } from '@ngrx/store';
@@ -33,8 +33,8 @@ export class UsersEffects extends AbstractListEffects<UserDto> {
   }
 
   addGeneralErrorsArguments$(
-    errors: ListErrors,
-    failureAction: ActionCreator<string, ({ error }: { error: ListErrors }) => TypedAction<string>>
+    errors: ErrorDto,
+    failureAction: ActionCreator<string, ({ error }: { error: ErrorDto }) => TypedAction<string>>
   ): Observable<TypedAction<string>> {
     return of(failureAction({ error: errors }));
   }

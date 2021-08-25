@@ -66,9 +66,7 @@ export function createListSelectors<T>(
 
   const getRequestState = createSelector(getListState, state => state.requestState);
 
-  const getErrors = createSelector(getListState, state => state.errors);
-
-  const getBulkOperationSuccess = createSelector(getListState, state => state.bulkOperationSuccesses);
+  const getErrors = createSelector(getListState, state => state.error);
 
   const isReady = createSelector(
     getAll,
@@ -120,7 +118,6 @@ export function createListSelectors<T>(
     getSelectionRecord,
     getRequestState,
     getErrors,
-    getBulkOperationSuccess,
     areSelectedReady,
     isReady,
     isDeleteDisabled,

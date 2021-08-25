@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import {
-  BulkOperationSuccess,
+  ErrorDto,
   FilteringOptions,
-  ListErrors,
   PagingOptions,
   RequestOptions,
   RequestState,
@@ -10,7 +9,7 @@ import {
   SortingOptions
 } from '@demo/shared/data-access';
 import { EntityState } from '@ngrx/entity';
-import { ActionCreator, MemoizedSelector, MemoizedSelectorWithProps } from '@ngrx/store';
+import { ActionCreator, MemoizedSelector } from '@ngrx/store';
 import { TypedAction } from '@ngrx/store/src/models';
 import { ApiRequestState, LoadingState } from '../../utils/action-handlers';
 
@@ -34,9 +33,8 @@ export interface ListSelectors<T> {
   getSelected: MemoizedSelector<object, T[]>;
   getSelectionRecord: MemoizedSelector<object, Record<string, T>>;
   getRequestState: MemoizedSelector<object, RequestState>;
-  getErrors: MemoizedSelector<object, ListErrors>;
-  getBulkOperationSuccess: MemoizedSelector<object, BulkOperationSuccess[]>;
-  areSelectedReady: MemoizedSelectorWithProps<object, { selectedResourceIds: string[] }, boolean>;
+  getErrors: MemoizedSelector<object, ErrorDto>;
+  areSelectedReady: MemoizedSelector<object, boolean>;
   isReady: MemoizedSelector<object, boolean>;
   isDeleteDisabled: MemoizedSelector<object, boolean>;
   isCopyDisabled: MemoizedSelector<object, boolean>;
@@ -68,10 +66,7 @@ export interface ListActions<T, S = T> {
     (props: { selectedResourceIds: string[] }) => { selectedResourceIds: string[] } & TypedAction<string>
   >;
   loadSelectedSuccess: ActionCreator<string, (props: { resources: S[] }) => { resources: S[] } & TypedAction<string>>;
-  loadSelectedFailure: ActionCreator<
-    string,
-    (props: { error: ListErrors }) => { error: ListErrors } & TypedAction<string>
-  >;
+  loadSelectedFailure: ActionCreator<string, (props: { error: ErrorDto }) => { error: ErrorDto } & TypedAction<string>>;
   loadPage: ActionCreator<string, (props: { pageNumber: number }) => { pageNumber: number } & TypedAction<string>>;
   loadPageSuccess: ActionCreator<
     string,
@@ -80,22 +75,22 @@ export interface ListActions<T, S = T> {
       pagingOptions: PagingOptions;
     }) => { resources: S[]; pagingOptions: PagingOptions } & TypedAction<string>
   >;
-  loadPageFailure: ActionCreator<string, (props: { error: ListErrors }) => { error: ListErrors } & TypedAction<string>>;
+  loadPageFailure: ActionCreator<string, (props: { error: ErrorDto }) => { error: ErrorDto } & TypedAction<string>>;
   delete: ActionCreator<string, (props: { resourceIds: string[] }) => { resourceIds: string[] } & TypedAction<string>>;
   deleteSuccess: ActionCreator<
     string,
     (props: { resourceIds: string[] }) => { resourceIds: string[] } & TypedAction<string>
   >;
-  deleteFailure: ActionCreator<string, (props: { error: ListErrors }) => { error: ListErrors } & TypedAction<string>>;
+  deleteFailure: ActionCreator<string, (props: { error: ErrorDto }) => { error: ErrorDto } & TypedAction<string>>;
   patch: ActionCreator<
     string,
     (props: { resourceIds: string[]; resource: T }) => { resourceIds: string[]; resource: T } & TypedAction<string>
   >;
   patchSuccess: ActionCreator<
     string,
-    (props: { resources: (T | ListErrors)[] }) => { resources: (T | ListErrors)[] } & TypedAction<string>
+    (props: { resources: (T | ErrorDto)[] }) => { resources: (T | ErrorDto)[] } & TypedAction<string>
   >;
-  patchFailure: ActionCreator<string, (props: { error: ListErrors }) => { error: ListErrors } & TypedAction<string>>;
+  patchFailure: ActionCreator<string, (props: { error: ErrorDto }) => { error: ErrorDto } & TypedAction<string>>;
   loadNextPage: ActionCreator<string, () => TypedAction<string>>;
   refresh: ActionCreator<string, () => TypedAction<string>>;
   initialize: ActionCreator<string, () => TypedAction<string>>;

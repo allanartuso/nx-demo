@@ -4,8 +4,8 @@ import { Router } from '@angular/router';
 import {
   createFilteringByResourceIds,
   DEFAULT_PAGE_SIZE,
+  ErrorDto,
   FilteringOptions,
-  ListErrors,
   ListService,
   PagingOptions,
   SortingOptions
@@ -132,7 +132,7 @@ export abstract class AbstractListEffects<T, S = T> {
                   pagingOptions
                 })
               ),
-              catchError((error: ListErrors) => of(this.listActions.loadPageFailure({ error })))
+              catchError((error: ErrorDto) => of(this.listActions.loadPageFailure({ error })))
             );
         }
       )
@@ -145,7 +145,7 @@ export abstract class AbstractListEffects<T, S = T> {
       exhaustMap(action =>
         this.service.patchResources(action.resourceIds, action.resource).pipe(
           switchMap(resources => [this.listActions.patchSuccess({ resources }), this.listActions.refresh()]),
-          catchError((error: ListErrors) => this.addGeneralErrorsArguments$(error, this.listActions.patchFailure))
+          catchError((error: ErrorDto) => this.addGeneralErrorsArguments$(error, this.listActions.patchFailure))
         )
       )
     )
@@ -172,7 +172,7 @@ export abstract class AbstractListEffects<T, S = T> {
       exhaustMap(({ resourceIds }) =>
         this.service.deleteResources(resourceIds).pipe(
           switchMap(() => [this.listActions.deleteSuccess({ resourceIds }), this.listActions.refresh()]),
-          catchError((error: ListErrors) => this.addGeneralErrorsArguments$(error, this.listActions.deleteFailure))
+          catchError((error: ErrorDto) => this.addGeneralErrorsArguments$(error, this.listActions.deleteFailure))
         )
       )
     )
@@ -212,7 +212,7 @@ export abstract class AbstractListEffects<T, S = T> {
           })
           .pipe(
             map(resources => this.listActions.loadSelectedSuccess({ resources })),
-            catchError((error: ListErrors) => of(this.listActions.loadSelectedFailure({ error })))
+            catchError((error: ErrorDto) => of(this.listActions.loadSelectedFailure({ error })))
           );
       })
     )
@@ -261,8 +261,8 @@ export abstract class AbstractListEffects<T, S = T> {
   ) {}
 
   protected addGeneralErrorsArguments$(
-    errors: ListErrors,
-    failureAction: ActionCreator<string, ({ error }: { error: ListErrors }) => TypedAction<string>>
+    errors: ErrorDto,
+    failureAction: ActionCreator<string, ({ error }: { error: ErrorDto }) => TypedAction<string>>
   ): Observable<TypedAction<string>> {
     return of(failureAction({ error: errors }));
   }

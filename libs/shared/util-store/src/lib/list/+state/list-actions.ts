@@ -1,4 +1,4 @@
-import { FilteringOptions, ListErrors, PagingOptions, SortingField } from '@demo/shared/data-access';
+import { ErrorDto, FilteringOptions, PagingOptions, SortingField } from '@demo/shared/data-access';
 import { createAction, props } from '@ngrx/store';
 import { ListActions } from '../models/list.model';
 
@@ -44,7 +44,7 @@ export function createListActions<T, S = T>(featureName: string): ListActions<T,
   );
   const loadSelectedFailure = createAction(
     `[${featureName} Page] Load Selected ${featureName} Failure`,
-    props<{ error: ListErrors }>()
+    props<{ error: ErrorDto }>()
   );
 
   const loadPage = createAction(`[${featureName} Page] Load ${featureName} Page`, props<{ pageNumber: number }>());
@@ -54,7 +54,7 @@ export function createListActions<T, S = T>(featureName: string): ListActions<T,
   );
   const loadPageFailure = createAction(
     `[${featureName} Page] Load ${featureName} Page Failure`,
-    props<{ error: ListErrors }>()
+    props<{ error: ErrorDto }>()
   );
 
   const deleteAction = createAction(`[${featureName} Page] Delete ${featureName}`, props<{ resourceIds: string[] }>());
@@ -64,7 +64,7 @@ export function createListActions<T, S = T>(featureName: string): ListActions<T,
   );
   const deleteFailure = createAction(
     `[${featureName} Page] Delete ${featureName} Failure`,
-    props<{ error: ListErrors }>()
+    props<{ error: ErrorDto }>()
   );
 
   const patch = createAction(
@@ -73,12 +73,9 @@ export function createListActions<T, S = T>(featureName: string): ListActions<T,
   );
   const patchSuccess = createAction(
     `[${featureName} Page] Patch ${featureName} Success`,
-    props<{ resources: (T | ListErrors)[] }>()
+    props<{ resources: (T | ErrorDto)[] }>()
   );
-  const patchFailure = createAction(
-    `[${featureName} Page] Patch ${featureName} Failure`,
-    props<{ error: ListErrors }>()
-  );
+  const patchFailure = createAction(`[${featureName} Page] Patch ${featureName} Failure`, props<{ error: ErrorDto }>());
   const resetRequestState = createAction(`[${featureName} Page] Reset ${featureName} Request State`);
   const copySelected = createAction(`[${featureName} Page] Copy Selected ${featureName}`);
   const navigateToSelected = createAction(

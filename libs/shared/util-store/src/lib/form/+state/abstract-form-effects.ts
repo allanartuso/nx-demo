@@ -1,6 +1,6 @@
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { FormErrors, FormService } from '@demo/shared/data-access';
+import { ErrorDto, FormService } from '@demo/shared/data-access';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
@@ -15,7 +15,7 @@ export abstract class AbstractFormEffects<T> {
       switchMap(({ id }) =>
         this.service.loadResource(id).pipe(
           map(resource => this.formActions.loadSuccess({ resource })),
-          catchError((error: FormErrors) => of(this.formActions.loadFailure({ error })))
+          catchError((error: ErrorDto) => of(this.formActions.loadFailure({ error })))
         )
       )
     )
@@ -27,7 +27,7 @@ export abstract class AbstractFormEffects<T> {
       switchMap(action =>
         this.service.createResource(action.resource).pipe(
           map(resource => this.formActions.createSuccess({ resource })),
-          catchError((error: FormErrors) => of(this.formActions.createFailure({ error })))
+          catchError((error: ErrorDto) => of(this.formActions.createFailure({ error })))
         )
       )
     )
@@ -39,7 +39,7 @@ export abstract class AbstractFormEffects<T> {
       switchMap(({ resource }) =>
         this.service.saveResource(resource).pipe(
           map(response => this.formActions.saveSuccess({ resource: response })),
-          catchError((error: FormErrors) => of(this.formActions.saveFailure({ error })))
+          catchError((error: ErrorDto) => of(this.formActions.saveFailure({ error })))
         )
       )
     )
@@ -51,7 +51,7 @@ export abstract class AbstractFormEffects<T> {
       exhaustMap(action =>
         this.service.deleteResource(action.id).pipe(
           map(() => this.formActions.deleteSuccess({ id: action.id })),
-          catchError((error: FormErrors) => of(this.formActions.deleteFailure({ error })))
+          catchError((error: ErrorDto) => of(this.formActions.deleteFailure({ error })))
         )
       )
     )

@@ -1,9 +1,6 @@
 import { Observable } from 'rxjs';
+import { ErrorDto } from './error.dto';
 import { RequestOptions } from './request-options.model';
-
-export interface ListErrors {
-  generalErrors: string[];
-}
 
 export interface BulkOperationSuccess {
   index: number;
@@ -13,7 +10,7 @@ export interface BulkOperationSuccess {
 export interface ListService<T, S = T> {
   queryResources(options: RequestOptions): Observable<S[]>;
 
-  deleteResources(resourceIds: string[]): Observable<Array<T | ListErrors>>;
+  deleteResources(resourceIds: string[]): Observable<Array<T | ErrorDto>>;
 
-  patchResources?(resourceIds: string[], resource: Partial<T>): Observable<Array<T | ListErrors>>;
+  patchResources?(resourceIds: string[], resource: Partial<T>): Observable<Array<T | ErrorDto>>;
 }

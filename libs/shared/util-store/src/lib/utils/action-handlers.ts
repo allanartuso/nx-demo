@@ -1,10 +1,9 @@
-import { BulkOperationSuccess, PagingOptions, RequestState } from '@demo/shared/data-access';
+import { ErrorDto, PagingOptions, RequestState } from '@demo/shared/data-access';
 import { ActionCreator, createAction, on, ReducerTypes } from '@ngrx/store';
 
 export interface ApiRequestState {
   requestState: RequestState;
-  errors: any;
-  bulkOperationSuccesses?: BulkOperationSuccess[];
+  error: ErrorDto;
 }
 
 export interface LoadingState {
@@ -15,26 +14,24 @@ export function createRequestStateActionHandlers<T extends ApiRequestState>(
   loadAction: ActionCreator,
   saveAction: ActionCreator,
   saveSuccessAction: ActionCreator,
-  saveFailureAction: ActionCreator<string, (props: { error: any }) => { error: any }>
+  saveFailureAction: ActionCreator<string, (props: { error: ErrorDto }) => { error: ErrorDto }>
 ): ReducerTypes<T, ActionCreator[]>[] {
   if (!loadAction) {
     loadAction = createAction('DummyRequestStateLoadAction');
   }
 
   return [
-    on(loadAction, (state): any => ({ ...state, requestState: RequestState.IDLE })),
-    on(saveAction, (state): any => ({
+    on(loadAction, state => ({ ...state, requestState: RequestState.IDLE })),
+    on(saveAction, state => ({
       ...state,
       requestState: RequestState.IN_PROGRESS,
-      errors: {},
-      bulkOperationSuccesses: undefined
+      error: {}
     })),
-    on(saveSuccessAction, (state): any => ({ ...state, requestState: RequestState.SUCCESS })),
-    on(saveFailureAction, (state, { error }): any => ({
+    on(saveSuccessAction, state => ({ ...state, requestState: RequestState.SUCCESS })),
+    on(saveFailureAction, (state, { error }) => ({
       ...state,
       requestState: RequestState.FAILURE,
-      errors: error?.fieldErrors,
-      bulkOperationSuccesses: error?.successes
+      error: error?.fieldErrors
     }))
   ];
 }
@@ -45,9 +42,9 @@ export function createLoadingStateActionHandlers<T extends LoadingState>(
   loadFailureAction: ActionCreator
 ): ReducerTypes<T, ActionCreator[]>[] {
   return [
-    on(loadAction, (state): any => ({ ...state, loadingState: RequestState.IN_PROGRESS })),
-    on(loadSuccessAction, (state): any => ({ ...state, loadingState: RequestState.SUCCESS })),
-    on(loadFailureAction, (state): any => ({ ...state, loadingState: RequestState.FAILURE }))
+    on(loadAction, state => ({ ...state, loadingState: RequestState.IN_PROGRESS })),
+    on(loadSuccessAction, state => ({ ...state, loadingState: RequestState.SUCCESS })),
+    on(loadFailureAction, state => ({ ...state, loadingState: RequestState.FAILURE }))
   ];
 }
 

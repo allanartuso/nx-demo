@@ -8,7 +8,7 @@ export function createFormSelectors<T>(
 ): FormSelectors<T> {
   const getRequestState = createSelector(getFormState, state => state.requestState);
   const getLoadingState = createSelector(getFormState, state => state.loadingState);
-  const getFieldErrors = createSelector(getFormState, state => state.errors);
+  const getFieldErrors = createSelector(getFormState, state => state.error?.fieldErrors);
   const getResource = createSelector(getFormState, state => state.resource);
 
   const isReady = createSelector(

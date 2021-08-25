@@ -42,7 +42,7 @@ function createInitialListState<T>(entityAdapter: EntityAdapter<T>): ListState<T
     selectedResourceIds: [],
     loadingState: RequestState.IDLE,
     requestState: RequestState.IDLE,
-    errors: {}
+    error: undefined
   });
 }
 
