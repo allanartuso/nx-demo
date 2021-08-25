@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormService, ListErrors, ListService, RequestOptions, RestService } from '@demo/shared/data-access';
+import { ErrorDto, FormService, ListService, RequestOptions, RestService } from '@demo/shared/data-access';
 import { Observable } from 'rxjs';
 import { UserDto, USERS_RESOURCE_BASE_PATH } from '../models/user.dto';
 
@@ -25,13 +25,13 @@ export class UserService implements FormService<UserDto>, ListService<UserDto> {
     return this.restService.queryResources(USERS_RESOURCE_BASE_PATH, options);
   }
 
-  deleteResources(ids: string[]): Observable<Array<ListErrors>> {
+  deleteResources(ids: string[]): Observable<Array<ErrorDto>> {
     console.log('service delete');
 
     return this.restService.deleteResources(USERS_RESOURCE_BASE_PATH, ids);
   }
 
-  patchResources?(ids: string[], resource: Partial<UserDto>): Observable<Array<UserDto | ListErrors>> {
+  patchResources?(ids: string[], resource: Partial<UserDto>): Observable<Array<UserDto | ErrorDto>> {
     return this.restService.patchResources(
       USERS_RESOURCE_BASE_PATH,
       ids.map(id => ({ id, resource }))

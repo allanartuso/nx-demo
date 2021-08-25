@@ -1,15 +1,8 @@
-jest.mock('@demo/shared/acm/data-access/common', () => ({
-  ...jest.requireActual('@demo/shared/acm/data-access/common'),
+jest.mock('../../utils/action-handlers', () => ({
   createLoadingStateActionHandlers: jest.fn().mockReturnValue([]),
   createRequestStateActionHandlers: jest.fn().mockReturnValue([])
 }));
 
-import { createListEntityAdapter, createListReducer } from '@demo/acm/feature/common/list';
-import {
-  createLoadingStateActionHandlers,
-  createRequestStateActionHandlers
-} from '@demo/shared/acm/data-access/common';
-import { resourceDtoFixture } from '@demo/shared/acm/data-access/common/test';
 import {
   DEFAULT_REQUEST_OPTIONS,
   FilteringField,
@@ -22,19 +15,15 @@ import {
 } from '@demo/shared/data-access';
 import { EntityAdapter } from '@ngrx/entity';
 import { ActionReducer } from '@ngrx/store';
-import {
-  createTestResourceDto,
-  createTestResourceDtos,
-  PatchTestResource,
-  TestResourceDto,
-  TestSummaryDto
-} from '../models/list.fixture';
+import { createTestResource, createTestResources, TestResource } from '../../form/models/form.fixture';
+import { createLoadingStateActionHandlers, createRequestStateActionHandlers } from '../../utils/action-handlers';
 import { ListActions, ListState } from '../models/list.model';
 import { createListActions } from './list-actions';
+import { createListEntityAdapter, createListReducer } from './list-reducer';
 
 describe('createEntityAdapter', () => {
   it('initializes the id mapping correctly', () => {
-    const testResource = createTestResourceDto();
+    const testResource = createTestResource();
 
     const entityAdapter = createListEntityAdapter();
     const state = entityAdapter.addOne(testResource, {
@@ -43,17 +32,17 @@ describe('createEntityAdapter', () => {
     });
 
     expect(state).toStrictEqual({
-      ids: [testResource.resourceId],
-      entities: { [testResource.resourceId]: testResource }
+      ids: [testResource.id],
+      entities: { [testResource.id]: testResource }
     });
   });
 });
 
 describe('createListReducer', () => {
-  let testEntityAdapter: EntityAdapter<TestResourceDto>;
-  let testListActions: ListActions<TestResourceDto, PatchTestResource, TestSummaryDto>;
-  let testInitialState: ListState<TestResourceDto>;
-  let testReducer: ActionReducer<ListState<TestResourceDto>>;
+  let testEntityAdapter: EntityAdapter<TestResource>;
+  let testListActions: ListActions<TestResource>;
+  let testInitialState: ListState<TestResource>;
+  let testReducer: ActionReducer<ListState<TestResource>>;
 
   beforeEach(() => {
     (createLoadingStateActionHandlers as jest.Mock).mockClear();
@@ -67,12 +56,9 @@ describe('createListReducer', () => {
       selectedResourceIds: [],
       loadingState: RequestState.IDLE,
       requestState: RequestState.IDLE,
-      fieldErrors: {}
+      error: undefined
     });
-    testReducer = createListReducer<TestResourceDto, PatchTestResource, TestSummaryDto>(
-      testEntityAdapter,
-      testListActions
-    );
+    testReducer = createListReducer<TestResource>(testEntityAdapter, testListActions);
   });
 
   it('reinitialize the state to the initial state', () => {
@@ -84,7 +70,7 @@ describe('createListReducer', () => {
   });
 
   it('removes all the resources from the state', () => {
-    const testResources = createTestResourceDtos();
+    const testResources = createTestResources();
     const testState = testEntityAdapter.addMany(testResources, {
       ...testInitialState,
       pagingOptions: {
@@ -100,7 +86,7 @@ describe('createListReducer', () => {
   });
 
   it('refresh removes all the resources from the first page', () => {
-    const testResources = createTestResourceDtos();
+    const testResources = createTestResources();
     const testState = testEntityAdapter.addMany(testResources, { ...testInitialState });
     const expectedState = testInitialState;
 
@@ -110,15 +96,15 @@ describe('createListReducer', () => {
   });
 
   it('refresh removes all the resources from the second page', () => {
-    const testResources = createTestResourceDtos();
-    const testState: ListState<TestResourceDto> = testEntityAdapter.addMany(testResources, {
+    const testResources = createTestResources();
+    const testState: ListState<TestResource> = testEntityAdapter.addMany(testResources, {
       ...testInitialState,
       pagingOptions: {
         page: 2,
         pageSize: 2
       }
     });
-    const expectedState = testEntityAdapter.removeOne(testResources[2].resourceId, testState);
+    const expectedState = testEntityAdapter.removeOne(testResources[2].id, testState);
 
     const state = testReducer(testState, testListActions.refresh);
 
@@ -141,7 +127,7 @@ describe('createListReducer', () => {
   });
 
   it('sets the sorting options', () => {
-    const sortingField: SortingField = { name: 'name', order: SortingDirection.ASCENDING };
+    const sortingField: SortingField = { field: 'name', direction: SortingDirection.ASCENDING };
     const testAction = testListActions.changeSorting({ sortingField });
 
     const state = testReducer(undefined, testAction);
@@ -176,7 +162,7 @@ describe('createListReducer', () => {
   });
 
   it('sets a single selected resource id', () => {
-    const selectedResourceIds: string[] = [resourceDtoFixture.createResourceId(2, 'resourcePath', 3)];
+    const selectedResourceIds: string[] = ['testId'];
     const testAction = testListActions.changeSelected({ selectedResourceIds });
 
     const state = testReducer(undefined, testAction);
@@ -188,10 +174,7 @@ describe('createListReducer', () => {
   });
 
   it('sets multiple selected resource ids', () => {
-    const selectedResourceIds: string[] = [
-      resourceDtoFixture.createResourceId(2, 'resourcePath', 3),
-      resourceDtoFixture.createResourceId(2, 'resourcePath', 4)
-    ];
+    const selectedResourceIds: string[] = ['testId1', 'testId2'];
     const testAction = testListActions.changeSelected({ selectedResourceIds });
 
     const state = testReducer(undefined, testAction);
@@ -276,8 +259,8 @@ describe('createListReducer', () => {
 
   describe('loadPageSuccess', () => {
     it('sets the loaded resources and removes the first page found in the state when loading the next page', () => {
-      const currentResources = createTestResourceDtos(undefined, 6);
-      const loadedResources = createTestResourceDtos(undefined, 2);
+      const currentResources = createTestResources(6);
+      const loadedResources = createTestResources(2);
       const page = 4;
       const pageSize = 2;
       const testAction = testListActions.loadPageSuccess({
@@ -299,8 +282,8 @@ describe('createListReducer', () => {
     });
 
     it('sets the loaded resources and removes the last page found in the state when loading the previous page', () => {
-      const currentResources = createTestResourceDtos(undefined, 6);
-      const loadedResources = createTestResourceDtos(undefined, 2);
+      const currentResources = createTestResources(6);
+      const loadedResources = createTestResources(2);
       const page = 4;
       const pageSize = 2;
       const testAction = testListActions.loadPageSuccess({
@@ -326,7 +309,7 @@ describe('createListReducer', () => {
 
     it('sets the last page if the resources length is smaller than page size', () => {
       const lastPageNumber = 4;
-      const testResources = createTestResourceDtos();
+      const testResources = createTestResources();
       const testAction = testListActions.loadPageSuccess({
         resources: testResources,
         pagingOptions: {
@@ -357,7 +340,7 @@ describe('createListReducer', () => {
   });
 
   it('loadSelectedSuccess sets the loaded resources', () => {
-    const testResources = createTestResourceDtos();
+    const testResources = createTestResources();
     const testAction = testListActions.loadSelectedSuccess({ resources: testResources });
 
     const state = testReducer(testInitialState, testAction);

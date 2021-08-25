@@ -25,13 +25,13 @@ export function createRequestStateActionHandlers<T extends ApiRequestState>(
     on(saveAction, state => ({
       ...state,
       requestState: RequestState.IN_PROGRESS,
-      error: {}
+      error: undefined
     })),
     on(saveSuccessAction, state => ({ ...state, requestState: RequestState.SUCCESS })),
     on(saveFailureAction, (state, { error }) => ({
       ...state,
       requestState: RequestState.FAILURE,
-      error: error?.fieldErrors
+      error: error
     }))
   ];
 }

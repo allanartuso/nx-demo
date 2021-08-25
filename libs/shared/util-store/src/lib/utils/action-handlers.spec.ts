@@ -1,8 +1,5 @@
-import { RequestState } from '@demo/shared/data-access';
+import { ErrorDto, RequestState } from '@demo/shared/data-access';
 import { Action, createAction, createReducer, props } from '@ngrx/store';
-import { ErrorsDto } from '../models/errors.dto';
-import { ErrorsVm } from '../models/errors.model';
-import { GeneralErrorCode } from '../models/general-error-codes';
 import {
   ApiRequestState,
   createLoadingStateActionHandlers,
@@ -17,13 +14,13 @@ const loadFailureAction = createAction('[Action Handlers Test] Load Failure Acti
 
 const saveAction = createAction('[Action Handlers Test] Save Action');
 const saveSuccessAction = createAction('[Action Handlers Test] Save Success Action');
-const saveFailureAction = createAction('[Action Handlers Test] Save Failure Action', props<{ error: ErrorsVm }>());
+const saveFailureAction = createAction('[Action Handlers Test] Save Failure Action', props<{ error: ErrorDto }>());
 
 // tslint:disable-next-line: no-empty-interface
 interface TestState extends ApiRequestState, LoadingState {}
 
 const initialTestState: TestState = {
-  fieldErrors: {},
+  error: undefined,
   requestState: RequestState.IDLE,
   loadingState: RequestState.IDLE
 };
@@ -77,9 +74,7 @@ describe('actionHandlers testReducer', () => {
 
       expect(state).toStrictEqual({
         ...initialTestState,
-        requestState: RequestState.IN_PROGRESS,
-        fieldErrors: {},
-        bulkOperationSuccesses: undefined
+        requestState: RequestState.IN_PROGRESS
       });
     });
   });
@@ -94,21 +89,22 @@ describe('actionHandlers testReducer', () => {
   });
 
   describe(saveFailureAction.type, () => {
-    const errorsDto: ErrorsDto = {
-      generalErrors: [{ code: GeneralErrorCode.RESOURCE_NOT_FOUND, message: 'testError', arguments: [] }],
+    const errorDto: ErrorDto = {
+      statusCode: 400,
+      error: 'BAD_REQUEST',
+      message: 'test message',
       fieldErrors: []
     };
 
     it('sets request state to failure', () => {
       const action = saveFailureAction({
-        error: new ErrorsVm(errorsDto.generalErrors)
+        error: errorDto
       });
       const state: TestState = testReducer(initialTestState, action);
 
       expect(state).toStrictEqual({
         ...initialTestState,
-        fieldErrors: {},
-        bulkOperationSuccesses: [],
+        error: errorDto,
         requestState: RequestState.FAILURE
       });
     });

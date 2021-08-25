@@ -1,16 +1,15 @@
-import { ResourceDto } from '@demo/shared/acm/data-access/common';
-import { resourceDtoFixture } from '@demo/shared/acm/data-access/common/test';
 import { DEFAULT_REQUEST_OPTIONS, DEFAULT_STORED_PAGES, RequestState } from '@demo/shared/data-access';
 import { createFeatureSelector } from '@ngrx/store';
+import { createTestResources, TestResource } from '../../form/models/form.fixture';
 import { ListState } from '../models/list.model';
 import { createListEntityAdapter } from './list-reducer';
 import { createListSelectors } from './list-selectors';
 
 describe('list selectors', () => {
-  let state: ListState<ResourceDto>;
-  let resources: ResourceDto[];
+  let state: ListState<TestResource>;
+  let resources: TestResource[];
 
-  const testEntityAdapter = createListEntityAdapter<ResourceDto>();
+  const testEntityAdapter = createListEntityAdapter<TestResource>();
   const listSelectors = createListSelectors(testEntityAdapter, createFeatureSelector('testFeature'));
   const initialState = testEntityAdapter.getInitialState({
     ...DEFAULT_REQUEST_OPTIONS,
@@ -19,13 +18,13 @@ describe('list selectors', () => {
     selectedResourceIds: [],
     loadingState: RequestState.IDLE,
     requestState: RequestState.IDLE,
-    fieldErrors: {}
+    error: undefined
   });
 
   beforeEach(() => {
-    resources = resourceDtoFixture.createPersistentResourceDtos();
+    resources = createTestResources();
     state = testEntityAdapter.addMany(resources, { ...initialState });
-    state.selectedResourceIds = [resources[0].resourceId, resources[1].resourceId];
+    state.selectedResourceIds = [resources[0].id, resources[1].id];
   });
 
   it('getPagingOptions', () => {
@@ -66,21 +65,12 @@ describe('list selectors', () => {
     expect(listSelectors.getRequestState.projector(state)).toBe(state.requestState);
   });
 
-  it('getFieldErrors', () => {
-    expect(listSelectors.getFieldErrors.projector(state)).toBe(state.fieldErrors);
-  });
-
-  it('getBulkOperationSuccess', () => {
-    expect(listSelectors.getBulkOperationSuccess.projector(state)).toBe(state.bulkOperationSuccesses);
-  });
-
   describe('getCurrentPageData', () => {
     const defaultStoredPages = DEFAULT_STORED_PAGES;
-    let pageSize: number;
-    pageSize = 2;
+    const pageSize = 2;
 
     beforeEach(() => {
-      resources = resourceDtoFixture.createPersistentResourceDtos(defaultStoredPages * pageSize);
+      resources = createTestResources();
       state = testEntityAdapter.addMany(resources, { ...initialState });
       state.pagingOptions.pageSize = pageSize;
     });
@@ -110,12 +100,10 @@ describe('list selectors', () => {
 
   it('getSelected', () => {
     const allResources = testEntityAdapter.getSelectors().selectEntities(state);
-    const expected = {
-      [resources[0].resourceId]: resources[0],
-      [resources[1].resourceId]: resources[1]
-    };
 
-    expect(listSelectors.getSelected.projector(state.selectedResourceIds, allResources)).toStrictEqual(expected);
+    expect(listSelectors.getSelected.projector(state.selectedResourceIds, allResources)).toStrictEqual(
+      resources.slice(0, 2)
+    );
   });
 
   describe('isReady', () => {
@@ -137,14 +125,14 @@ describe('list selectors', () => {
   });
 
   describe('areSelectedReady', () => {
-    let selectedResources: { [x: string]: ResourceDto };
+    let selectedResources: { [x: string]: TestResource };
     let selectedResourceIds: string[];
 
     beforeEach(() => {
-      selectedResourceIds = [resources[0].resourceId, resources[1].resourceId];
+      selectedResourceIds = [resources[0].id, resources[1].id];
       selectedResources = {
-        [resources[0].resourceId]: resources[0],
-        [resources[1].resourceId]: resources[1]
+        [resources[0].id]: resources[0],
+        [resources[1].id]: resources[1]
       };
     });
 
@@ -155,7 +143,7 @@ describe('list selectors', () => {
     });
 
     it('returns false when the one or more selected resources are not loaded', () => {
-      selectedResourceIds = [resources[1].resourceId, resources[2].resourceId];
+      selectedResourceIds = [resources[1].id, resources[2].id];
 
       expect(
         listSelectors.areSelectedReady.projector(selectedResourceIds, selectedResources, RequestState.SUCCESS)
@@ -171,13 +159,13 @@ describe('list selectors', () => {
 
   describe('isDeleteDisabled', () => {
     it('returns true when no resources are selected ', () => {
-      const selectedResourceIds = [];
+      const selectedResourceIds: string[] = [];
 
       expect(listSelectors.isDeleteDisabled.projector(selectedResourceIds)).toBe(true);
     });
 
     it('returns false if at least one resource is selected', () => {
-      const selectedResourceIds = [resources[0].resourceId];
+      const selectedResourceIds = [resources[0].id];
 
       expect(listSelectors.isDeleteDisabled.projector(selectedResourceIds)).toBe(false);
     });
@@ -185,19 +173,19 @@ describe('list selectors', () => {
 
   describe('isCopyDisabled', () => {
     it('returns true when no resources are selected', () => {
-      const selectedResourceIds = [];
+      const selectedResourceIds: string[] = [];
 
       expect(listSelectors.isCopyDisabled.projector(selectedResourceIds)).toBe(true);
     });
 
     it('returns true if more than one resource is selected', () => {
-      const selectedResourceIds = [resources[0].resourceId, resources[1].resourceId];
+      const selectedResourceIds = [resources[0].id, resources[1].id];
 
       expect(listSelectors.isCopyDisabled.projector(selectedResourceIds)).toBe(true);
     });
 
     it('returns false if one resource is selected', () => {
-      const selectedResourceIds = [resources[0].resourceId];
+      const selectedResourceIds = [resources[0].id];
 
       expect(listSelectors.isCopyDisabled.projector(selectedResourceIds)).toBe(false);
     });

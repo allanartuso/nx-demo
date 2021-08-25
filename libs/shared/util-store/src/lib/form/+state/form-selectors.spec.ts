@@ -1,22 +1,20 @@
-import { ResourceDto } from '@demo/shared/acm/data-access/common';
-import { resourceDtoFixture } from '@demo/shared/acm/data-access/common/test';
 import { RequestState } from '@demo/shared/data-access';
 import { createFeatureSelector } from '@ngrx/store';
 import { FormState } from '../models/form.model';
 import { createFormSelectors } from './form-selectors';
+import { createResource, TestResource } from './form.fixture';
 
 describe('form selectors', () => {
-  let state: FormState<ResourceDto>;
+  let state: FormState<TestResource>;
 
-  const formSelectors = createFormSelectors(createFeatureSelector('testFeature'));
+  const formSelectors = createFormSelectors<FormState<TestResource>>(createFeatureSelector('testFeature'));
 
   beforeEach(() => {
     state = {
-      resource: resourceDtoFixture.createPersistentResourceDto(),
+      resource: createResource(),
       loadingState: RequestState.IDLE,
       requestState: RequestState.IDLE,
-      fieldErrors: {},
-      bulkOperationSuccesses: [{ index: 2, response: '' }]
+      error: undefined
     };
   });
 
@@ -33,11 +31,7 @@ describe('form selectors', () => {
   });
 
   it('getFieldErrors', () => {
-    expect(formSelectors.getFieldErrors.projector(state)).toBe(state.fieldErrors);
-  });
-
-  it('getBulkOperationSuccess', () => {
-    expect(formSelectors.getBulkOperationSuccess.projector(state)).toBe(state.bulkOperationSuccesses);
+    expect(formSelectors.getFieldErrors.projector(state)).toBe(state.error?.fieldErrors);
   });
 
   describe('isReady', () => {

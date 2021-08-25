@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import faker from 'faker';
-faker.setLocale('en');
 
 export const DEFAULT_RESOURCE_COLLECTION_SIZE = 50;
 
@@ -118,16 +117,16 @@ export function getEnumValue<T>(enumObj: T): T[keyof T] {
  * @param object any object
  * @param path string
  */
-export function getObjectPropertyPath<T>(object: T, path = ''): string {
-  const key = getElementFromArray(Object.keys(object));
-  const nextPath = path ? `${path}.${key}` : key;
+// export function getObjectPropertyPath<T>(object: T, path = ''): string {
+//   const key = getElementFromArray(Object.keys(object));
+//   const nextPath = path ? `${path}.${key}` : key;
 
-  if (typeof object[key] === 'object' && !(object[key] instanceof Array)) {
-    return getObjectPropertyPath(object[key], nextPath);
-  }
+//   if (typeof object[key] === 'object' && !(object[key] instanceof Array)) {
+//     return getObjectPropertyPath(object[key], nextPath);
+//   }
 
-  return nextPath;
-}
+//   return nextPath;
+// }
 
 export function getLatitude(): number {
   return +faker.address.latitude();
