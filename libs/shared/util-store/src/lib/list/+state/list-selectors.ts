@@ -23,7 +23,7 @@ export function createListSelectors<T>(
 
   const getLastPageNumber = createSelector(getListState, state => state.lastPageNumber);
 
-  const isLastPage = createSelector(getPagingOptions, getLastPageNumber, ({ page, pageSize }, lastPageNumber) => {
+  const isLastPage = createSelector(getPagingOptions, getLastPageNumber, ({ page }, lastPageNumber) => {
     return lastPageNumber <= page;
   });
 

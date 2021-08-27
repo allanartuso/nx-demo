@@ -1,26 +1,16 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import {
-  BulkPatchResourceDto,
-  CreateResourceDto,
-  createResourceId,
-  createResourcePath,
-  PatchResourceDto,
-  UpdateResourceDto
-} from '@demo/shared/acm/data-access/common';
-import { FilteringLogic, FilteringOperator, RequestOptions, SortingOrder } from '@demo/shared/data-access';
 import { ConfigurationService } from '@demo/shared/util-configuration';
-import { configurationServiceFixture } from '@demo/shared/util-configuration/test';
 import { EMPTY } from 'rxjs';
-import { ErrorsDto } from '../models/errors.dto';
-import { createFieldError, createGeneralError } from '../models/errors.dto.fixture';
-import { createFieldErrorsVm, ErrorsVm } from '../models/errors.model';
-import { createGeneralErrorsVm } from '../models/errors.model.fixture';
-import { ResourceDto } from '../models/resource.dto';
-import { RestConfiguration } from '../models/rest-configuration.model';
+import { FilteringLogic, FilteringOperator } from '..';
+import { ErrorDto } from './models/error.dto';
+import { createErrorDto } from './models/error.fixture';
+import { RequestOptions } from './models/request-options.model';
+import { SortingDirection } from './models/sorting-options.model';
 import { RestService } from './rest.service';
 
-interface TestResource extends ResourceDto {
+interface TestResource {
   resourceId: string;
   version: number;
   name: string;
@@ -46,21 +36,16 @@ const EXPECTED_RESOURCES: TestResource[] = [
 describe('RestService', () => {
   let restService: RestService;
   let httpTestingController: HttpTestingController;
-  let errorsDto: ErrorsDto;
-  let errorsVm: ErrorsVm;
+  let errorDto: ErrorDto;
 
   beforeEach(() => {
-    errorsDto = {
-      generalErrors: [createGeneralError(EXPECTED_RESOURCES[0])],
-      fieldErrors: [createFieldError(EXPECTED_RESOURCES[0])]
-    };
-    errorsVm = new ErrorsVm(createGeneralErrorsVm(errorsDto.generalErrors), createFieldErrorsVm(errorsDto.fieldErrors));
+    errorDto = createErrorDto();
 
-    const mockConfigurationService = configurationServiceFixture.createMockService({
-      rest: {
+    const mockConfigurationService: Partial<ConfigurationService> = {
+      getConfiguration: jest.fn().mockReturnValue({
         apiBaseUrl: TEST_API_BASE_URL
-      }
-    } as RestConfiguration);
+      })
+    };
 
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
@@ -82,8 +67,8 @@ describe('RestService', () => {
   });
 
   describe('loadResources', () => {
-    const expectedResourcePath = createResourcePath(2, 'basePath');
-    const expectedUrl = `${TEST_API_BASE_URL}${expectedResourcePath}`;
+    const expectedResourcePath = 'basePath';
+    const expectedUrl = `${TEST_API_BASE_URL}/${expectedResourcePath}`;
     const expectedResources = EXPECTED_RESOURCES;
     const testRequestParameter1 = 'testRequestParameter1';
     const testRequestParameter2 = 'testRequestParameter2';
@@ -105,8 +90,8 @@ describe('RestService', () => {
       },
       sortingOptions: {
         [testSortingFieldName]: {
-          name: testSortingFieldName,
-          order: SortingOrder.DESCENDING
+          field: testSortingFieldName,
+          direction: SortingDirection.DESCENDING
         }
       },
       filteringOptions: {
@@ -207,8 +192,8 @@ describe('RestService', () => {
       const expectedRequestOptions: RequestOptions = {
         sortingOptions: {
           [testSortingFieldName]: {
-            name: testSortingFieldName,
-            order: SortingOrder.ASCENDING
+            field: testSortingFieldName,
+            direction: SortingDirection.ASCENDING
           }
         }
       };
@@ -229,8 +214,8 @@ describe('RestService', () => {
       const testRequestOptions: RequestOptions = {
         sortingOptions: {
           [testSortingFieldName]: {
-            name: testSortingFieldName,
-            order: SortingOrder.DESCENDING
+            field: testSortingFieldName,
+            direction: SortingDirection.DESCENDING
           }
         }
       };
@@ -250,12 +235,12 @@ describe('RestService', () => {
       const testRequestOptions: RequestOptions = {
         sortingOptions: {
           [testSortingFieldName]: {
-            name: testSortingFieldName,
-            order: SortingOrder.ASCENDING
+            field: testSortingFieldName,
+            direction: SortingDirection.ASCENDING
           },
           [testSortingFieldName2]: {
-            name: testSortingFieldName2,
-            order: SortingOrder.DESCENDING
+            field: testSortingFieldName2,
+            direction: SortingDirection.DESCENDING
           }
         }
       };
@@ -345,11 +330,11 @@ describe('RestService', () => {
       request.flush(expectedResources);
     });
 
-    it('returns errorsVm', done => {
+    it('returns errorDto', done => {
       restService.loadResources<TestResource>(expectedResourcePath, defaultRequestOptions).subscribe(
         () => {},
         error => {
-          expect(error).toStrictEqual(errorsVm);
+          expect(error.error).toStrictEqual(errorDto);
           done();
         }
       );
@@ -357,13 +342,13 @@ describe('RestService', () => {
       const request = httpTestingController.expectOne(
         `${expectedUrl}?requestParameterKey1=${testRequestParameter1}&requestParameterKey2=${testRequestParameter2}&page=${testPage}&pageSize=${testPageSize}&sort=-${testSortingFieldName}&${testFilteringFieldName}=${testFilteringFieldValue}&${testFilteringFieldName2}=${testFilteringFieldValue2}`
       );
-      request.flush(errorsDto, { status: 400, statusText: 'Bad Request' });
+      request.flush(errorDto, { status: 400, statusText: 'Bad Request' });
     });
   });
 
   describe('queryResources', () => {
-    const expectedResourcePath = createResourcePath(2, 'basePath');
-    const expectedUrl = `${TEST_API_BASE_URL}${expectedResourcePath}`;
+    const expectedResourcePath = 'basePath';
+    const expectedUrl = `${TEST_API_BASE_URL}/${expectedResourcePath}`;
     const expectedResources = EXPECTED_RESOURCES;
     const testRequestParameter1 = 'testRequestParameter1';
     const testRequestParameter2 = 'testRequestParameter2';
@@ -386,12 +371,12 @@ describe('RestService', () => {
       },
       sortingOptions: {
         [testSortingFieldName]: {
-          name: testSortingFieldName,
-          order: SortingOrder.DESCENDING
+          field: testSortingFieldName,
+          direction: SortingDirection.DESCENDING
         },
         [testSortingFieldName2]: {
-          name: testSortingFieldName2,
-          order: SortingOrder.ASCENDING
+          field: testSortingFieldName2,
+          direction: SortingDirection.ASCENDING
         }
       },
       filteringOptions: {
@@ -476,8 +461,8 @@ describe('RestService', () => {
       const testRequestOptions: RequestOptions = {
         sortingOptions: {
           [testSortingFieldName]: {
-            name: testSortingFieldName,
-            order: SortingOrder.ASCENDING
+            field: testSortingFieldName,
+            direction: SortingDirection.ASCENDING
           }
         }
       };
@@ -504,8 +489,8 @@ describe('RestService', () => {
       const testRequestOptions: RequestOptions = {
         sortingOptions: {
           [testSortingFieldName2]: {
-            name: testSortingFieldName2,
-            order: SortingOrder.DESCENDING
+            field: testSortingFieldName2,
+            direction: SortingDirection.DESCENDING
           }
         }
       };
@@ -624,24 +609,24 @@ describe('RestService', () => {
       request.flush(expectedResources);
     });
 
-    it('returns errorsVm', done => {
+    it('returns errorDto', done => {
       restService.queryResources<TestResource>(expectedResourcePath, defaultRequestOptions).subscribe(
         () => {},
         error => {
-          expect(error).toStrictEqual(errorsVm);
+          expect(error.error).toStrictEqual(errorDto);
           done();
         }
       );
 
       const request = httpTestingController.expectOne(`${expectedUrl}/query`);
-      request.flush(errorsDto, { status: 400, statusText: 'Bad Request' });
+      request.flush(errorDto, { status: 400, statusText: 'Bad Request' });
     });
   });
 
   describe('patchResources', () => {
-    const expectedResourcePath = createResourcePath(2, 'basePath');
-    const expectedUrl = `${TEST_API_BASE_URL}${expectedResourcePath}`;
-    const bulkPatchDtos: BulkPatchResourceDto<TestResource>[] = EXPECTED_RESOURCES.map(resource => ({
+    const expectedResourcePath = 'basePath';
+    const expectedUrl = `${TEST_API_BASE_URL}/${expectedResourcePath}`;
+    const bulkPatchDtos = EXPECTED_RESOURCES.map(resource => ({
       resourceId: resource.resourceId,
       patch: {
         ...resource
@@ -650,7 +635,7 @@ describe('RestService', () => {
 
     it('patches the given resources', done => {
       restService
-        .patchResources<TestResource, BulkPatchResourceDto<TestResource>>(expectedResourcePath, bulkPatchDtos)
+        .patchResources<TestResource, Partial<TestResource>>(expectedResourcePath, bulkPatchDtos)
         .subscribe(actualResources => {
           expect(actualResources).toStrictEqual(EXPECTED_RESOURCES);
           done();
@@ -662,52 +647,27 @@ describe('RestService', () => {
       request.flush(EXPECTED_RESOURCES);
     });
 
-    it('returns errorsVm when receiving a successful response with resource errors', done => {
-      restService
-        .patchResources<TestResource, BulkPatchResourceDto<TestResource>>(expectedResourcePath, bulkPatchDtos)
-        .subscribe(
-          () => {},
-          error => {
-            expect(error).toStrictEqual(
-              new ErrorsVm(
-                createGeneralErrorsVm(
-                  errorsDto.generalErrors,
-                  EXPECTED_RESOURCES.map(resource => resource.resourceId)
-                ),
-                createFieldErrorsVm(errorsDto.fieldErrors, {}, 0)
-              )
-            );
-            done();
-          }
-        );
+    it('returns errorDto when the request fail', done => {
+      restService.patchResources<TestResource, Partial<TestResource>>(expectedResourcePath, bulkPatchDtos).subscribe(
+        () => {},
+        error => {
+          expect(error.error).toStrictEqual(errorDto);
+          done();
+        }
+      );
 
       const request = httpTestingController.expectOne(`${expectedUrl}/bulk`);
-      request.flush([errorsDto]);
-    });
-
-    it('returns errorsVm when the request fail', done => {
-      restService
-        .patchResources<TestResource, BulkPatchResourceDto<TestResource>>(expectedResourcePath, bulkPatchDtos)
-        .subscribe(
-          () => {},
-          error => {
-            expect(error).toStrictEqual(errorsVm);
-            done();
-          }
-        );
-
-      const request = httpTestingController.expectOne(`${expectedUrl}/bulk`);
-      request.flush(errorsDto, { status: 400, statusText: 'Bad Request' });
+      request.flush(errorDto, { status: 400, statusText: 'Bad Request' });
     });
   });
 
   describe('updateResource', () => {
-    const expectedResourcePath = createResourceId(2, 'basePath', 3);
-    const expectedUrl = `${TEST_API_BASE_URL}${expectedResourcePath}`;
+    const expectedResourcePath = 'resourcePath/1';
+    const expectedUrl = `${TEST_API_BASE_URL}/${expectedResourcePath}`;
 
     it('updates the given resources', done => {
       restService
-        .updateResource<TestResource, UpdateResourceDto<TestResource>>(expectedResourcePath, EXPECTED_RESOURCES[0])
+        .updateResource<TestResource>(expectedResourcePath, EXPECTED_RESOURCES[0])
         .subscribe(actualResources => {
           expect(actualResources).toStrictEqual(EXPECTED_RESOURCES[0]);
           done();
@@ -719,43 +679,34 @@ describe('RestService', () => {
       request.flush(EXPECTED_RESOURCES[0]);
     });
 
-    it('returns errorsVm', done => {
-      const errorsDtoFieldIndex: ErrorsDto = {
-        ...errorsDto,
-        fieldErrors: [{ ...errorsDto.fieldErrors[0], field: 'name[1]' }]
+    it('returns errorDto', done => {
+      const errorDtoFieldIndex: ErrorDto = {
+        ...errorDto,
+        fieldErrors: [{ ...errorDto.fieldErrors[0], field: 'name[1]' }]
       };
 
-      restService
-        .updateResource<TestResource, UpdateResourceDto<TestResource>>(expectedResourcePath, EXPECTED_RESOURCES[0])
-        .subscribe(
-          () => {},
-          error => {
-            expect(error).toStrictEqual(
-              new ErrorsVm(
-                createGeneralErrorsVm(errorsDtoFieldIndex.generalErrors),
-                createFieldErrorsVm(errorsDtoFieldIndex.fieldErrors)
-              )
-            );
-            done();
-          }
-        );
+      restService.updateResource<TestResource>(expectedResourcePath, EXPECTED_RESOURCES[0]).subscribe(
+        () => {},
+        error => {
+          expect(error.error).toStrictEqual(errorDtoFieldIndex);
+          done();
+        }
+      );
 
       const request = httpTestingController.expectOne(expectedUrl);
-      request.flush(errorsDtoFieldIndex, { status: 400, statusText: 'Bad Request' });
+      request.flush(errorDtoFieldIndex, { status: 400, statusText: 'Bad Request' });
     });
   });
 
   describe('updateResources', () => {
-    const expectedResourcePath = createResourcePath(2, 'basePath');
-    const expectedUrl = `${TEST_API_BASE_URL}${expectedResourcePath}`;
+    const expectedResourcePath = 'basePath';
+    const expectedUrl = `${TEST_API_BASE_URL}/${expectedResourcePath}`;
 
     it('updates the given resources', done => {
-      restService
-        .updateResources<TestResource, UpdateResourceDto<TestResource>>(expectedResourcePath, EXPECTED_RESOURCES)
-        .subscribe(actualResources => {
-          expect(actualResources).toStrictEqual(EXPECTED_RESOURCES);
-          done();
-        });
+      restService.updateResources<TestResource>(expectedResourcePath, EXPECTED_RESOURCES).subscribe(actualResources => {
+        expect(actualResources).toStrictEqual(EXPECTED_RESOURCES);
+        done();
+      });
 
       const request = httpTestingController.expectOne(`${expectedUrl}/bulk`);
       expect(request.request.method).toEqual('PUT');
@@ -763,52 +714,27 @@ describe('RestService', () => {
       request.flush(EXPECTED_RESOURCES);
     });
 
-    it('returns errorsVm when receiving a successful response with resource errors', done => {
-      restService
-        .updateResources<TestResource, UpdateResourceDto<TestResource>>(expectedResourcePath, EXPECTED_RESOURCES)
-        .subscribe(
-          () => {},
-          error => {
-            expect(error).toStrictEqual(
-              new ErrorsVm(
-                createGeneralErrorsVm(
-                  errorsDto.generalErrors,
-                  EXPECTED_RESOURCES.map(resource => resource.resourceId)
-                ),
-                createFieldErrorsVm(errorsDto.fieldErrors, {}, 0)
-              )
-            );
-            done();
-          }
-        );
+    it('returns errorDto when the request fail', done => {
+      restService.updateResources<TestResource>(expectedResourcePath, EXPECTED_RESOURCES).subscribe(
+        () => {},
+        error => {
+          expect(error.error).toStrictEqual(errorDto);
+          done();
+        }
+      );
 
       const request = httpTestingController.expectOne(`${expectedUrl}/bulk`);
-      request.flush([errorsDto]);
-    });
-
-    it('returns errorsVm when the request fail', done => {
-      restService
-        .updateResources<TestResource, UpdateResourceDto<TestResource>>(expectedResourcePath, EXPECTED_RESOURCES)
-        .subscribe(
-          () => {},
-          error => {
-            expect(error).toStrictEqual(errorsVm);
-            done();
-          }
-        );
-
-      const request = httpTestingController.expectOne(`${expectedUrl}/bulk`);
-      request.flush(errorsDto, { status: 400, statusText: 'Bad Request' });
+      request.flush(errorDto, { status: 400, statusText: 'Bad Request' });
     });
   });
 
   describe('createResource', () => {
-    const expectedResourcePath = createResourcePath(2, 'basePath');
-    const expectedUrl = `${TEST_API_BASE_URL}${expectedResourcePath}`;
+    const expectedResourcePath = 'basePath';
+    const expectedUrl = `${TEST_API_BASE_URL}/${expectedResourcePath}`;
 
     it('creates the given resources', done => {
       restService
-        .createResource<TestResource, CreateResourceDto<TestResource>>(expectedResourcePath, EXPECTED_RESOURCES[0])
+        .createResource<TestResource>(expectedResourcePath, EXPECTED_RESOURCES[0])
         .subscribe(actualResources => {
           expect(actualResources).toStrictEqual(EXPECTED_RESOURCES[0]);
           done();
@@ -820,33 +746,29 @@ describe('RestService', () => {
       request.flush(EXPECTED_RESOURCES[0]);
     });
 
-    it('returns errorsVm', done => {
-      restService
-        .createResource<TestResource, CreateResourceDto<TestResource>>(expectedResourcePath, EXPECTED_RESOURCES[0])
-        .subscribe(
-          () => {},
-          error => {
-            expect(error).toStrictEqual(errorsVm);
-            done();
-          }
-        );
+    it('returns errorDto', done => {
+      restService.createResource<TestResource>(expectedResourcePath, EXPECTED_RESOURCES[0]).subscribe(
+        () => {},
+        error => {
+          expect(error.error).toStrictEqual(errorDto);
+          done();
+        }
+      );
 
       const request = httpTestingController.expectOne(expectedUrl);
-      request.flush(errorsDto, { status: 400, statusText: 'Bad Request' });
+      request.flush(errorDto, { status: 400, statusText: 'Bad Request' });
     });
   });
 
   describe('createResources', () => {
-    const expectedResourcePath = createResourcePath(2, 'basePath');
-    const expectedUrl = `${TEST_API_BASE_URL}${expectedResourcePath}`;
+    const expectedResourcePath = 'basePath';
+    const expectedUrl = `${TEST_API_BASE_URL}/${expectedResourcePath}`;
 
     it('creates the given resources', done => {
-      restService
-        .createResources<TestResource, UpdateResourceDto<TestResource>>(expectedResourcePath, EXPECTED_RESOURCES)
-        .subscribe(actualResources => {
-          expect(actualResources).toStrictEqual(EXPECTED_RESOURCES);
-          done();
-        });
+      restService.createResources<TestResource>(expectedResourcePath, EXPECTED_RESOURCES).subscribe(actualResources => {
+        expect(actualResources).toStrictEqual(EXPECTED_RESOURCES);
+        done();
+      });
 
       const request = httpTestingController.expectOne(`${expectedUrl}/bulk`);
       expect(request.request.method).toEqual('POST');
@@ -854,48 +776,23 @@ describe('RestService', () => {
       request.flush(EXPECTED_RESOURCES);
     });
 
-    it('returns errorsVm when receiving a successful response with resource errors', done => {
-      restService
-        .createResources<TestResource, UpdateResourceDto<TestResource>>(expectedResourcePath, EXPECTED_RESOURCES)
-        .subscribe(
-          () => {},
-          error => {
-            expect(error).toStrictEqual(
-              new ErrorsVm(
-                createGeneralErrorsVm(
-                  errorsDto.generalErrors,
-                  EXPECTED_RESOURCES.map(resource => resource.resourceId)
-                ),
-                createFieldErrorsVm(errorsDto.fieldErrors, {}, 0)
-              )
-            );
-            done();
-          }
-        );
+    it('returns errorDto', done => {
+      restService.createResources<TestResource>(expectedResourcePath, EXPECTED_RESOURCES).subscribe(
+        () => {},
+        error => {
+          expect(error.error).toStrictEqual(errorDto);
+          done();
+        }
+      );
 
       const request = httpTestingController.expectOne(`${expectedUrl}/bulk`);
-      request.flush([errorsDto]);
-    });
-
-    it('returns errorsVm', done => {
-      restService
-        .createResources<TestResource, CreateResourceDto<TestResource>>(expectedResourcePath, EXPECTED_RESOURCES)
-        .subscribe(
-          () => {},
-          error => {
-            expect(error).toStrictEqual(errorsVm);
-            done();
-          }
-        );
-
-      const request = httpTestingController.expectOne(`${expectedUrl}/bulk`);
-      request.flush(errorsDto, { status: 400, statusText: 'Bad Request' });
+      request.flush(errorDto, { status: 400, statusText: 'Bad Request' });
     });
   });
 
   describe('loadResource', () => {
-    const expectedResourcePath = createResourceId(2, 'basePath', 3);
-    const expectedUrl = `${TEST_API_BASE_URL}${expectedResourcePath}`;
+    const expectedResourcePath = 'resourcePath/1';
+    const expectedUrl = `${TEST_API_BASE_URL}/${expectedResourcePath}`;
 
     it('loads the given resources', done => {
       restService.loadResource<TestResource>(expectedResourcePath).subscribe(actualResources => {
@@ -908,27 +805,27 @@ describe('RestService', () => {
       request.flush(EXPECTED_RESOURCES);
     });
 
-    it('returns errorsVm', done => {
+    it('returns errorDto', done => {
       restService.loadResource<TestResource>(expectedResourcePath).subscribe(
         () => {},
         error => {
-          expect(error).toStrictEqual(errorsVm);
+          expect(error.error).toStrictEqual(errorDto);
           done();
         }
       );
 
       const request = httpTestingController.expectOne(expectedUrl);
-      request.flush(errorsDto, { status: 400, statusText: 'Bad Request' });
+      request.flush(errorDto, { status: 400, statusText: 'Bad Request' });
     });
   });
 
   describe('patchResource', () => {
-    const expectedResourcePath = createResourceId(2, 'basePath', 3);
-    const expectedUrl = `${TEST_API_BASE_URL}${expectedResourcePath}`;
+    const expectedResourcePath = 'resourcePath/1';
+    const expectedUrl = `${TEST_API_BASE_URL}/${expectedResourcePath}`;
 
     it('patches the given resources', done => {
       restService
-        .patchResource<TestResource, PatchResourceDto<TestResource>>(expectedResourcePath, EXPECTED_RESOURCES[0])
+        .patchResource<TestResource, Partial<TestResource>>(expectedResourcePath, EXPECTED_RESOURCES[0])
         .subscribe(actualResources => {
           expect(actualResources).toStrictEqual(EXPECTED_RESOURCES[0]);
           done();
@@ -939,25 +836,25 @@ describe('RestService', () => {
       request.flush(EXPECTED_RESOURCES[0]);
     });
 
-    it('returns errorsVm', done => {
+    it('returns errorDto', done => {
       restService
-        .patchResource<TestResource, PatchResourceDto<TestResource>>(expectedResourcePath, EXPECTED_RESOURCES[0])
+        .patchResource<TestResource, Partial<TestResource>>(expectedResourcePath, EXPECTED_RESOURCES[0])
         .subscribe(
           () => {},
           error => {
-            expect(error).toStrictEqual(errorsVm);
+            expect(error.error).toStrictEqual(errorDto);
             done();
           }
         );
 
       const request = httpTestingController.expectOne(expectedUrl);
-      request.flush(errorsDto, { status: 400, statusText: 'Bad Request' });
+      request.flush(errorDto, { status: 400, statusText: 'Bad Request' });
     });
   });
 
   describe('deleteResource', () => {
-    const expectedResourcePath = createResourceId(2, 'basePath', 3);
-    const expectedUrl = `${TEST_API_BASE_URL}${expectedResourcePath}`;
+    const expectedResourcePath = 'resourcePath/1';
+    const expectedUrl = `${TEST_API_BASE_URL}/${expectedResourcePath}`;
 
     it('deletes the given resources', done => {
       restService.deleteResource(expectedResourcePath).subscribe(actualResources => {
@@ -970,23 +867,23 @@ describe('RestService', () => {
       request.flush(EMPTY);
     });
 
-    it('returns errorsVm', done => {
+    it('returns errorDto', done => {
       restService.deleteResource(expectedResourcePath).subscribe(
         () => {},
         error => {
-          expect(error).toStrictEqual(errorsVm);
+          expect(error.error).toStrictEqual(errorDto);
           done();
         }
       );
 
       const request = httpTestingController.expectOne(expectedUrl);
-      request.flush(errorsDto, { status: 400, statusText: 'Bad Request' });
+      request.flush(errorDto, { status: 400, statusText: 'Bad Request' });
     });
   });
 
   describe('deleteResources', () => {
-    const expectedResourcePath = createResourcePath(2, 'basePath');
-    const expectedUrl = `${TEST_API_BASE_URL}${expectedResourcePath}`;
+    const expectedResourcePath = 'basePath';
+    const expectedUrl = `${TEST_API_BASE_URL}/${expectedResourcePath}`;
     const resourceIds: string[] = EXPECTED_RESOURCES.map(resource => resource.resourceId);
 
     it('patches the given resources', done => {
@@ -1001,38 +898,17 @@ describe('RestService', () => {
       request.flush(EXPECTED_RESOURCES);
     });
 
-    it('returns errorsVm when receiving a successful response with resource errors', done => {
+    it('returns errorDto when the request fail', done => {
       restService.deleteResources<TestResource>(expectedResourcePath, resourceIds).subscribe(
         () => {},
         error => {
-          expect(error).toStrictEqual(
-            new ErrorsVm(
-              createGeneralErrorsVm(
-                errorsDto.generalErrors,
-                EXPECTED_RESOURCES.map(resource => resource.resourceId)
-              ),
-              createFieldErrorsVm(errorsDto.fieldErrors, {}, 0)
-            )
-          );
+          expect(error.error).toStrictEqual(errorDto);
           done();
         }
       );
 
       const request = httpTestingController.expectOne(`${expectedUrl}/bulk`);
-      request.flush([errorsDto]);
-    });
-
-    it('returns errorsVm when the request fail', done => {
-      restService.deleteResources<TestResource>(expectedResourcePath, resourceIds).subscribe(
-        () => {},
-        error => {
-          expect(error).toStrictEqual(errorsVm);
-          done();
-        }
-      );
-
-      const request = httpTestingController.expectOne(`${expectedUrl}/bulk`);
-      request.flush(errorsDto, { status: 400, statusText: 'Bad Request' });
+      request.flush(errorDto, { status: 400, statusText: 'Bad Request' });
     });
   });
 });

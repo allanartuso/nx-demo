@@ -1,4 +1,4 @@
-import { DemoFormComponent } from './demo-form.component';
+import { DemoFormComponent } from './form.component';
 
 describe('DemoFormComponent', () => {
   let component: DemoFormComponent;
@@ -12,7 +12,7 @@ describe('DemoFormComponent', () => {
   });
 
   it('emits submit event', () => {
-    spyOn(component.submitted, 'emit');
+    jest.spyOn(component.submitted, 'emit');
 
     component.onSubmit();
 
@@ -20,7 +20,7 @@ describe('DemoFormComponent', () => {
   });
 
   it('emits cancel event', () => {
-    spyOn(component.cancelled, 'emit');
+    jest.spyOn(component.cancelled, 'emit');
 
     component.onCancel();
 

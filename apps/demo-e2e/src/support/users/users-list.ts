@@ -21,7 +21,7 @@ const usersListApiUrls = {
 };
 
 export function stubUsers(): UserDto[] {
-  const users = userDtoFixture.createUsers(35);
+  const users = userDtoFixture.createPersistentUsers(35);
 
   cy.intercept({ method: 'POST', url: usersListApiUrls.query }, req => {
     const queryOptions = req.body;

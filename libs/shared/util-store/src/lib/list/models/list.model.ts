@@ -84,7 +84,10 @@ export interface ListActions<T, S = T> {
   deleteFailure: ActionCreator<string, (props: { error: ErrorDto }) => { error: ErrorDto } & TypedAction<string>>;
   patch: ActionCreator<
     string,
-    (props: { resourceIds: string[]; resource: T }) => { resourceIds: string[]; resource: T } & TypedAction<string>
+    (props: {
+      resourceIds: string[];
+      resource: Partial<T>;
+    }) => { resourceIds: string[]; resource: Partial<T> } & TypedAction<string>
   >;
   patchSuccess: ActionCreator<
     string,

@@ -5,5 +5,5 @@ export interface AppState {
 }
 
 export interface CustomRouterStateSnapshot extends MinimalRouterStateSnapshot {
-  extrasState: any;
+  extrasState: unknown;
 }

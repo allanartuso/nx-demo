@@ -13,6 +13,10 @@ export class UserService implements FormService<UserDto>, ListService<UserDto> {
     return this.restService.loadResource<UserDto>(`${USERS_RESOURCE_BASE_PATH}/${id}`);
   }
 
+  createResource(user: UserDto): Observable<UserDto> {
+    return this.restService.createResource(USERS_RESOURCE_BASE_PATH, user);
+  }
+
   saveResource(user: UserDto): Observable<UserDto> {
     return this.restService.updateResource(`${USERS_RESOURCE_BASE_PATH}/${user.id}`, user);
   }
@@ -26,8 +30,6 @@ export class UserService implements FormService<UserDto>, ListService<UserDto> {
   }
 
   deleteResources(ids: string[]): Observable<Array<ErrorDto>> {
-    console.log('service delete');
-
     return this.restService.deleteResources(USERS_RESOURCE_BASE_PATH, ids);
   }
 

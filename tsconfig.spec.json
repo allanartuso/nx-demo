@@ -16,5 +16,5 @@
     "strictInputAccessModifiers": true,
     "strictTemplates": true
   },
-  "include": ["**/*.spec.ts", "**/*.d.ts"]
+  "include": ["**/*.spec.ts", "**/*.d.ts", "**/*.fixture.ts", "**/index-test.ts"]
 }

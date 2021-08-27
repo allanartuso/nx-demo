@@ -1,9 +1,11 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ErrorDto } from '@demo/shared/data-access';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Action, ActionCreator } from '@ngrx/store';
 import { filter, tap } from 'rxjs/operators';
 
 export function handleFailureEffect(
+  snackBar: MatSnackBar,
   actions$: Actions<Action>,
   ...actions: ActionCreator<string, (props: { error: ErrorDto }) => { error: ErrorDto }>[]
 ) {
@@ -13,14 +15,8 @@ export function handleFailureEffect(
         ofType(...actions),
         filter(({ error }: { error: ErrorDto }) => !!error.message),
         tap(({ error }: { error: ErrorDto }) => {
-          console.log(error);
+          snackBar.open(error.message, 'Ok');
         })
-
-        // map(({ error }: { error: { generalErrors: string[] } }) =>
-        //   displayUserNotificationAction({
-        //     messages: error.generalErrors
-        //   })
-        // )
       ),
     { dispatch: false }
   );

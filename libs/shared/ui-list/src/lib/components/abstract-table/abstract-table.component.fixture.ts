@@ -1,69 +1,40 @@
-import { Component, NgModule, ViewChild } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { SharedAcmUiCommonVendorsIgniteuiModule } from '@demo/shared/acm/ui/common/vendors/igniteui';
 import { DEFAULT_FILTERING_LOGIC, FilteringOperator } from '@demo/shared/data-access';
 import { commonFixture } from '@demo/shared/data-access/test';
-import { IgxGridComponent } from 'igniteui-angular';
-import { customPagerSelectors } from '../../lists.fixture';
-import { getStringFilteringOperations } from '../../utils/filtering-operation';
-import { DemoCustomPagerComponent } from '../demo-custom-pager/demo-custom-pager.component';
-import { AbstractListComponent } from './abstract-list.component';
+import { TableColumn } from '../../models/table.model';
+import { SharedUiListModule } from '../../shared-ui-list.module';
+import { AbstractTableComponent } from './abstract-table.component';
 
 export interface Summary {
-  resourceId: string;
+  id: string;
   name: string;
   count: number;
 }
 
-export const listTestIds = {
-  nameCountColumn: 'name-grid-column',
-  memberCountColumn: 'memberCount-grid-column',
-  ...customPagerSelectors
-};
-
 @Component({
   selector: 'demo-list',
-  template: `<igx-grid
-      #grid
-      width="100%"
-      height="auto"
-      [autoGenerate]="false"
-      [data]="gridData"
-      [paging]="true"
-      [perPage]="pageSize"
-      [primaryKey]="'resourceId'"
-      [rowSelection]="rowSelectionMode"
-      [cellSelection]="cellSelectionMode"
-      [filterStrategy]="filterStrategy"
-      [sortStrategy]="sortStrategy"
-      [allowFiltering]="true"
-      [paginationTemplate]="pagination"
-      (onRowSelectionChange)="onRowSelected($event)"
-    >
-      <igx-column field="name" header="Name" [sortable]="true" [filters]="nameFilteringOperations" dataType="string">
-      </igx-column>
-
-      <igx-column field="count" header="Count" [sortable]="true" dataType="number"> </igx-column>
-    </igx-grid>
-
-    <ng-template #pagination>
-      <demo-custom-pager
-        [pageNumber]="pageNumber"
-        [pageSize]="pageSize"
-        [firstPage]="firstPage"
-        [lastPage]="isLastPage"
-        (refreshPageSelected)="onRefreshPageSelected()"
-        (firstPageSelected)="onFirstPageSelected()"
-        (previousPageSelected)="onPreviousPageSelected()"
-        (nextPageSelected)="onNextPageSelected()"
-        (pageSizeChanged)="onPageSizeChanged($event)"
-      ></demo-custom-pager>
-    </ng-template>`
+  template: `<demo-table
+    #table
+    [dataSource]="gridData"
+    [sortingOptions]="sortingOptions"
+    [columns]="columns"
+    [totalCount]="totalCount"
+    [pagingOptions]="pagingOptions"
+    [allowRowSelection]="true"
+    (sortingChanged)="onSortingChanged($event)"
+    (deleteSelected)="onDelete()"
+    (rowSelected)="onRowSelected($event)"
+    (pageOptionsChanged)="onPageOptionsChanged($event)"
+  >
+  </demo-table>`
 })
-export class ListComponent extends AbstractListComponent<Summary> {
-  @ViewChild('grid', { static: true }) grid: IgxGridComponent;
-
-  nameFilteringOperations = getStringFilteringOperations();
+export class TestTableComponent extends AbstractTableComponent<Summary> {
+  columns: TableColumn[] = [
+    { key: 'id', name: 'Id' },
+    { key: 'name', name: 'Name' },
+    { key: 'count', name: 'Count' }
+  ];
 }
 
 export const summaries = createSummaries(101);
@@ -79,12 +50,12 @@ export function createSummaries(nbOfOrganizationRestrictionSummaries = 3): Summa
 }
 
 function createSummary(
-  resourceId: string = commonFixture.getWord(),
+  id: string = commonFixture.getWord(),
   name: string = commonFixture.getWord(),
   count: number = commonFixture.getNumberInRange(1, 10)
 ): Summary {
   return {
-    resourceId,
+    id,
     name,
     count
   };
@@ -107,8 +78,8 @@ export const filteringOptions = {
 };
 
 @NgModule({
-  imports: [BrowserAnimationsModule, SharedAcmUiCommonVendorsIgniteuiModule],
-  declarations: [ListComponent, DemoCustomPagerComponent],
-  exports: [ListComponent]
+  imports: [BrowserAnimationsModule, SharedUiListModule],
+  declarations: [TestTableComponent],
+  exports: []
 })
 export class AbstractListStorybookModule {}

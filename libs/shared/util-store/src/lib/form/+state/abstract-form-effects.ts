@@ -105,6 +105,7 @@ export abstract class AbstractFormEffects<T> {
   );
 
   handleFailure$ = handleFailureEffect(
+    this.snackBar,
     this.actions$,
     this.formActions.saveFailure,
     this.formActions.loadFailure,

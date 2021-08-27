@@ -1,6 +1,5 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ErrorDto, RequestState } from '@demo/shared/data-access';
 import { errorFixture } from '@demo/shared/data-access/test';
@@ -9,27 +8,21 @@ import { Action } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { hot } from '@nrwl/angular/testing';
 import { EMPTY, Observable, of, throwError } from 'rxjs';
-import {
-  createTestResource,
-  featureKey,
-  formActions,
-  TestEffects,
-  TestResource,
-  TestService
-} from '../models/form.fixture';
+import { createTestResource, featureKey, TestResource } from '../../models/store.fixture';
+import { formActions, TestFormEffects, TestFormService } from '../models/form.fixture';
 import { FormState } from '../models/form.model';
 
 describe('TestEffects', () => {
   let actions: Observable<Action>;
-  let effects: TestEffects;
-  let testService: TestService;
+  let effects: TestFormEffects;
+  let testService: TestFormService;
   const errorDto: ErrorDto = errorFixture.createErrorDto();
   let resource: TestResource;
 
   beforeEach(() => {
     resource = createTestResource();
 
-    const mockService: Partial<TestService> = {
+    const mockService: Partial<TestFormService> = {
       deleteResource: jest.fn().mockImplementation(() => of(EMPTY)),
       createResource: jest.fn().mockImplementation(() => of(resource)),
       loadResource: jest.fn().mockImplementation(() => of(resource)),
@@ -44,24 +37,24 @@ describe('TestEffects', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule, NoopAnimationsModule],
+      imports: [RouterTestingModule],
       schemas: [NO_ERRORS_SCHEMA],
       providers: [
-        TestEffects,
+        TestFormEffects,
         provideMockActions(() => actions),
         provideMockStore({
           initialState: { [featureKey]: initialState },
           selectors: []
         }),
         {
-          provide: TestService,
+          provide: TestFormService,
           useValue: mockService
         }
       ]
     });
 
-    effects = TestBed.inject(TestEffects);
-    testService = TestBed.inject(TestService);
+    effects = TestBed.inject(TestFormEffects);
+    testService = TestBed.inject(TestFormService);
   });
 
   describe('load$', () => {

@@ -1,7 +1,6 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { getI18nTestingModule } from '@demo/shared/util-i18n/test';
-import { MenuItem } from '../sidebar.models';
+import { MenuItem } from '../../models/sidebar.models';
 import { SidebarMenuItemComponent } from './sidebar-menu-item.component';
 
 describe('SidebarMenuItemComponent', () => {
@@ -15,7 +14,6 @@ describe('SidebarMenuItemComponent', () => {
   beforeEach(
     waitForAsync(() => {
       TestBed.configureTestingModule({
-        imports: [getI18nTestingModule()],
         declarations: [SidebarMenuItemComponent],
         schemas: [NO_ERRORS_SCHEMA]
       }).compileComponents();
@@ -30,7 +28,7 @@ describe('SidebarMenuItemComponent', () => {
   });
 
   it('emit event when hovering on a menu item.', () => {
-    spyOn(component.menuItemHoveredOn, 'emit');
+    jest.spyOn(component.menuItemHoveredOn, 'emit');
 
     component.onMenuItemHoveredOn(testMenuItem);
 
@@ -38,7 +36,7 @@ describe('SidebarMenuItemComponent', () => {
   });
 
   it('emit event when hovering off a menu item.', () => {
-    spyOn(component.menuItemHoveredOff, 'emit');
+    jest.spyOn(component.menuItemHoveredOff, 'emit');
 
     component.onMenuItemHoveredOff(testMenuItem);
 
@@ -46,7 +44,7 @@ describe('SidebarMenuItemComponent', () => {
   });
 
   it('emit click event when clicking a menu item.', () => {
-    spyOn(component.menuItemClicked, 'emit');
+    jest.spyOn(component.menuItemClicked, 'emit');
 
     component.onMenuItemClicked(testMenuItem);
 
@@ -54,7 +52,7 @@ describe('SidebarMenuItemComponent', () => {
   });
 
   it('emit toggle event when toggling a menu group.', () => {
-    spyOn(component.menuItemToggled, 'emit');
+    jest.spyOn(component.menuItemToggled, 'emit');
 
     component.onMenuItemToggled(testMenuItem);
 

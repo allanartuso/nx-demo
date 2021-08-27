@@ -1,8 +1,8 @@
 import { RequestState } from '@demo/shared/data-access';
 import { createFeatureSelector } from '@ngrx/store';
+import { createTestResource, TestResource } from '../../models/store.fixture';
 import { FormState } from '../models/form.model';
 import { createFormSelectors } from './form-selectors';
-import { createResource, TestResource } from './form.fixture';
 
 describe('form selectors', () => {
   let state: FormState<TestResource>;
@@ -11,7 +11,7 @@ describe('form selectors', () => {
 
   beforeEach(() => {
     state = {
-      resource: createResource(),
+      resource: createTestResource(),
       loadingState: RequestState.IDLE,
       requestState: RequestState.IDLE,
       error: undefined

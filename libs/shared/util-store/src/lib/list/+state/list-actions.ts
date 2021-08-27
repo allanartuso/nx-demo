@@ -69,7 +69,7 @@ export function createListActions<T, S = T>(featureName: string): ListActions<T,
 
   const patch = createAction(
     `[${featureName} Page] Patch ${featureName}`,
-    props<{ resourceIds: string[]; resource: T }>()
+    props<{ resourceIds: string[]; resource: Partial<T> }>()
   );
   const patchSuccess = createAction(
     `[${featureName} Page] Patch ${featureName} Success`,

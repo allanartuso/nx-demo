@@ -16,6 +16,12 @@ describe('SidebarHeaderComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SidebarHeaderComponent);
     component = fixture.componentInstance;
+    component.header = {
+      logo: '/assets/images/demo_logo.jpg',
+      alt: 'Demo Logo',
+      name: 'Demo Name',
+      shortName: 'Demo'
+    };
     fixture.detectChanges();
   });
 

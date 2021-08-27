@@ -1,78 +1,48 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { createResourceId, getResourceRoutePath } from '@demo/shared/acm/data-access/common';
-import { USERS_RESOURCE_BASE_PATH } from '@demo/shared/acm/data-access/users';
 import {
   DEFAULT_FILTERING_LOGIC,
   DEFAULT_PAGE,
   DEFAULT_PAGE_SIZE,
   DEFAULT_SORTING_ORDER,
   FilteringOptions,
-  SortingField,
-  SortingOrder
+  PagingOptions,
+  SortingDirection,
+  SortingField
 } from '@demo/shared/data-access';
-import { AuthorizationService } from '@demo/shared/util-authorization';
-import { getI18nTestingModule } from '@demo/shared/util-i18n/test';
-import { navigateToAction } from '@demo/shared/util-router-store';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
-import { of } from 'rxjs';
 import { listActions } from '../../+state/users/users.actions';
 import { listSelectors } from '../../+state/users/users.selectors';
+import { UserDto, USERS_RESOURCE_BASE_PATH } from '../../models/user.dto';
+import { createPersistentUsers } from '../../models/user.dto.fixture';
 import { UsersComponent } from './users.component';
 
 describe('UsersComponent', () => {
   let component: UsersComponent;
   let fixture: ComponentFixture<UsersComponent>;
   let store: MockStore;
-  const mockAuthorizationService: Partial<AuthorizationService> = {
-    hasPermission$: jest.fn().mockReturnValue(of(true))
-  };
+  let router: Router;
+  let users: UserDto[];
 
   beforeEach(
     waitForAsync(() => {
       TestBed.configureTestingModule({
-        imports: [RouterTestingModule, getI18nTestingModule()],
+        imports: [RouterTestingModule.withRoutes([{ path: '**', redirectTo: '' }])],
         declarations: [UsersComponent],
         providers: [
-          { provide: AuthorizationService, useValue: mockAuthorizationService },
           provideMockStore({
             selectors: [
-              {
-                selector: listSelectors.getSelectedResourceIds,
-                value: []
-              },
-              {
-                selector: listSelectors.isLastPage,
-                value: true
-              },
-              {
-                selector: listSelectors.getPagingOptions,
-                value: {
-                  page: DEFAULT_PAGE,
-                  pageSize: DEFAULT_PAGE_SIZE
-                }
-              },
-              {
-                selector: listSelectors.getCurrentPageData,
-                value: []
-              },
+              { selector: listSelectors.getCurrentPageData, value: [] },
+              { selector: listSelectors.getSelected, value: [] },
+              { selector: listSelectors.getTotalCount, value: 5 },
+              { selector: listSelectors.getPagingOptions, value: { page: DEFAULT_PAGE, pageSize: DEFAULT_PAGE_SIZE } },
               {
                 selector: listSelectors.getSortingOptions,
-                value: {
-                  name: {
-                    name: 'name',
-                    order: DEFAULT_SORTING_ORDER
-                  }
-                }
+                value: { name: { name: 'name', order: DEFAULT_SORTING_ORDER } }
               },
-              {
-                selector: listSelectors.getFilteringOptions,
-                value: {
-                  logic: DEFAULT_FILTERING_LOGIC,
-                  filters: []
-                }
-              }
+              { selector: listSelectors.getFilteringOptions, value: { logic: DEFAULT_FILTERING_LOGIC, filters: [] } }
             ]
           })
         ],
@@ -85,9 +55,11 @@ describe('UsersComponent', () => {
     fixture = TestBed.createComponent(UsersComponent);
     component = fixture.componentInstance;
     store = TestBed.inject(MockStore);
-    jest.spyOn(store, 'dispatch');
-
+    router = TestBed.inject(Router);
     fixture.detectChanges();
+
+    jest.spyOn(store, 'dispatch');
+    users = createPersistentUsers();
   });
 
   it('should create', () => {
@@ -101,30 +73,12 @@ describe('UsersComponent', () => {
     expect(store.dispatch).toHaveBeenCalledWith(listActions.refresh());
   });
 
-  it('emits load users first page action when selecting the first page', () => {
-    component.onFirstPageSelected();
-
-    expect(store.dispatch).toHaveBeenCalledWith(listActions.loadFirstPage());
-  });
-
-  it('emits load users page next action when selecting the next page', () => {
-    component.onNextPageSelected();
-
-    expect(store.dispatch).toHaveBeenCalledWith(listActions.loadNextPage());
-  });
-
-  it('emits load users page back action when selecting the previous page', () => {
-    component.onPreviousPageSelected();
-
-    expect(store.dispatch).toHaveBeenCalledWith(listActions.loadPreviousPage());
-  });
-
   it('emits set users page size action when setting the page size', () => {
-    const size = 10;
+    const pagingOptions: PagingOptions = { page: 2, pageSize: 5 };
 
-    component.onPageSizeChanged(size);
+    component.onPageOptionsChanged(pagingOptions);
 
-    expect(store.dispatch).toHaveBeenCalledWith(listActions.changePageSize({ pageSize: size }));
+    expect(store.dispatch).toHaveBeenCalledWith(listActions.changePagingOptions({ pagingOptions }));
   });
 
   it('emits change users filtering action when filtering', () => {
@@ -139,7 +93,7 @@ describe('UsersComponent', () => {
   });
 
   it('emits change users sorting action when sorting', () => {
-    const sortingField: SortingField = { name: 'email', order: SortingOrder.DESCENDING };
+    const sortingField: SortingField = { field: 'email', direction: SortingDirection.DESCENDING };
 
     component.onSortingChanged(sortingField);
 
@@ -147,22 +101,19 @@ describe('UsersComponent', () => {
   });
 
   it('emits change selected users action when selecting rows', () => {
-    const selectedResourceIds: string[] = [
-      createResourceId(2, USERS_RESOURCE_BASE_PATH, 2),
-      createResourceId(2, USERS_RESOURCE_BASE_PATH, 3),
-      createResourceId(2, USERS_RESOURCE_BASE_PATH, 4)
-    ];
+    const selectedResourceIds: string[] = users.map(user => user.id);
 
-    component.onRowSelected(selectedResourceIds);
+    component.onRowSelected(users);
 
     expect(store.dispatch).toHaveBeenCalledWith(listActions.changeSelected({ selectedResourceIds }));
   });
 
   it('emits navigate action when clicking a cell', () => {
-    const resourceId = createResourceId(2, USERS_RESOURCE_BASE_PATH, 2);
+    jest.spyOn(router, 'navigate');
+    const resourceId = ' testId2';
 
     component.onCellSelected(resourceId);
 
-    expect(store.dispatch).toHaveBeenCalledWith(navigateToAction({ path: getResourceRoutePath(resourceId) }));
+    expect(router.navigate).toHaveBeenCalledWith([USERS_RESOURCE_BASE_PATH, resourceId]);
   });
 });

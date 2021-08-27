@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { DemoCancelButtonComponent } from './demo-cancel-button.component';
+import { DemoCancelButtonComponent } from './cancel-button.component';
 
 describe('CancelButtonComponent', () => {
   let component: DemoCancelButtonComponent;

@@ -29,6 +29,7 @@ export abstract class AbstractTableComponent<T> {
   }
   private _selectedItems: T[] = [];
 
+  // TODO: should emit the same that was received => SortingOptions
   @Output() sortingChanged = new EventEmitter<SortingField>();
   @Output() filteringChanged = new EventEmitter<FilteringOptions>();
   @Output() refreshPageSelected = new EventEmitter<void>();

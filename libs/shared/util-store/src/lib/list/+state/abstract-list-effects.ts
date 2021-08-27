@@ -182,7 +182,7 @@ export abstract class AbstractListEffects<T, S = T> {
     () =>
       this.actions$.pipe(
         ofType(this.listActions.deleteSuccess),
-        tap(({ resourceIds }) => {
+        tap(() => {
           this.snackBar.open(this.texts.deletedMessage, 'Ok');
         })
       ),
@@ -242,6 +242,7 @@ export abstract class AbstractListEffects<T, S = T> {
   );
 
   handleFailure$ = handleFailureEffect(
+    this.snackBar,
     this.actions$,
     this.listActions.loadPageFailure,
     this.listActions.deleteFailure,

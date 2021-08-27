@@ -1,7 +1,7 @@
 import { commonFixture } from '@demo/shared/data-access/test';
 import { UserDto } from './user.dto';
 
-export function createUsers(n = 3): UserDto[] {
+export function createPersistentUsers(n = 3): UserDto[] {
   const result: UserDto[] = [];
 
   for (let i = 0; i < n; i++) {

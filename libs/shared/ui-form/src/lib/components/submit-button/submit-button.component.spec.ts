@@ -1,9 +1,7 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { SharedAcmUiCommonVendorsFontawesomeModule } from '@demo/shared/acm/ui/common/vendors/fontawesome';
 import { RequestState } from '@demo/shared/data-access';
-import { getI18nTestingModule } from '@demo/shared/util-i18n/test';
-import { DemoSubmitButtonComponent } from './demo-submit-button.component';
+import { DemoSubmitButtonComponent } from './submit-button.component';
 
 describe('SubmitButtonComponent', () => {
   let component: DemoSubmitButtonComponent;
@@ -13,7 +11,6 @@ describe('SubmitButtonComponent', () => {
     waitForAsync(() => {
       TestBed.configureTestingModule({
         declarations: [DemoSubmitButtonComponent],
-        imports: [SharedAcmUiCommonVendorsFontawesomeModule, getI18nTestingModule()],
         schemas: [NO_ERRORS_SCHEMA]
       }).compileComponents();
     })

@@ -1,64 +1,42 @@
 import { Injectable } from '@angular/core';
-import { ErrorsVm, ListService, PatchResourceDto, ResourceDto } from '@demo/shared/acm/data-access/common';
-import { resourceDtoFixture } from '@demo/shared/acm/data-access/common/test';
-import { commonFixture } from '@demo/shared/data-access/test';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { ErrorDto, ListService } from '@demo/shared/data-access';
 import { Actions } from '@ngrx/effects';
 import { ActionCreator, createFeatureSelector, Store } from '@ngrx/store';
 import { TypedAction } from '@ngrx/store/src/models';
 import { Observable } from 'rxjs';
-import { AbstractListEffects, createListActions, createListEntityAdapter, createListSelectors } from '../..';
-
-export interface TestResourceDto extends ResourceDto {
-  name: string;
-}
-
-export type PatchTestResource = PatchResourceDto<TestResourceDto>;
-export type TestSummaryDto = TestResourceDto;
-
-export function createTestResourceDtos(
-  tenantId: number = commonFixture.getPositiveNumber(),
-  nbOfUsers = 3
-): TestResourceDto[] {
-  const result: TestResourceDto[] = [];
-
-  for (let i = 0; i < nbOfUsers; i++) {
-    result.push(createTestResourceDto(tenantId));
-  }
-
-  return result;
-}
-
-export function createTestResourceDto(tenantId?: number): TestResourceDto {
-  return {
-    ...resourceDtoFixture.createPersistentResourceDto(tenantId),
-    name: commonFixture.getWord()
-  };
-}
+import { AbstractListEffects } from '../+state/abstract-list-effects';
+import { createListActions } from '../+state/list-actions';
+import { createListEntityAdapter } from '../+state/list-reducer';
+import { createListSelectors } from '../+state/list-selectors';
+import { TestResource } from '../../models/store.fixture';
 
 export const featureKey = 'testFeature';
-export const resourcesActions = createListActions<TestResourceDto, PatchTestResource, TestSummaryDto>(featureKey);
-export const testEntityAdapter = createListEntityAdapter<TestResourceDto>();
-export const resourcesSelectors = createListSelectors<TestResourceDto>(
-  testEntityAdapter,
-  createFeatureSelector(featureKey)
-);
+export const listActions = createListActions<TestResource>(featureKey);
+export const testEntityAdapter = createListEntityAdapter<TestResource>();
+export const listSelectors = createListSelectors<TestResource>(testEntityAdapter, createFeatureSelector(featureKey));
 
 @Injectable()
-export class TestService implements ListService<TestResourceDto, PatchTestResource, TestSummaryDto> {
-  queryResources;
-  patchResources;
-  deleteResources;
+export class TestListService implements ListService<TestResource> {
+  queryResources = jest.fn();
+  patchResources = jest.fn();
+  deleteResources = jest.fn();
 }
 
+const mockSnackBar = { open: jest.fn() } as unknown as MatSnackBar;
+const mockDialog = { open: jest.fn(), afterClosed: jest.fn() } as unknown as MatDialog;
+
 @Injectable()
-export class TestEffects extends AbstractListEffects<TestResourceDto, PatchTestResource, TestSummaryDto> {
-  constructor(actions$: Actions, store: Store, testService: TestService) {
-    super(actions$, store, testService, resourcesActions, resourcesSelectors);
+export class TestListEffects extends AbstractListEffects<TestResource> {
+  constructor(router: Router, actions$: Actions, store: Store, testService: TestListService) {
+    super(router, actions$, store, mockSnackBar, testService, listActions, listSelectors, mockDialog);
   }
 
   addGeneralErrorsArguments$(
-    errors: ErrorsVm,
-    failureAction: ActionCreator<string, ({ error }: { error: ErrorsVm }) => TypedAction<string>>
+    errors: ErrorDto,
+    failureAction: ActionCreator<string, ({ error }: { error: ErrorDto }) => TypedAction<string>>
   ): Observable<TypedAction<string>> {
     return super.addGeneralErrorsArguments$(errors, failureAction);
   }

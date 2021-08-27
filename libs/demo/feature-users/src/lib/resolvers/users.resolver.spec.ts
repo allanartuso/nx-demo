@@ -1,5 +1,4 @@
 import { TestBed } from '@angular/core/testing';
-import { ActivatedRouteSnapshot } from '@angular/router';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { listActions } from '../+state/users/users.actions';
 import { listSelectors } from '../+state/users/users.selectors';
@@ -9,31 +8,15 @@ describe('UsersResolver', () => {
   let resolver: UsersResolver;
   let store: MockStore;
 
-  const tenantId = 2;
-  const id = 37;
-  const mockRouteSnapshot = {
-    params: {
-      tenantId,
-      id
-    }
-  };
-
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [
-        UsersResolver,
-        provideMockStore(),
-        {
-          provide: ActivatedRouteSnapshot,
-          useValue: mockRouteSnapshot
-        }
-      ]
+      providers: [UsersResolver, provideMockStore()]
     });
 
     resolver = TestBed.inject(UsersResolver);
     store = TestBed.inject(MockStore);
 
-    jest.spyOn(store, 'dispatch').mockImplementation(() => {});
+    jest.spyOn(store, 'dispatch');
     store.overrideSelector(listSelectors.isReady, true);
   });
 

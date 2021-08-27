@@ -1,7 +1,12 @@
-jest.mock('../../utils/action-handlers', () => ({
-  createLoadingStateActionHandlers: jest.fn().mockReturnValue([]),
-  createRequestStateActionHandlers: jest.fn().mockReturnValue([])
-}));
+jest.mock('../../utils/action-handlers', () => {
+  const actualModule = jest.requireActual('../../utils/action-handlers');
+
+  return {
+    ...actualModule,
+    createLoadingStateActionHandlers: jest.fn().mockReturnValue([]),
+    createRequestStateActionHandlers: jest.fn().mockReturnValue([])
+  };
+});
 
 import {
   DEFAULT_REQUEST_OPTIONS,
@@ -15,7 +20,7 @@ import {
 } from '@demo/shared/data-access';
 import { EntityAdapter } from '@ngrx/entity';
 import { ActionReducer } from '@ngrx/store';
-import { createTestResource, createTestResources, TestResource } from '../../form/models/form.fixture';
+import { createTestResource, createTestResources, TestResource } from '../../models/store.fixture';
 import { createLoadingStateActionHandlers, createRequestStateActionHandlers } from '../../utils/action-handlers';
 import { ListActions, ListState } from '../models/list.model';
 import { createListActions } from './list-actions';

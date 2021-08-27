@@ -1,6 +1,6 @@
 import { DEFAULT_REQUEST_OPTIONS, DEFAULT_STORED_PAGES, RequestState } from '@demo/shared/data-access';
 import { createFeatureSelector } from '@ngrx/store';
-import { createTestResources, TestResource } from '../../form/models/form.fixture';
+import { createTestResources, TestResource } from '../../models/store.fixture';
 import { ListState } from '../models/list.model';
 import { createListEntityAdapter } from './list-reducer';
 import { createListSelectors } from './list-selectors';

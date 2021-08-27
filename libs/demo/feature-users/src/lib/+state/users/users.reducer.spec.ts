@@ -1,18 +1,13 @@
 const mockReducerFunction = jest.fn();
-jest.mock('@demo/acm/feature/common/list', () => ({
+jest.mock('@demo/shared/util-store', () => ({
   createListEntityAdapter: jest.fn(),
   createListActions: jest.fn(),
   createListReducer: jest.fn().mockReturnValue(mockReducerFunction)
 }));
 
-import {
-  createListActions,
-  createListEntityAdapter,
-  createListReducer,
-  ListState
-} from '@demo/acm/feature/common/list';
-import { UserDto } from '@demo/shared/acm/data-access/users';
+import { createListActions, createListEntityAdapter, createListReducer, ListState } from '@demo/shared/util-store';
 import { Action } from '@ngrx/store';
+import { UserDto } from '../../models/user.dto';
 import { usersReducer } from './users.reducer';
 
 describe('UsersReducer', () => {

@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { RequestState } from '@demo/shared/data-access';
 import { cold } from '@nrwl/angular/testing';
 import { AbstractFormComponent } from './abstract-form-component';
-import { RequestState } from './form.model';
 
 interface TestFormModel {
   name: string;
@@ -106,7 +106,7 @@ describe('AbstractFormComponent', () => {
 
   describe('submit', () => {
     it('emit form submitted event when submitting a valid form.', () => {
-      spyOn(component.submitted, 'emit');
+      jest.spyOn(component.submitted, 'emit');
       const formValues = { ...testFormValues, name: 'newTestName' };
       component.form.patchValue(formValues);
       component.form.markAsDirty();
@@ -174,7 +174,7 @@ describe('AbstractFormComponent', () => {
   });
 
   it('resets the form when writing an undefined value', () => {
-    spyOn(component.form, 'reset');
+    jest.spyOn(component.form, 'reset');
 
     component.writeValue(undefined);
 

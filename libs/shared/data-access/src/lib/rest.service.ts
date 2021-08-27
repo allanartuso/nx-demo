@@ -118,19 +118,19 @@ export class RestService extends AbstractRestService {
     return { filter: options };
   }
 
-  public createResource<T, C>(resourcePath: string, dto: C): Observable<T> {
+  public createResource<T, C = T>(resourcePath: string, dto: C): Observable<T> {
     return super.createResource<T, C>(resourcePath, dto);
   }
 
-  public createResources<T, C>(resourcePath: string, dtos: C[]): Observable<T[]> {
+  public createResources<T, C = T>(resourcePath: string, dtos: C[]): Observable<T[]> {
     return super.createResources<T, C>(`${resourcePath}/bulk`, dtos);
   }
 
-  public updateResource<T, U>(resourcePath: string, dto: U): Observable<T> {
+  public updateResource<T, U = T>(resourcePath: string, dto: U): Observable<T> {
     return super.updateResource<T, U>(resourcePath, dto);
   }
 
-  public updateResources<T, U>(resourcePath: string, dtos: U[]): Observable<T[]> {
+  public updateResources<T, U = T>(resourcePath: string, dtos: U[]): Observable<T[]> {
     return super.updateResources<T, U>(`${resourcePath}/bulk`, dtos);
   }
 

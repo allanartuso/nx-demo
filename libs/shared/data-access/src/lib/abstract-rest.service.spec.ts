@@ -1,10 +1,8 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { cold } from '@nrwl/angular/testing';
 import { of } from 'rxjs';
-import { DEFAULT_FILTERING_LOGIC, DEFAULT_FILTERING_OPERATOR } from '../models/filtering/filtering-options.model';
-import { RequestOptions } from '../models/request/request-options.model';
-import { DEFAULT_SORTING_ORDER } from '../models/sorting/sorting-options.model';
 import { AbstractRestService } from './abstract-rest.service';
+import { RequestOptions } from './models/request-options.model';
 
 interface TestResource {
   id?: string;
@@ -12,7 +10,7 @@ interface TestResource {
   value: number;
 }
 
-const TEST_API_BASE_URL = 'https://testapi:4200/baseurl';
+const TEST_API_BASE_URL = 'https://testapi:3000/baseurl';
 const EXPECTED_RESOURCES: TestResource[] = [
   {
     name: 'name1',
@@ -35,7 +33,7 @@ class TestRestService extends AbstractRestService {
 
 describe('AbstractRestService', () => {
   let restService: TestRestService;
-  let httpMock: any;
+  let httpMock: Partial<HttpClient>;
 
   beforeEach(() => {
     httpMock = {
@@ -47,7 +45,7 @@ describe('AbstractRestService', () => {
       request: jest.fn()
     };
 
-    restService = new TestRestService(httpMock, TEST_API_BASE_URL);
+    restService = new TestRestService(httpMock as HttpClient, TEST_API_BASE_URL);
   });
 
   describe('loadResource', () => {
@@ -55,19 +53,19 @@ describe('AbstractRestService', () => {
     let expectedResource: TestResource;
 
     beforeEach(() => {
-      expectedResourcePath = '/1/tests/42';
+      expectedResourcePath = '1/tests/42';
       expectedResource = EXPECTED_RESOURCES[0];
-      httpMock.get.mockReturnValue(of(expectedResource));
+      httpMock.get = jest.fn().mockReturnValue(of(expectedResource));
     });
 
     it('loads resource from correct URL when a resource path and no API base URL is provided', () => {
       const expectedResource$ = cold('(r|)', { r: expectedResource });
-      restService = new TestRestService(httpMock);
+      restService = new TestRestService(httpMock as HttpClient);
 
       const actualResource$ = restService.loadResource(expectedResourcePath);
 
       expect(actualResource$).toBeObservable(expectedResource$);
-      expect(httpMock.get).toHaveBeenCalledWith(`${expectedResourcePath}`);
+      expect(httpMock.get).toHaveBeenCalledWith(`/${expectedResourcePath}`);
     });
 
     it('loads resource from correct URL when a resource path is provided', () => {
@@ -76,7 +74,7 @@ describe('AbstractRestService', () => {
       const actualResource$ = restService.loadResource(expectedResourcePath);
 
       expect(actualResource$).toBeObservable(expectedResource$);
-      expect(httpMock.get).toHaveBeenCalledWith(`${TEST_API_BASE_URL}${expectedResourcePath}`);
+      expect(httpMock.get).toHaveBeenCalledWith(`${TEST_API_BASE_URL}/${expectedResourcePath}`);
     });
 
     it('loads resource from correct URL when no resource path is provided', () => {
@@ -85,7 +83,7 @@ describe('AbstractRestService', () => {
       const actualResource$ = restService.loadResource();
 
       expect(actualResource$).toBeObservable(expectedResource$);
-      expect(httpMock.get).toHaveBeenCalledWith(`${TEST_API_BASE_URL}`);
+      expect(httpMock.get).toHaveBeenCalledWith(`${TEST_API_BASE_URL}/`);
     });
   });
 
@@ -105,59 +103,9 @@ describe('AbstractRestService', () => {
     };
 
     beforeEach(() => {
-      expectedResourcePath = '/2/tests';
+      expectedResourcePath = '2/tests';
       expectedResources = EXPECTED_RESOURCES;
-      httpMock.get.mockReturnValue(of(EXPECTED_RESOURCES));
-    });
-
-    it('throws type error when invalid request parameters are provided', () => {
-      const invalidRequestOptions: RequestOptions = { requestParameters: { key: null } };
-
-      expect(() => restService.loadResources(expectedResourcePath, invalidRequestOptions)).toThrow(
-        'Invalid input parameter. Provide valid text input instead of "null".'
-      );
-    });
-
-    it('throws type error when invalid paging options are provided', () => {
-      const invalidRequestOptions: RequestOptions = { pagingOptions: { page: -1, pageSize: 10 } };
-
-      expect(() => restService.loadResources(expectedResourcePath, invalidRequestOptions)).toThrow(
-        'Invalid input parameter. Provide a positive input value instead of "-1".'
-      );
-    });
-
-    it('throws type error when invalid sorting options are provided', () => {
-      const invalidRequestOptions: RequestOptions = {
-        sortingOptions: {
-          fieldName: {
-            name: ' ',
-            order: DEFAULT_SORTING_ORDER
-          }
-        }
-      };
-
-      expect(() => restService.loadResources(expectedResourcePath, invalidRequestOptions)).toThrow(
-        'Invalid input parameter. Provide valid text input instead of " ".'
-      );
-    });
-
-    it('throws type error when invalid filtering options are provided', () => {
-      const invalidRequestOptions: RequestOptions = {
-        filteringOptions: {
-          logic: DEFAULT_FILTERING_LOGIC,
-          filters: [
-            {
-              field: 'fieldName',
-              value: ' ',
-              operator: DEFAULT_FILTERING_OPERATOR
-            }
-          ]
-        }
-      };
-
-      expect(() => restService.loadResources(expectedResourcePath, invalidRequestOptions)).toThrow(
-        'Invalid input parameter. Provide valid text input instead of " ".'
-      );
+      httpMock.get = jest.fn().mockReturnValue(of(EXPECTED_RESOURCES));
     });
 
     it('loads resources from correct URL and creates no request parameters when no resource path and no request options are provided', () => {
@@ -166,7 +114,7 @@ describe('AbstractRestService', () => {
       const actualResources$ = restService.loadResources();
 
       expect(actualResources$).toBeObservable(expectedResources$);
-      expect(httpMock.get).toHaveBeenCalledWith(`${TEST_API_BASE_URL}`, emptyHttpParams);
+      expect(httpMock.get).toHaveBeenCalledWith(`${TEST_API_BASE_URL}/`, emptyHttpParams);
       expect(restService.createRequestParameters).toHaveBeenCalledWith({});
     });
 
@@ -176,7 +124,7 @@ describe('AbstractRestService', () => {
       const actualResources$ = restService.loadResources(expectedResourcePath);
 
       expect(actualResources$).toBeObservable(expectedResources$);
-      expect(httpMock.get).toHaveBeenCalledWith(`${TEST_API_BASE_URL}${expectedResourcePath}`, emptyHttpParams);
+      expect(httpMock.get).toHaveBeenCalledWith(`${TEST_API_BASE_URL}/${expectedResourcePath}`, emptyHttpParams);
       expect(restService.createRequestParameters).toHaveBeenCalledWith({});
     });
 
@@ -186,7 +134,7 @@ describe('AbstractRestService', () => {
       const actualResources$ = restService.loadResources(expectedResourcePath, defaultRequestOptions);
 
       expect(actualResources$).toBeObservable(expectedResources$);
-      expect(httpMock.get).toHaveBeenCalledWith(`${TEST_API_BASE_URL}${expectedResourcePath}`, emptyHttpParams);
+      expect(httpMock.get).toHaveBeenCalledWith(`${TEST_API_BASE_URL}/${expectedResourcePath}`, emptyHttpParams);
       expect(restService.createRequestParameters).toHaveBeenCalledWith(defaultRequestOptions);
     });
   });
@@ -202,59 +150,9 @@ describe('AbstractRestService', () => {
     };
 
     beforeEach(() => {
-      expectedResourcePath = '/3/tests';
+      expectedResourcePath = '3/tests';
       expectedResources = EXPECTED_RESOURCES;
-      httpMock.post.mockReturnValue(of(EXPECTED_RESOURCES));
-    });
-
-    it('throws type error when invalid request parameters are provided', () => {
-      const invalidRequestOptions: RequestOptions = { requestParameters: { key: ' ' } };
-
-      expect(() => restService.queryResources(expectedResourcePath, invalidRequestOptions)).toThrow(
-        'Invalid input parameter. Provide valid text input instead of " ".'
-      );
-    });
-
-    it('throws type error when invalid paging options are provided', () => {
-      const invalidRequestOptions: RequestOptions = { pagingOptions: { page: -1, pageSize: 10 } };
-
-      expect(() => restService.queryResources(expectedResourcePath, invalidRequestOptions)).toThrow(
-        'Invalid input parameter. Provide a positive input value instead of "-1".'
-      );
-    });
-
-    it('throws type error when invalid sorting options are provided', () => {
-      const invalidRequestOptions: RequestOptions = {
-        sortingOptions: {
-          sortingFieldName: {
-            name: ' ',
-            order: DEFAULT_SORTING_ORDER
-          }
-        }
-      };
-
-      expect(() => restService.queryResources(expectedResourcePath, invalidRequestOptions)).toThrow(
-        'Invalid input parameter. Provide valid text input instead of " ".'
-      );
-    });
-
-    it('throws type error when invalid filtering options are provided', () => {
-      const invalidRequestOptions: RequestOptions = {
-        filteringOptions: {
-          logic: DEFAULT_FILTERING_LOGIC,
-          filters: [
-            {
-              field: 'filteringFieldName',
-              value: ' ',
-              operator: DEFAULT_FILTERING_OPERATOR
-            }
-          ]
-        }
-      };
-
-      expect(() => restService.queryResources(expectedResourcePath, invalidRequestOptions)).toThrow(
-        'Invalid input parameter. Provide valid text input instead of " ".'
-      );
+      httpMock.post = jest.fn().mockReturnValue(of(EXPECTED_RESOURCES));
     });
 
     it('queries resources from correct URL and creates no request query when no resource path and no request options are provided', () => {
@@ -263,7 +161,7 @@ describe('AbstractRestService', () => {
       const actualResources$ = restService.queryResources();
 
       expect(actualResources$).toBeObservable(expectedResources$);
-      expect(httpMock.post).toHaveBeenCalledWith(`${TEST_API_BASE_URL}`, {});
+      expect(httpMock.post).toHaveBeenCalledWith(`${TEST_API_BASE_URL}/`, {});
       expect(restService.createRequestQuery).toHaveBeenCalledWith({});
     });
 
@@ -273,7 +171,7 @@ describe('AbstractRestService', () => {
       const actualResources$ = restService.queryResources(expectedResourcePath);
 
       expect(actualResources$).toBeObservable(expectedResources$);
-      expect(httpMock.post).toHaveBeenCalledWith(`${TEST_API_BASE_URL}${expectedResourcePath}`, {});
+      expect(httpMock.post).toHaveBeenCalledWith(`${TEST_API_BASE_URL}/${expectedResourcePath}`, {});
       expect(restService.createRequestQuery).toHaveBeenCalledWith({});
     });
 
@@ -283,7 +181,7 @@ describe('AbstractRestService', () => {
       const actualResources$ = restService.queryResources(expectedResourcePath, defaultRequestOptions);
 
       expect(actualResources$).toBeObservable(expectedResources$);
-      expect(httpMock.post).toHaveBeenCalledWith(`${TEST_API_BASE_URL}${expectedResourcePath}`, {});
+      expect(httpMock.post).toHaveBeenCalledWith(`${TEST_API_BASE_URL}/${expectedResourcePath}`, {});
       expect(restService.createRequestQuery).toHaveBeenCalledWith(defaultRequestOptions);
     });
   });
@@ -293,12 +191,12 @@ describe('AbstractRestService', () => {
     let expectedResource: TestResource;
 
     beforeEach(() => {
-      expectedResourcePath = '/4/tests/32';
+      expectedResourcePath = '4/tests/32';
       expectedResource = {
         name: 'name42',
         value: 42
       };
-      httpMock.post.mockReturnValue(of(expectedResource));
+      httpMock.post = jest.fn().mockReturnValue(of(expectedResource));
     });
 
     it('creates the given resource at the correct URL when a resource path and a resource are provided', () => {
@@ -307,7 +205,7 @@ describe('AbstractRestService', () => {
       const actualResource$ = restService.createResource(expectedResourcePath, expectedResource);
 
       expect(actualResource$).toBeObservable(expectedResource$);
-      expect(httpMock.post).toHaveBeenCalledWith(`${TEST_API_BASE_URL}${expectedResourcePath}`, expectedResource);
+      expect(httpMock.post).toHaveBeenCalledWith(`${TEST_API_BASE_URL}/${expectedResourcePath}`, expectedResource);
     });
 
     it('creates the given resource at the correct URL when no resource path and a resource are provided', () => {
@@ -316,7 +214,7 @@ describe('AbstractRestService', () => {
       const actualResource$ = restService.createResource(undefined, expectedResource);
 
       expect(actualResource$).toBeObservable(expectedResource$);
-      expect(httpMock.post).toHaveBeenCalledWith(`${TEST_API_BASE_URL}`, expectedResource);
+      expect(httpMock.post).toHaveBeenCalledWith(`${TEST_API_BASE_URL}/`, expectedResource);
     });
   });
 
@@ -325,12 +223,12 @@ describe('AbstractRestService', () => {
     let expectedResource: TestResource;
 
     beforeEach(() => {
-      expectedResourcePath = '/5/tests/37';
+      expectedResourcePath = '5/tests/37';
       expectedResource = {
         name: 'name41',
         value: 41
       };
-      httpMock.put.mockReturnValue(of(expectedResource));
+      httpMock.put = jest.fn().mockReturnValue(of(expectedResource));
     });
 
     it('updates the given resource at the correct URL when a resource path and a resource are provided', () => {
@@ -339,7 +237,7 @@ describe('AbstractRestService', () => {
       const actualResource$ = restService.updateResource(expectedResourcePath, expectedResource);
 
       expect(actualResource$).toBeObservable(expectedResource$);
-      expect(httpMock.put).toHaveBeenCalledWith(`${TEST_API_BASE_URL}${expectedResourcePath}`, expectedResource);
+      expect(httpMock.put).toHaveBeenCalledWith(`${TEST_API_BASE_URL}/${expectedResourcePath}`, expectedResource);
     });
 
     it('updates the given resource at the correct URL when no resource path and a resource are provided', () => {
@@ -348,7 +246,7 @@ describe('AbstractRestService', () => {
       const actualResource$ = restService.updateResource(undefined, expectedResource);
 
       expect(actualResource$).toBeObservable(expectedResource$);
-      expect(httpMock.put).toHaveBeenCalledWith(`${TEST_API_BASE_URL}`, expectedResource);
+      expect(httpMock.put).toHaveBeenCalledWith(`${TEST_API_BASE_URL}/`, expectedResource);
     });
   });
 
@@ -357,12 +255,12 @@ describe('AbstractRestService', () => {
     let expectedResource: TestResource;
 
     beforeEach(() => {
-      expectedResourcePath = '/6/tests/32';
+      expectedResourcePath = '6/tests/32';
       expectedResource = {
         name: 'name62',
         value: 62
       };
-      httpMock.patch.mockReturnValue(of(expectedResource));
+      httpMock.patch = jest.fn().mockReturnValue(of(expectedResource));
     });
 
     it('patches the given resource at the correct URL when a resource path and a resource are provided', () => {
@@ -371,7 +269,7 @@ describe('AbstractRestService', () => {
       const actualResource$ = restService.patchResource(expectedResourcePath, expectedResource);
 
       expect(actualResource$).toBeObservable(expectedResource$);
-      expect(httpMock.patch).toHaveBeenCalledWith(`${TEST_API_BASE_URL}${expectedResourcePath}`, expectedResource);
+      expect(httpMock.patch).toHaveBeenCalledWith(`${TEST_API_BASE_URL}/${expectedResourcePath}`, expectedResource);
     });
 
     it('patches the given resource at the correct URL when no resource path and a resource are provided', () => {
@@ -380,7 +278,7 @@ describe('AbstractRestService', () => {
       const actualResource$ = restService.patchResource(undefined, expectedResource);
 
       expect(actualResource$).toBeObservable(expectedResource$);
-      expect(httpMock.patch).toHaveBeenCalledWith(`${TEST_API_BASE_URL}`, expectedResource);
+      expect(httpMock.patch).toHaveBeenCalledWith(`${TEST_API_BASE_URL}/`, expectedResource);
     });
   });
 
@@ -389,12 +287,12 @@ describe('AbstractRestService', () => {
     let expectedResource: TestResource;
 
     beforeEach(() => {
-      expectedResourcePath = '/6/tests/32';
+      expectedResourcePath = '6/tests/32';
       expectedResource = {
         name: 'name62',
         value: 62
       };
-      httpMock.patch.mockReturnValue(of([expectedResource]));
+      httpMock.patch = jest.fn().mockReturnValue(of([expectedResource]));
     });
 
     it('patches the given resources at the correct URL when a resource path and a resource are provided', () => {
@@ -403,7 +301,7 @@ describe('AbstractRestService', () => {
       const actualResource$ = restService.patchResources(expectedResourcePath, [expectedResource]);
 
       expect(actualResource$).toBeObservable(expectedResource$);
-      expect(httpMock.patch).toHaveBeenCalledWith(`${TEST_API_BASE_URL}${expectedResourcePath}`, [expectedResource]);
+      expect(httpMock.patch).toHaveBeenCalledWith(`${TEST_API_BASE_URL}/${expectedResourcePath}`, [expectedResource]);
     });
 
     it('patches the given resources at the correct URL when no resource path and a resource are provided', () => {
@@ -412,7 +310,7 @@ describe('AbstractRestService', () => {
       const actualResource$ = restService.patchResources(undefined, [expectedResource]);
 
       expect(actualResource$).toBeObservable(expectedResource$);
-      expect(httpMock.patch).toHaveBeenCalledWith(`${TEST_API_BASE_URL}`, [expectedResource]);
+      expect(httpMock.patch).toHaveBeenCalledWith(`${TEST_API_BASE_URL}/`, [expectedResource]);
     });
   });
 
@@ -421,12 +319,12 @@ describe('AbstractRestService', () => {
     let expectedResource: TestResource;
 
     beforeEach(() => {
-      expectedResourcePath = '/6/tests/bulk';
+      expectedResourcePath = '6/tests/bulk';
       expectedResource = {
         name: 'name62',
         value: 62
       };
-      httpMock.put.mockReturnValue(of([expectedResource]));
+      httpMock.put = jest.fn().mockReturnValue(of([expectedResource]));
     });
 
     it('updated the given resources at the correct URL when a resource path and a resource are provided', () => {
@@ -435,7 +333,7 @@ describe('AbstractRestService', () => {
       const actualResource$ = restService.updateResources(expectedResourcePath, [expectedResource]);
 
       expect(actualResource$).toBeObservable(expectedResource$);
-      expect(httpMock.put).toHaveBeenCalledWith(`${TEST_API_BASE_URL}${expectedResourcePath}`, [expectedResource]);
+      expect(httpMock.put).toHaveBeenCalledWith(`${TEST_API_BASE_URL}/${expectedResourcePath}`, [expectedResource]);
     });
 
     it('updated the given resources at the correct URL when no resource path and a resource are provided', () => {
@@ -444,7 +342,7 @@ describe('AbstractRestService', () => {
       const actualResource$ = restService.updateResources(undefined, [expectedResource]);
 
       expect(actualResource$).toBeObservable(expectedResource$);
-      expect(httpMock.put).toHaveBeenCalledWith(`${TEST_API_BASE_URL}`, [expectedResource]);
+      expect(httpMock.put).toHaveBeenCalledWith(`${TEST_API_BASE_URL}/`, [expectedResource]);
     });
   });
 
@@ -454,13 +352,13 @@ describe('AbstractRestService', () => {
     const requestMethod = 'delete';
 
     beforeEach(() => {
-      expectedResourcePath = '/7/tests/77';
+      expectedResourcePath = '7/tests/77';
       expectedResource = {
         id: 'testId',
         name: 'name62',
         value: 62
       };
-      httpMock.request.mockReturnValue(of(expectedResource));
+      httpMock.request = jest.fn().mockReturnValue(of(expectedResource));
     });
 
     it('deletes the given resource at the correct URL when a resource path is provided', () => {
@@ -469,7 +367,7 @@ describe('AbstractRestService', () => {
       const actualResource$ = restService.deleteResource(expectedResourcePath);
 
       expect(actualResource$).toBeObservable(expectedResource$);
-      expect(httpMock.request).toHaveBeenCalledWith(requestMethod, `${TEST_API_BASE_URL}${expectedResourcePath}`);
+      expect(httpMock.request).toHaveBeenCalledWith(requestMethod, `${TEST_API_BASE_URL}/${expectedResourcePath}`);
     });
 
     it('deletes the given resource at the correct URL when no resource path is provided', () => {
@@ -478,7 +376,7 @@ describe('AbstractRestService', () => {
       const actualResource$ = restService.deleteResource();
 
       expect(actualResource$).toBeObservable(expectedResource$);
-      expect(httpMock.request).toHaveBeenCalledWith(requestMethod, `${TEST_API_BASE_URL}`);
+      expect(httpMock.request).toHaveBeenCalledWith(requestMethod, `${TEST_API_BASE_URL}/`);
     });
   });
 
@@ -488,14 +386,14 @@ describe('AbstractRestService', () => {
     const requestMethod = 'delete';
 
     beforeEach(() => {
-      expectedResourcePath = '/6/tests';
+      expectedResourcePath = '6/tests';
       expectedResource = {
         id: 'testId',
         name: 'name62',
         value: 62
       };
 
-      httpMock.request.mockReturnValue(of([expectedResource]));
+      httpMock.request = jest.fn().mockReturnValue(of([expectedResource]));
     });
 
     it('deletes the given resources at the correct URL when a resource path and resource ids are provided', () => {
@@ -504,7 +402,7 @@ describe('AbstractRestService', () => {
       const actualResource$ = restService.deleteResources(expectedResourcePath, [expectedResource.id]);
 
       expect(actualResource$).toBeObservable(expectedResource$);
-      expect(httpMock.request).toHaveBeenCalledWith(requestMethod, `${TEST_API_BASE_URL}${expectedResourcePath}`, {
+      expect(httpMock.request).toHaveBeenCalledWith(requestMethod, `${TEST_API_BASE_URL}/${expectedResourcePath}`, {
         body: [expectedResource.id]
       });
     });

@@ -1,6 +1,6 @@
 import { RequestState } from '@demo/shared/data-access';
+import { createTestResource, TestResource } from '../../models/store.fixture';
 import { createLoadingStateActionHandlers, createRequestStateActionHandlers } from '../../utils/action-handlers';
-import { createTestResource, TestResource } from '../models/form.fixture';
 import { FormState } from '../models/form.model';
 import { createFormActions } from './form-actions';
 import { createFormReducer } from './form-reducer';

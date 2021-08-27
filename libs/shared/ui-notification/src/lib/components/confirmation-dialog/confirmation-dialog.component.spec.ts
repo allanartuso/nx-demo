@@ -1,5 +1,6 @@
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from './confirmation-dialog.component';
 
 describe('ConfirmationDialogComponent', () => {
@@ -8,9 +9,10 @@ describe('ConfirmationDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ConfirmationDialogComponent ]
-    })
-    .compileComponents();
+      providers: [{ provide: MAT_DIALOG_DATA, useValue: {} }],
+      declarations: [ConfirmationDialogComponent],
+      schemas: [NO_ERRORS_SCHEMA]
+    }).compileComponents();
   });
 
   beforeEach(() => {
