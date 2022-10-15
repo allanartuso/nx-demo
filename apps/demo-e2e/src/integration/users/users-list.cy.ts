@@ -1,5 +1,5 @@
-import { UserDto } from '@demo/demo/feature-users';
-import { SortingDirection, SortingField } from '@demo/shared/data-access';
+import { UserDto } from '@demo/demo/feature-users/test';
+import { SortingDirection, SortingField } from '@demo/shared/data-access/cy';
 import {
   assertCorrectQueryRequested,
   stubDeleteUsers,

@@ -1,6 +1,6 @@
 import { DEFAULT_FILTERING_LOGIC, FilteringOptions } from './filtering-options.model';
 import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE, PagingOptions } from './paging-options.model';
-import { SortingOptions } from './sorting-options.model';
+import { SortingField, SortingOptions } from './sorting-options.model';
 
 export const DEFAULT_REQUEST_OPTIONS: RequestOptions = {
   pagingOptions: {
@@ -19,4 +19,11 @@ export interface RequestOptions {
   pagingOptions?: PagingOptions;
   sortingOptions?: SortingOptions;
   filteringOptions?: FilteringOptions;
+}
+
+export interface QueryOptionsDto {
+  filter?: FilteringOptions;
+  sort?: SortingField[];
+  page?: number;
+  pageSize?: number;
 }

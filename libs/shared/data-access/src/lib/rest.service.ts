@@ -6,16 +6,7 @@ import { AbstractRestService } from './abstract-rest.service';
 import { FilteringField, FilteringOptions } from './models/filtering-options.model';
 import { PagingOptions } from './models/paging-options.model';
 import { RequestOptions } from './models/request-options.model';
-import { SortingDirection, SortingField, SortingOptions } from './models/sorting-options.model';
-
-// TODO: move to demo/data-access
-
-export interface QueryOptionsDto {
-  filter?: FilteringOptions;
-  sort?: SortingField[];
-  page?: number;
-  pageSize?: number;
-}
+import { SortingDirection, SortingOptions } from './models/sorting-options.model';
 
 @Injectable({ providedIn: 'root' })
 export class RestService extends AbstractRestService {

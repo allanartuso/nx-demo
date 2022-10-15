@@ -1,6 +1,5 @@
-import { UserDto } from '@demo/demo/feature-users';
-import { userDtoFixture } from '@demo/demo/feature-users/test';
-import { DEFAULT_PAGE_SIZE, QueryOptionsDto, SortingField } from '@demo/shared/data-access';
+import { UserDto, userDtoFixture } from '@demo/demo/feature-users/test';
+import { DEFAULT_PAGE_SIZE, QueryOptionsDto, SortingField } from '@demo/shared/data-access/cy';
 
 export const usersListSelectors = {
   nextPageButton: '[aria-label="Next page"]',

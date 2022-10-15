@@ -22,6 +22,7 @@
       "@demo/demo/feature-users/test": ["libs/demo/feature-users/src/index-test.ts"],
       "@demo/shared/data-access": ["libs/shared/data-access/src/index.ts"],
       "@demo/shared/data-access/test": ["libs/shared/data-access/src/index-test.ts"],
+      "@demo/shared/data-access/cy": ["libs/shared/data-access/src/index-cy.ts"],
       "@demo/shared/ui-form": ["libs/shared/ui-form/src/index.ts"],
       "@demo/shared/ui-list": ["libs/shared/ui-list/src/index.ts"],
       "@demo/shared/ui-notification": ["libs/shared/ui-notification/src/index.ts"],

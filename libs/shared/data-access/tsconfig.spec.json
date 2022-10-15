@@ -1,5 +1,6 @@
 {
   "extends": "../../../tsconfig.spec.json",
   "files": ["src/test-setup.ts"],
-  "include": ["jest.config.ts"]
+    "types": ["node","jest"],
+    "include": ["jest.config.ts", "**/*.fixture.ts", "**/*.spec.ts"]
 }

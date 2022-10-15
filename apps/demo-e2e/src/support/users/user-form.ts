@@ -1,4 +1,4 @@
-import { UserDto } from '@demo/demo/feature-users';
+import { UserDto } from '@demo/demo/feature-users/test';
 
 export const userFormSelectors = {
   emailInput: '[label="Email"] input',
