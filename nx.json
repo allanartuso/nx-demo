@@ -14,7 +14,8 @@
     "default": {
       "runner": "@nrwl/workspace/tasks-runners/default",
       "options": {
-        "cacheableOperations": ["build", "lint", "test", "e2e"]
+        "cacheableOperations": ["build", "lint", "test", "e2e"],
+        "parallel": 1
       }
     }
   },
@@ -26,40 +27,35 @@
       }
     ]
   },
-  "projects": {
-    "demo": {
-      "tags": []
+  "cli": {
+    "defaultCollection": "@nrwl/angular"
+  },
+  "defaultProject": "demo",
+  "generators": {
+    "@nrwl/angular": {
+      "application": {
+        "linter": "eslint"
+      },
+      "library": {
+        "linter": "eslint"
+      },
+      "storybook-configuration": {
+        "linter": "eslint"
+      }
     },
-    "demo-e2e": {
-      "tags": [],
-      "implicitDependencies": ["demo"]
+    "@nrwl/angular:application": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
     },
-    "demo-feature-sidebar": {
-      "tags": []
+    "@nrwl/angular:library": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest"
     },
-    "demo-feature-users": {
-      "tags": []
-    },
-    "shared-data-access": {
-      "tags": []
-    },
-    "shared-ui-form": {
-      "tags": []
-    },
-    "shared-ui-list": {
-      "tags": []
-    },
-    "shared-ui-notification": {
-      "tags": []
-    },
-    "shared-ui-sidebar": {
-      "tags": []
-    },
-    "shared-util-configuration": {
-      "tags": []
-    },
-    "shared-util-store": {
-      "tags": []
+    "@nrwl/angular:component": {
+      "style": "scss"
     }
   }
 }

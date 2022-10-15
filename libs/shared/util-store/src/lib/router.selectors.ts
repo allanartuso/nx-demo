@@ -3,7 +3,6 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { AppState, CustomRouterStateSnapshot } from './models/store.model';
 
 export const selectRouterState = createFeatureSelector<
-  AppState,
   fromRouterStore.RouterReducerState<CustomRouterStateSnapshot>
 >('router');
 

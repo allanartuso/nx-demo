@@ -1,8 +1,8 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { cold } from '@nrwl/angular/testing';
 import { of } from 'rxjs';
 import { AbstractRestService } from './abstract-rest.service';
 import { RequestOptions } from './models/request-options.model';
+import { cold } from 'jasmine-marbles';
 
 interface TestResource {
   id?: string;

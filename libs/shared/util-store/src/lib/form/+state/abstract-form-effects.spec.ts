@@ -6,11 +6,11 @@ import { errorFixture } from '@demo/shared/data-access/test';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Action } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
-import { hot } from '@nrwl/angular/testing';
 import { EMPTY, Observable, of, throwError } from 'rxjs';
 import { createTestResource, featureKey, TestResource } from '../../models/store.fixture';
 import { formActions, TestFormEffects, TestFormService } from '../models/form.fixture';
 import { FormState } from '../models/form.model';
+import { hot } from 'jasmine-marbles';
 
 describe('TestEffects', () => {
   let actions: Observable<Action>;

@@ -6,7 +6,6 @@ import { errorFixture } from '@demo/shared/data-access/test';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Action } from '@ngrx/store';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
-import { hot } from '@nrwl/angular/testing';
 import { Observable, of, throwError } from 'rxjs';
 import { createTestResources, TestResource } from '../../models/store.fixture';
 import {
@@ -18,6 +17,7 @@ import {
   TestListService
 } from '../models/list.fixture';
 import { ListState } from '../models/list.model';
+import { hot } from 'jasmine-marbles';
 
 describe('TestEffects', () => {
   let actions$: Observable<Action>;

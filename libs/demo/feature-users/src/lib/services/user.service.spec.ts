@@ -1,10 +1,10 @@
 import { TestBed } from '@angular/core/testing';
 import { RequestOptions, RestService } from '@demo/shared/data-access';
 import { restServiceFixture } from '@demo/shared/data-access/test';
-import { cold } from '@nrwl/angular/testing';
 import { USERS_RESOURCE_BASE_PATH } from '../models/user.dto';
 import { createPersistentUser, createPersistentUsers, createTransientUser } from '../models/user.dto.fixture';
 import { UserService } from './user.service';
+import { cold } from 'jasmine-marbles';
 
 describe('UsersService', () => {
   const user = createPersistentUser();

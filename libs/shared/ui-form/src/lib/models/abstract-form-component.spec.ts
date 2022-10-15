@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RequestState } from '@demo/shared/data-access';
-import { cold } from '@nrwl/angular/testing';
 import { AbstractFormComponent } from './abstract-form-component';
+import { cold } from 'jasmine-marbles';
 
 interface TestFormModel {
   name: string;
