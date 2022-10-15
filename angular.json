@@ -76,7 +76,8 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["apps/demo/src/**/*.ts", "apps/demo/src/**/*.html"]
-          }
+          },
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -110,7 +111,8 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["apps/demo-e2e/**/*.{js,ts}"]
-          }
+          },
+          "outputs": ["{options.outputFile}"]
         }
       }
     },
@@ -132,7 +134,8 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["libs/demo/feature-sidebar/src/**/*.ts", "libs/demo/feature-sidebar/src/**/*.html"]
-          }
+          },
+          "outputs": ["{options.outputFile}"]
         }
       }
     },
@@ -154,7 +157,8 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["libs/demo/feature-users/src/**/*.ts", "libs/demo/feature-users/src/**/*.html"]
-          }
+          },
+          "outputs": ["{options.outputFile}"]
         }
       }
     },
@@ -176,7 +180,8 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["libs/shared/data-access/src/**/*.ts", "libs/shared/data-access/src/**/*.html"]
-          }
+          },
+          "outputs": ["{options.outputFile}"]
         }
       }
     },
@@ -198,7 +203,8 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["libs/shared/ui-form/src/**/*.ts", "libs/shared/ui-form/src/**/*.html"]
-          }
+          },
+          "outputs": ["{options.outputFile}"]
         }
       }
     },
@@ -220,7 +226,8 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["libs/shared/ui-list/src/**/*.ts", "libs/shared/ui-list/src/**/*.html"]
-          }
+          },
+          "outputs": ["{options.outputFile}"]
         }
       }
     },
@@ -242,7 +249,8 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["libs/shared/ui-notification/src/**/*.ts", "libs/shared/ui-notification/src/**/*.html"]
-          }
+          },
+          "outputs": ["{options.outputFile}"]
         }
       }
     },
@@ -264,7 +272,8 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["libs/shared/ui-sidebar/src/**/*.ts", "libs/shared/ui-sidebar/src/**/*.html"]
-          }
+          },
+          "outputs": ["{options.outputFile}"]
         }
       }
     },
@@ -289,7 +298,8 @@
               "libs/shared/util-configuration/src/**/*.ts",
               "libs/shared/util-configuration/src/**/*.html"
             ]
-          }
+          },
+          "outputs": ["{options.outputFile}"]
         }
       }
     },
@@ -311,7 +321,8 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["libs/shared/util-store/src/**/*.ts", "libs/shared/util-store/src/**/*.html"]
-          }
+          },
+          "outputs": ["{options.outputFile}"]
         }
       }
     }
