@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { AbstractFormComponent } from '@demo/shared/ui-form';
 import { UserDto } from '../../models/user.dto';
 
@@ -9,11 +9,11 @@ import { UserDto } from '../../models/user.dto';
   styleUrls: ['./user-form.component.scss']
 })
 export class UserFormComponent extends AbstractFormComponent<UserDto> {
-  constructor(private readonly formBuilder: FormBuilder) {
+  constructor(private readonly formBuilder: UntypedFormBuilder) {
     super();
   }
 
-  protected createForm(user: UserDto): FormGroup {
+  protected createForm(user: UserDto): UntypedFormGroup {
     return this.formBuilder.group({
       email: [user.email, [Validators.required, Validators.email]],
       firstName: [user.firstName],

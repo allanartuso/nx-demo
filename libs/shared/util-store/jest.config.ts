@@ -1,5 +1,6 @@
-module.exports = {
-  displayName: 'shared-ui-sidebar',
+/* eslint-disable */
+export default {
+  displayName: 'shared-util-store',
   preset: '../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
@@ -8,7 +9,7 @@ module.exports = {
       stringifyContentPathRegex: '\\.(html|svg)$'
     }
   },
-  coverageDirectory: '../../../coverage/libs/shared/ui-sidebar',
+  coverageDirectory: '../../../coverage/libs/shared/util-store',
   transform: {
     '^.+.(ts|mjs|js|html)$': 'jest-preset-angular'
   },

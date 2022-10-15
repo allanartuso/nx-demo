@@ -15,7 +15,8 @@
     "**/*.test.ts",
     "**/*.fixture.ts",
     "**/index-test.ts",
-    "**/*.stories.ts"
+    "**/*.stories.ts",
+    "jest.config.ts"
   ],
   "include": ["**/*.ts"]
 }

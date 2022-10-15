@@ -1,5 +1,5 @@
 import { Directive, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { ControlValueAccessor, FormGroup } from '@angular/forms';
+import { ControlValueAccessor, UntypedFormGroup } from '@angular/forms';
 import { RequestState } from '@demo/shared/data-access';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -27,7 +27,7 @@ export abstract class AbstractFormComponent<T> implements ControlValueAccessor, 
 
   @Output() submitted: EventEmitter<T> = new EventEmitter();
 
-  form: FormGroup;
+  form: UntypedFormGroup;
   requestState$ = new BehaviorSubject<RequestState>(RequestState.IDLE);
 
   protected readonly destroy$ = new Subject<void>();
@@ -38,7 +38,7 @@ export abstract class AbstractFormComponent<T> implements ControlValueAccessor, 
     return !this.form?.valid || this.form?.pristine;
   }
 
-  protected abstract createForm(model?: T): FormGroup;
+  protected abstract createForm(model?: T): UntypedFormGroup;
 
   protected getFormDefaultValue(model?: T): T {
     return model;
