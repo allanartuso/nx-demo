@@ -1,6 +1,7 @@
-const { defineConfig } = require('cypress');
+import { nxE2EPreset } from '@nrwl/cypress/plugins/cypress-preset';
+import { defineConfig } from 'cypress';
 
-module.exports = defineConfig({
+export default defineConfig({
   fileServerFolder: '.',
   fixturesFolder: './src/fixtures',
   modifyObstructiveCode: false,
@@ -12,13 +13,9 @@ module.exports = defineConfig({
   viewportHeight: 720,
   watchForFileChanges: false,
   numTestsKeptInMemory: 10,
-
   e2e: {
-    specPattern: './src/integration/**/*.cy.{js,jsx,ts,tsx}',
-    supportFile: './src/support/index.ts',
+    ...nxE2EPreset(__dirname),
     baseUrl: 'http://localhost:4200',
-    setupNodeEvents(on, config) {
-      // implement node event listeners here
-    }
+    specPattern: './src/integration-local/**/*.cy.{js,jsx,ts,tsx}'
   }
 });
