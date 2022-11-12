@@ -1,4 +1,4 @@
-import { UserDto } from '@demo/demo/feature-users/test';
+import { UserDto } from '@demo/demo/feature/users/test';
 import { formSelectors } from '../../support/form/form';
 import { stubGetUser, stubUpdateUser, userFormRoutes, userFormSelectors } from '../../support/users/user-form';
 

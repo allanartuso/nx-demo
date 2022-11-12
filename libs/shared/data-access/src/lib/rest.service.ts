@@ -15,11 +15,11 @@ export class RestService extends AbstractRestService {
     super(http, configuration.apiBaseUrl);
   }
 
-  public loadResource<T>(resourcePath: string): Observable<T> {
+  public override loadResource<T>(resourcePath: string): Observable<T> {
     return super.loadResource<T>(resourcePath);
   }
 
-  public loadResources<T>(resourcePath: string, options: RequestOptions = {}): Observable<T[]> {
+  public override loadResources<T>(resourcePath: string, options: RequestOptions = {}): Observable<T[]> {
     return super.loadResources<T>(resourcePath, options);
   }
 
@@ -36,8 +36,8 @@ export class RestService extends AbstractRestService {
     const pagingParameters: Record<string, string> = {};
 
     if (options) {
-      pagingParameters.page = options.page.toString();
-      pagingParameters.pageSize = options.pageSize.toString();
+      pagingParameters['page'] = options.page.toString();
+      pagingParameters['pageSize'] = options.pageSize.toString();
     }
 
     return pagingParameters;
@@ -52,7 +52,7 @@ export class RestService extends AbstractRestService {
         .map(fieldName => (options[fieldName].direction === SortingDirection.DESCENDING ? `-${fieldName}` : fieldName));
 
       if (fieldNames.length > 0) {
-        sortingParameters.sort = fieldNames.join();
+        sortingParameters['sort'] = fieldNames.join();
       }
     }
 
@@ -71,7 +71,7 @@ export class RestService extends AbstractRestService {
     return filteringParameters;
   }
 
-  public queryResources<T>(resourcePath = '', options: RequestOptions = {}): Observable<T[]> {
+  public override queryResources<T>(resourcePath = '', options: RequestOptions = {}): Observable<T[]> {
     return super.queryResources<T>(`${resourcePath}/query`, options);
   }
 
@@ -109,35 +109,35 @@ export class RestService extends AbstractRestService {
     return { filter: options };
   }
 
-  public createResource<T, C = T>(resourcePath: string, dto: C): Observable<T> {
+  public override createResource<T, C = T>(resourcePath: string, dto: C): Observable<T> {
     return super.createResource<T, C>(resourcePath, dto);
   }
 
-  public createResources<T, C = T>(resourcePath: string, dtos: C[]): Observable<T[]> {
+  public override createResources<T, C = T>(resourcePath: string, dtos: C[]): Observable<T[]> {
     return super.createResources<T, C>(`${resourcePath}/bulk`, dtos);
   }
 
-  public updateResource<T, U = T>(resourcePath: string, dto: U): Observable<T> {
+  public override updateResource<T, U = T>(resourcePath: string, dto: U): Observable<T> {
     return super.updateResource<T, U>(resourcePath, dto);
   }
 
-  public updateResources<T, U = T>(resourcePath: string, dtos: U[]): Observable<T[]> {
+  public override updateResources<T, U = T>(resourcePath: string, dtos: U[]): Observable<T[]> {
     return super.updateResources<T, U>(`${resourcePath}/bulk`, dtos);
   }
 
-  public patchResource<T, P>(resourcePath: string, dto: P): Observable<T> {
+  public override patchResource<T, P>(resourcePath: string, dto: P): Observable<T> {
     return super.patchResource<T, P>(resourcePath, dto);
   }
 
-  public patchResources<T, P>(resourcePath: string, dtos: P[]): Observable<T[]> {
+  public override patchResources<T, P>(resourcePath: string, dtos: P[]): Observable<T[]> {
     return super.patchResources<T, P>(`${resourcePath}/bulk`, dtos);
   }
 
-  public deleteResource<T>(resourcePath: string): Observable<T> {
+  public override deleteResource<T>(resourcePath: string): Observable<T> {
     return super.deleteResource<T>(resourcePath);
   }
 
-  public deleteResources<T>(resourcePath: string, resourceIds: string[]): Observable<T[]> {
+  public override deleteResources<T>(resourcePath: string, resourceIds: string[]): Observable<T[]> {
     return super.deleteResources<T>(`${resourcePath}/bulk`, resourceIds);
   }
 }

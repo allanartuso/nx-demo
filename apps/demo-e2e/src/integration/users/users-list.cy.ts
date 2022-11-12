@@ -1,4 +1,4 @@
-import { UserDto } from '@demo/demo/feature-users/test';
+import { UserDto } from '@demo/demo/feature/users/test';
 import { SortingDirection, SortingField } from '@demo/shared/data-access/cy';
 import {
   assertCorrectQueryRequested,

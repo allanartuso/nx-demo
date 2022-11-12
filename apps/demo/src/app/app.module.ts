@@ -19,7 +19,7 @@ const ROUTES: Routes = [
   },
   {
     path: 'users',
-    loadChildren: () => import('@demo/demo/feature-users').then(module => module.DemoFeatureUsersModule)
+    loadChildren: () => import('@demo/demo/feature/users').then(module => module.DemoFeatureUsersModule)
   },
   {
     path: '**',

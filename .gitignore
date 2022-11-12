@@ -41,3 +41,5 @@ Thumbs.db
 
 # e2e
 **/integration-local/*
+
+.angular

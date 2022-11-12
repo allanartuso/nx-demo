@@ -1,4 +1,5 @@
-import { UserDto, userDtoFixture } from '@demo/demo/feature-users/test';
+import { UserDto } from '@demo/demo/data-model/users';
+import { createPersistentUsers } from '@demo/demo/data-model/users/test';
 import { DEFAULT_PAGE_SIZE, QueryOptionsDto, SortingField } from '@demo/shared/data-access/cy';
 
 export const usersListSelectors = {
@@ -20,7 +21,7 @@ const usersListApiUrls = {
 };
 
 export function stubUsers(): UserDto[] {
-  const users = userDtoFixture.createPersistentUsers(35);
+  const users = createPersistentUsers(35);
 
   cy.intercept({ method: 'POST', url: usersListApiUrls.query }, req => {
     const queryOptions = req.body;

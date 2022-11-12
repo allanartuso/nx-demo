@@ -90,6 +90,52 @@
       },
       "tags": []
     },
+    "demo-data-access-users": {
+      "projectType": "library",
+      "root": "libs/demo/data-access/users",
+      "sourceRoot": "libs/demo/data-access/users/src",
+      "prefix": "demo",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/demo/data-access/users"],
+          "options": {
+            "jestConfig": "libs/demo/data-access/users/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/demo/data-access/users/**/*.ts", "libs/demo/data-access/users/**/*.html"]
+          }
+        }
+      },
+      "tags": []
+    },
+    "demo-data-model-users": {
+      "root": "libs/demo/data-model/users",
+      "sourceRoot": "libs/demo/data-model/users/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/demo/data-model/users/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/demo/data-model/users"],
+          "options": {
+            "jestConfig": "libs/demo/data-model/users/jest.config.ts",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
     "demo-e2e": {
       "root": "apps/demo-e2e",
       "sourceRoot": "apps/demo-e2e/src",
@@ -145,24 +191,47 @@
     },
     "demo-feature-users": {
       "projectType": "library",
-      "root": "libs/demo/feature-users",
-      "sourceRoot": "libs/demo/feature-users/src",
+      "root": "libs/demo/feature/users",
+      "sourceRoot": "libs/demo/feature/users/src",
       "prefix": "demo",
       "architect": {
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/demo/feature-users"],
+          "outputs": ["coverage/libs/demo/feature/users"],
           "options": {
-            "jestConfig": "libs/demo/feature-users/jest.config.ts",
+            "jestConfig": "libs/demo/feature/users/jest.config.ts",
             "passWithNoTests": true
           }
         },
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/demo/feature-users/src/**/*.ts", "libs/demo/feature-users/src/**/*.html"]
+            "lintFilePatterns": ["libs/demo/feature/users/src/**/*.ts", "libs/demo/feature/users/src/**/*.html"]
           },
           "outputs": ["{options.outputFile}"]
+        }
+      },
+      "tags": []
+    },
+    "demo-ui-users": {
+      "projectType": "library",
+      "root": "libs/demo/ui/users",
+      "sourceRoot": "libs/demo/ui/users/src",
+      "prefix": "demo",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/demo/ui/users"],
+          "options": {
+            "jestConfig": "libs/demo/ui/users/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/demo/ui/users/**/*.ts", "libs/demo/ui/users/**/*.html"]
+          }
         }
       },
       "tags": []
