@@ -9,7 +9,7 @@ import {
   PagingOptions,
   SortingOptions
 } from '@demo/shared/data-model';
-import { ConfirmationDialogComponent } from '@demo/shared/ui-notification';
+import { ConfirmationDialogComponent } from '@demo/shared/util-notification';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { ActionCreator, createAction, select, Store } from '@ngrx/store';
 import { TypedAction } from '@ngrx/store/src/models';

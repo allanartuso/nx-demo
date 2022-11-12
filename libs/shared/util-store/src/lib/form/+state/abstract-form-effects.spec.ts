@@ -1,16 +1,16 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ErrorDto, RequestState } from '@demo/shared/data-access';
-import { errorFixture } from '@demo/shared/data-access/test';
+import { ErrorDto, RequestState } from '@demo/shared/data-model';
+import { errorFixture } from '@demo/shared/data-model/test';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Action } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
+import { hot } from 'jasmine-marbles';
 import { EMPTY, Observable, of, throwError } from 'rxjs';
 import { createTestResource, featureKey, TestResource } from '../../models/store.fixture';
 import { formActions, TestFormEffects, TestFormService } from '../models/form.fixture';
 import { FormState } from '../models/form.model';
-import { hot } from 'jasmine-marbles';
 
 describe('TestEffects', () => {
   let actions: Observable<Action>;

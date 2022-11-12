@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { formActions, formSelectors } from '@demo/demo/data-access/users';
 import { UserDto } from '@demo/demo/data-model/users';
 import { createPersistentUser, createTransientUser } from '@demo/demo/data-model/users/test';
-import { RequestState } from '@demo/shared/data-access';
+import { RequestState } from '@demo/shared/data-model';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 
 import { UserComponent } from './user.component';

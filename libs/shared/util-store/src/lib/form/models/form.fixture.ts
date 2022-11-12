@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { FormService } from '@demo/shared/data-access';
+import { FormService } from '@demo/shared/data-model';
 import { Actions } from '@ngrx/effects';
 import { createFeatureSelector, Store } from '@ngrx/store';
 import { AbstractFormEffects } from '../+state/abstract-form-effects';

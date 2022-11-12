@@ -1,8 +1,9 @@
 import { TestBed } from '@angular/core/testing';
 import { USERS_RESOURCE_BASE_PATH } from '@demo/demo/data-model/users';
 import { createPersistentUser, createPersistentUsers, createTransientUser } from '@demo/demo/data-model/users/test';
-import { RequestOptions, RestService } from '@demo/shared/data-access';
+import { RestService } from '@demo/shared/data-access';
 import { restServiceFixture } from '@demo/shared/data-access/test';
+import { RequestOptions } from '@demo/shared/data-model';
 import { cold } from 'jasmine-marbles';
 import { UserService } from './user.service';
 

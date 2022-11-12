@@ -20,7 +20,7 @@
       "@demo/demo/data-access/users": ["libs/demo/data-access/users/src/index.ts"],
       "@demo/demo/data-model/users": ["libs/demo/data-model/users/src/index.ts"],
       "@demo/demo/data-model/users/test": ["libs/demo/data-model/users/src/index-test.ts"],
-      "@demo/demo/feature-sidebar": ["libs/demo/feature-sidebar/src/index.ts"],
+      "@demo/demo/feature/sidebar": ["libs/demo/feature/sidebar/src/index.ts"],
       "@demo/demo/feature/users": ["libs/demo/feature/users/src/index.ts"],
       "@demo/demo/ui/users": ["libs/demo/ui/users/src/index.ts"],
       "@demo/shared/data-access": ["libs/shared/data-access/src/index.ts"],
@@ -29,9 +29,9 @@
       "@demo/shared/data-model/test": ["libs/shared/data-model/src/index-test.ts"],
       "@demo/shared/ui-form": ["libs/shared/ui-form/src/index.ts"],
       "@demo/shared/ui-list": ["libs/shared/ui-list/src/index.ts"],
-      "@demo/shared/ui-notification": ["libs/shared/ui-notification/src/index.ts"],
       "@demo/shared/ui-sidebar": ["libs/shared/ui-sidebar/src/index.ts"],
       "@demo/shared/util-configuration": ["libs/shared/util-configuration/src/index.ts"],
+      "@demo/shared/util-notification": ["libs/shared/util-notification/src/index.ts"],
       "@demo/shared/util-store": ["libs/shared/util-store/src/index.ts"]
     }
   },

@@ -2,6 +2,7 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { ErrorDto, FilteringLogic, FilteringOperator, RequestOptions, SortingDirection } from '@demo/shared/data-model';
+import { errorFixture } from '@demo/shared/data-model/test';
 import { ConfigurationService } from '@demo/shared/util-configuration';
 import { EMPTY } from 'rxjs';
 import { RestService } from './rest.service';
@@ -35,7 +36,7 @@ describe('RestService', () => {
   let errorDto: ErrorDto;
 
   beforeEach(() => {
-    errorDto = createErrorDto();
+    errorDto = errorFixture.createErrorDto();
 
     const mockConfigurationService: Partial<ConfigurationService> = {
       setConfiguration: jest.fn(),
@@ -909,6 +910,3 @@ describe('RestService', () => {
     });
   });
 });
-function createErrorDto(): ErrorDto {
-  throw new Error('Function not implemented.');
-}

@@ -1,4 +1,4 @@
-import { RequestState } from '@demo/shared/data-access';
+import { RequestState } from '@demo/shared/data-model';
 import { createTestResource, TestResource } from '../../models/store.fixture';
 import { createLoadingStateActionHandlers, createRequestStateActionHandlers } from '../../utils/action-handlers';
 import { FormState } from '../models/form.model';

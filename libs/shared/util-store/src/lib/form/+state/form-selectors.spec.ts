@@ -1,4 +1,4 @@
-import { RequestState } from '@demo/shared/data-access';
+import { RequestState } from '@demo/shared/data-model';
 import { createFeatureSelector } from '@ngrx/store';
 import { createTestResource, TestResource } from '../../models/store.fixture';
 import { FormState } from '../models/form.model';

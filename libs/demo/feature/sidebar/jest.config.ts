@@ -1,7 +1,7 @@
 /* eslint-disable */
 export default {
-  displayName: 'shared-ui-notification',
-  preset: '../../../jest.preset.js',
+  displayName: 'demo-feature-sidebar',
+  preset: '../../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
     'ts-jest': {
@@ -9,7 +9,7 @@ export default {
       stringifyContentPathRegex: '\\.(html|svg)$'
     }
   },
-  coverageDirectory: '../../../coverage/libs/shared/ui-notification',
+  coverageDirectory: '../../../../coverage/libs/demo/feature/sidebar',
   transform: {
     '^.+.(ts|mjs|js|html)$': 'jest-preset-angular'
   },

@@ -5,16 +5,16 @@
     "demo-data-access-users": "libs/demo/data-access/users",
     "demo-data-model-users": "libs/demo/data-model/users",
     "demo-e2e": "apps/demo-e2e",
-    "demo-feature-sidebar": "libs/demo/feature-sidebar",
+    "demo-feature-sidebar": "libs/demo/feature/sidebar",
     "demo-feature-users": "libs/demo/feature/users",
     "demo-ui-users": "libs/demo/ui/users",
     "shared-data-access": "libs/shared/data-access",
     "shared-data-model": "libs/shared/data-model",
     "shared-ui-form": "libs/shared/ui-form",
     "shared-ui-list": "libs/shared/ui-list",
-    "shared-ui-notification": "libs/shared/ui-notification",
     "shared-ui-sidebar": "libs/shared/ui-sidebar",
     "shared-util-configuration": "libs/shared/util-configuration",
+    "shared-util-notification": "libs/shared/util-notification",
     "shared-util-store": "libs/shared/util-store"
   }
 }

@@ -1,10 +1,10 @@
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ErrorDto } from '@demo/shared/data-access';
-import { errorFixture } from '@demo/shared/data-access/test';
+import { ErrorDto } from '@demo/shared/data-model';
+import { errorFixture } from '@demo/shared/data-model/test';
 import { Action, createAction, props } from '@ngrx/store';
+import { hot } from 'jasmine-marbles';
 import { Observable } from 'rxjs';
 import { handleFailureEffect } from './effects-handle-failure';
-import { hot } from 'jasmine-marbles';
 
 const loadFailureAction = createAction('[Action Handlers Test] Load Failure Action', props<{ error: ErrorDto }>());
 const saveFailureAction = createAction('[Action Handlers Test] Save Failure Action', props<{ error: ErrorDto }>());

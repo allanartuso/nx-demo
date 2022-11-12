@@ -1,4 +1,4 @@
-import { DEFAULT_REQUEST_OPTIONS, DEFAULT_STORED_PAGES, RequestState } from '@demo/shared/data-access';
+import { DEFAULT_REQUEST_OPTIONS, DEFAULT_STORED_PAGES, RequestState } from '@demo/shared/data-model';
 import { createFeatureSelector } from '@ngrx/store';
 import { createTestResources, TestResource } from '../../models/store.fixture';
 import { ListState } from '../models/list.model';

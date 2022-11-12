@@ -9,4 +9,4 @@ import { ConfirmationDialogComponent } from './components/confirmation-dialog/co
   providers: [{ provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: true } }],
   declarations: [ConfirmationDialogComponent]
 })
-export class SharedUiNotificationModule {}
+export class SharedUtilNotificationModule {}

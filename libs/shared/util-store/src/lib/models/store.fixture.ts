@@ -1,4 +1,4 @@
-import { commonFixture } from '@demo/shared/data-access/test';
+import { commonFixture } from '@demo/shared/data-model/test';
 
 export interface TestResource {
   id: string;
