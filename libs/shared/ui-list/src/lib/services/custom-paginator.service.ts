@@ -3,7 +3,7 @@ import { MatPaginatorIntl } from '@angular/material/paginator';
 
 @Injectable()
 export class DemoMatPaginatorIntl extends MatPaginatorIntl {
-  getRangeLabel: (page: number, pageSize: number, length: number) => string = (
+  override getRangeLabel: (page: number, pageSize: number, length: number) => string = (
     page: number,
     pageSize: number,
     length: number

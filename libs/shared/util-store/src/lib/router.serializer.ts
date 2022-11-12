@@ -9,7 +9,7 @@ export class CustomRouterStateSerializer extends MinimalRouterStateSerializer {
     super();
   }
 
-  serialize(routerState: RouterStateSnapshot): CustomRouterStateSnapshot {
+  override serialize(routerState: RouterStateSnapshot): CustomRouterStateSnapshot {
     let extrasState = {};
     const navigationState = this.router.getCurrentNavigation();
     if (navigationState) {

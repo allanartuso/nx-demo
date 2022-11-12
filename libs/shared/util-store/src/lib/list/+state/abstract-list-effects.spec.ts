@@ -6,10 +6,10 @@ import { errorFixture } from '@demo/shared/data-access/test';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Action } from '@ngrx/store';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
+import { hot } from 'jasmine-marbles';
 import { Observable, of, throwError } from 'rxjs';
 import { createTestResources, TestResource } from '../../models/store.fixture';
 import {
-  featureKey,
   listActions,
   listSelectors,
   testEntityAdapter,
@@ -17,7 +17,6 @@ import {
   TestListService
 } from '../models/list.fixture';
 import { ListState } from '../models/list.model';
-import { hot } from 'jasmine-marbles';
 
 describe('TestEffects', () => {
   let actions$: Observable<Action>;
@@ -52,12 +51,13 @@ describe('TestEffects', () => {
         TestListService,
         provideMockActions(() => actions$),
         provideMockStore({
-          initialState: { [featureKey]: initialState },
+          // initialState: { [featureKey]: initialState },
           selectors: [
-            {
-              selector: listSelectors.isLastPage,
-              value: false
-            }
+            { selector: listSelectors.isLastPage, value: false },
+            { selector: listSelectors.getCurrentPageNumber, value: DEFAULT_REQUEST_OPTIONS.pagingOptions.page },
+            { selector: listSelectors.getPagingOptions, value: DEFAULT_REQUEST_OPTIONS.pagingOptions },
+            { selector: listSelectors.getSortingOptions, value: DEFAULT_REQUEST_OPTIONS.sortingOptions },
+            { selector: listSelectors.getFilteringOptions, value: DEFAULT_REQUEST_OPTIONS.filteringOptions }
           ]
         })
       ]
@@ -204,6 +204,7 @@ describe('TestEffects', () => {
     });
 
     it('should emit success when the api respond successfully', () => {
+      store.overrideSelector(listSelectors.getSelectionRecord, {});
       actions$ = hot('a', { a: listActions.loadSelected({ selectedResourceIds: [resourceId] }) });
       const expected = hot('a', {
         a: listActions.loadSelectedSuccess({

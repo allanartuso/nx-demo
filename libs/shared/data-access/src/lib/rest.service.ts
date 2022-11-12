@@ -12,7 +12,7 @@ import { SortingDirection, SortingOptions } from './models/sorting-options.model
 export class RestService extends AbstractRestService {
   constructor(http: HttpClient, configurationService: ConfigurationService) {
     const configuration = configurationService.getConfiguration();
-    super(http, configuration.apiBaseUrl);
+    super(http, configuration?.apiBaseUrl);
   }
 
   public override loadResource<T>(resourcePath: string): Observable<T> {

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import faker from 'faker';
+import { faker } from '@faker-js/faker';
 
 export const DEFAULT_RESOURCE_COLLECTION_SIZE = 50;
 
@@ -64,7 +64,7 @@ export function getEmail(firstName?: string, lastName?: string): string {
 }
 
 export function getElementFromArray<T>(array: T[]): T {
-  return faker.random.arrayElement(array);
+  return faker.helpers.arrayElement(array);
 }
 
 export function getElementsFromArray<T>(array: T[], nbOfElements: number = array.length): T[] {

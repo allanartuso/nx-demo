@@ -10,7 +10,7 @@ export class UserResolver implements Resolve<boolean> {
   constructor(private readonly store: Store) {}
 
   resolve(route: ActivatedRouteSnapshot): Observable<boolean> {
-    const id = route.params.id;
+    const id = route.params['id'];
 
     this.store.dispatch(formActions.load({ id }));
 

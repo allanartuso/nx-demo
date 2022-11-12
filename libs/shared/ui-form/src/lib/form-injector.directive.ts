@@ -59,7 +59,7 @@ export class FormControlInjectorDirective implements OnInit, AfterViewInit {
   }
 
   private isInvalidField(): void {
-    if (this.control.errors?.serverError) {
+    if (this.control.errors?.['serverError']) {
       return;
     }
 

@@ -1,14 +1,10 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { SharedAcmUiCommonVendorsFontawesomeModule } from '@demo/shared/acm/ui/common/vendors/fontawesome';
-import { SharedAcmUiCommonVendorsIgniteuiModule } from '@demo/shared/acm/ui/common/vendors/igniteui';
-import { SharedAcmUtilFormModule } from '@demo/shared/acm/util-form';
 import { RequestState } from '@demo/shared/data-access';
 import { ConfigurationService } from '@demo/shared/util-configuration';
-import { SharedUtilI18nModule } from '@demo/shared/util-i18n';
-import { DemoCancelButtonComponent } from '../demo-cancel-button/demo-cancel-button.component';
-import { DemoInputComponent } from '../demo-input/demo-input.component';
-import { DemoSubmitButtonComponent } from '../demo-submit-button/demo-submit-button.component';
-import { DemoFormComponent } from './demo-form.component';
+import { DemoCancelButtonComponent } from '../cancel-button/cancel-button.component';
+import { DemoInputComponent } from '../input/input.component';
+import { DemoSubmitButtonComponent } from '../submit-button/submit-button.component';
+import { DemoFormComponent } from './form.component';
 
 export default {
   title: 'DemoFormComponent',
@@ -27,13 +23,7 @@ export default {
 
 const template = (args: DemoFormComponent) => ({
   moduleMetadata: {
-    imports: [
-      BrowserAnimationsModule,
-      SharedAcmUiCommonVendorsIgniteuiModule,
-      SharedAcmUtilFormModule,
-      SharedUtilI18nModule,
-      SharedAcmUiCommonVendorsFontawesomeModule
-    ],
+    imports: [BrowserAnimationsModule],
     declarations: [DemoFormComponent, DemoInputComponent, DemoCancelButtonComponent, DemoSubmitButtonComponent],
     providers: [
       {
@@ -67,27 +57,27 @@ const template = (args: DemoFormComponent) => ({
 });
 
 export const Form = template.bind({});
-Form.args = {
-  isSubmitDisabled: false,
-  isCancelDisabled: false,
-  canEdit: true,
-  formRequestState: RequestState.IDLE
-} as DemoFormComponent;
+// Form.args = {
+//   isSubmitDisabled: false,
+//   isCancelDisabled: false,
+//   canEdit: true,
+//   formRequestState: RequestState.IDLE
+// } as DemoFormComponent;
 
-export const FormSubmitDisabled = template.bind({});
-FormSubmitDisabled.args = {
-  ...Form.args,
-  isSubmitDisabled: true
-} as DemoFormComponent;
+// export const FormSubmitDisabled = template.bind({});
+// FormSubmitDisabled.args = {
+//   ...Form.args,
+//   isSubmitDisabled: true
+// } as DemoFormComponent;
 
-export const FormCancelDisabled = template.bind({});
-FormCancelDisabled.args = {
-  ...Form.args,
-  isCancelDisabled: true
-} as DemoFormComponent;
+// export const FormCancelDisabled = template.bind({});
+// FormCancelDisabled.args = {
+//   ...Form.args,
+//   isCancelDisabled: true
+// } as DemoFormComponent;
 
-export const NotEditableForm = template.bind({});
-NotEditableForm.args = {
-  ...Form.args,
-  canEdit: false
-} as DemoFormComponent;
+// export const NotEditableForm = template.bind({});
+// NotEditableForm.args = {
+//   ...Form.args,
+//   canEdit: false
+// } as DemoFormComponent;

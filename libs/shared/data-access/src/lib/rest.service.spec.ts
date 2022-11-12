@@ -42,6 +42,7 @@ describe('RestService', () => {
     errorDto = createErrorDto();
 
     const mockConfigurationService: Partial<ConfigurationService> = {
+      setConfiguration: jest.fn(),
       getConfiguration: jest.fn().mockReturnValue({
         apiBaseUrl: TEST_API_BASE_URL
       })

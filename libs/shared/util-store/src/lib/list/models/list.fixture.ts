@@ -34,7 +34,7 @@ export class TestListEffects extends AbstractListEffects<TestResource> {
     super(router, actions$, store, mockSnackBar, testService, listActions, listSelectors, mockDialog);
   }
 
-  addGeneralErrorsArguments$(
+  override addGeneralErrorsArguments$(
     errors: ErrorDto,
     failureAction: ActionCreator<string, ({ error }: { error: ErrorDto }) => TypedAction<string>>
   ): Observable<TypedAction<string>> {
