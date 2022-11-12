@@ -1,4 +1,4 @@
-import { ErrorDto } from '@demo/shared/data-access';
+import { ErrorDto } from '@demo/shared/data-model';
 import { createAction, props } from '@ngrx/store';
 import { FormActions } from '../models/form.model';
 

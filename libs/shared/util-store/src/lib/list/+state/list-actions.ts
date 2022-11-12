@@ -1,4 +1,4 @@
-import { ErrorDto, FilteringOptions, PagingOptions, SortingField } from '@demo/shared/data-access';
+import { ErrorDto, FilteringOptions, PagingOptions, SortingField } from '@demo/shared/data-model';
 import { createAction, props } from '@ngrx/store';
 import { ListActions } from '../models/list.model';
 

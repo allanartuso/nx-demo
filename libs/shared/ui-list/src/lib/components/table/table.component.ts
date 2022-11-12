@@ -10,7 +10,7 @@ import {
   SortingDirection,
   SortingField,
   SortingOptions
-} from '@demo/shared/data-access';
+} from '@demo/shared/data-model';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { TableColumn } from '../../models/table.model';

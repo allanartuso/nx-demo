@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import { ErrorDto, FieldErrorDto, RequestState } from '@demo/shared/data-access';
+import { ErrorDto, FieldErrorDto, RequestState } from '@demo/shared/data-model';
 import { ActionCreator, MemoizedSelector } from '@ngrx/store';
 import { TypedAction } from '@ngrx/store/src/models';
 import { ApiRequestState, LoadingState } from '../../utils/action-handlers';

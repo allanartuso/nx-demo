@@ -7,7 +7,7 @@ import {
   RequestState,
   SortingField,
   SortingOptions
-} from '@demo/shared/data-access';
+} from '@demo/shared/data-model';
 import { EntityState } from '@ngrx/entity';
 import { ActionCreator, MemoizedSelector } from '@ngrx/store';
 import { TypedAction } from '@ngrx/store/src/models';

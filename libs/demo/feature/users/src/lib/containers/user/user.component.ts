@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { formActions, formSelectors } from '@demo/demo/data-access/users';
 import { UserDto } from '@demo/demo/data-model/users';
-import { RequestState } from '@demo/shared/data-access';
+import { RequestState } from '@demo/shared/data-model';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 

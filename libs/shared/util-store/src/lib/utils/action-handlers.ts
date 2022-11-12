@@ -1,4 +1,4 @@
-import { ErrorDto, PagingOptions, RequestState } from '@demo/shared/data-access';
+import { ErrorDto, PagingOptions, RequestState } from '@demo/shared/data-model';
 import { ActionCreator, createAction, on, ReducerTypes } from '@ngrx/store';
 
 export interface ApiRequestState {

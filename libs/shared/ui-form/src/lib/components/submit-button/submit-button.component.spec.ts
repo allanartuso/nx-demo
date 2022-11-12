@@ -1,20 +1,18 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { RequestState } from '@demo/shared/data-access';
+import { RequestState } from '@demo/shared/data-model';
 import { DemoSubmitButtonComponent } from './submit-button.component';
 
 describe('SubmitButtonComponent', () => {
   let component: DemoSubmitButtonComponent;
   let fixture: ComponentFixture<DemoSubmitButtonComponent>;
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        declarations: [DemoSubmitButtonComponent],
-        schemas: [NO_ERRORS_SCHEMA]
-      }).compileComponents();
-    })
-  );
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      declarations: [DemoSubmitButtonComponent],
+      schemas: [NO_ERRORS_SCHEMA]
+    }).compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(DemoSubmitButtonComponent);

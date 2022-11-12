@@ -1,0 +1,22 @@
+{
+  "sourceRoot": "libs/demo/data-model/users/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/demo/data-model/users/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/demo/data-model/users"],
+      "options": {
+        "jestConfig": "libs/demo/data-model/users/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": ["scope:demo", "type:data-model"]
+}

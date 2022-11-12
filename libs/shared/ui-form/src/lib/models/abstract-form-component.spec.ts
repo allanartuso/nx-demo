@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RequestState } from '@demo/shared/data-access';
-import { AbstractFormComponent } from './abstract-form-component';
+import { RequestState } from '@demo/shared/data-model';
 import { cold } from 'jasmine-marbles';
+import { AbstractFormComponent } from './abstract-form-component';
 
 interface TestFormModel {
   name: string;
@@ -53,14 +53,12 @@ describe('AbstractFormComponent', () => {
   const onChangeMock = jest.fn();
   const onTouchedMock = jest.fn();
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        imports: [ReactiveFormsModule],
-        declarations: [MockFormComponent]
-      }).compileComponents();
-    })
-  );
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      imports: [ReactiveFormsModule],
+      declarations: [MockFormComponent]
+    }).compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(MockFormComponent);

@@ -1,5 +1,5 @@
 import { Directive, EventEmitter, Input, Output, ViewChild } from '@angular/core';
-import { FilteringOptions, PagingOptions, SortingField, SortingOptions } from '@demo/shared/data-access';
+import { FilteringOptions, PagingOptions, SortingField, SortingOptions } from '@demo/shared/data-model';
 import { TableComponent } from '../table/table.component';
 
 @Directive()

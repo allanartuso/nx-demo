@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import { DEFAULT_STORED_PAGES, RequestOptions, RequestState } from '@demo/shared/data-access';
+import { DEFAULT_STORED_PAGES, RequestOptions, RequestState } from '@demo/shared/data-model';
 import { EntityAdapter } from '@ngrx/entity';
 import { createSelector, DefaultProjectorFn, MemoizedSelector } from '@ngrx/store';
 import { ListSelectors, ListState } from '../models/list.model';

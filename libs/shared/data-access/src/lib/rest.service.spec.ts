@@ -1,13 +1,9 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
+import { ErrorDto, FilteringLogic, FilteringOperator, RequestOptions, SortingDirection } from '@demo/shared/data-model';
 import { ConfigurationService } from '@demo/shared/util-configuration';
 import { EMPTY } from 'rxjs';
-import { FilteringLogic, FilteringOperator } from '..';
-import { ErrorDto } from './models/error.dto';
-import { createErrorDto } from './models/error.fixture';
-import { RequestOptions } from './models/request-options.model';
-import { SortingDirection } from './models/sorting-options.model';
 import { RestService } from './rest.service';
 
 interface TestResource {
@@ -913,3 +909,6 @@ describe('RestService', () => {
     });
   });
 });
+function createErrorDto(): ErrorDto {
+  throw new Error('Function not implemented.');
+}

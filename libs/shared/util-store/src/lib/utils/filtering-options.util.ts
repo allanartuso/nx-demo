@@ -1,4 +1,4 @@
-import { FilteringLogic, FilteringOperator, FilteringOptions } from '../models/filtering-options.model';
+import { FilteringLogic, FilteringOperator, FilteringOptions } from '@demo/shared/data-model';
 
 export function createFilteringByResourceIds(resourceIds: string[]): FilteringOptions {
   return {

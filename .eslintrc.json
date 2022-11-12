@@ -13,8 +13,38 @@
             "allow": [],
             "depConstraints": [
               {
-                "sourceTag": "*",
-                "onlyDependOnLibsWithTags": ["*"]
+                "sourceTag": "scope:util",
+                "onlyDependOnLibsWithTags": ["scope:util"]
+              },
+              {
+                "sourceTag": "scope:shared",
+                "onlyDependOnLibsWithTags": ["scope:shared", "scope:util"]
+              },
+              {
+                "sourceTag": "scope:demo",
+                "onlyDependOnLibsWithTags": ["scope:shared", "scope:util", "scope:demo"]
+              },
+              {
+                "sourceTag": "type:ui",
+                "onlyDependOnLibsWithTags": ["type:ui", "type:data-model", "type:util"]
+              },
+              {
+                "sourceTag": "type:feature",
+                "onlyDependOnLibsWithTags": [
+                  "type:feature",
+                  "type:data-access",
+                  "type:data-model",
+                  "type:util",
+                  "type:ui"
+                ]
+              },
+              {
+                "sourceTag": "type:data-access",
+                "onlyDependOnLibsWithTags": ["type:data-access", "type:data-model", "type:util"]
+              },
+              {
+                "sourceTag": "type:data-model",
+                "onlyDependOnLibsWithTags": ["type:data-model", "type:util"]
               }
             ]
           }

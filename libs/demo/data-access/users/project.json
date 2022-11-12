@@ -1,0 +1,22 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/demo/data-access/users/src",
+  "prefix": "demo",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/demo/data-access/users"],
+      "options": {
+        "jestConfig": "libs/demo/data-access/users/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/demo/data-access/users/**/*.ts", "libs/demo/data-access/users/**/*.html"]
+      }
+    }
+  },
+  "tags": ["scope:demo", "type:data-access"]
+}

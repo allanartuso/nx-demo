@@ -1,12 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import {
+  FilteringField,
+  FilteringOptions,
+  PagingOptions,
+  RequestOptions,
+  SortingDirection,
+  SortingOptions
+} from '@demo/shared/data-model';
 import { ConfigurationService } from '@demo/shared/util-configuration';
 import { Observable } from 'rxjs';
 import { AbstractRestService } from './abstract-rest.service';
-import { FilteringField, FilteringOptions } from './models/filtering-options.model';
-import { PagingOptions } from './models/paging-options.model';
-import { RequestOptions } from './models/request-options.model';
-import { SortingDirection, SortingOptions } from './models/sorting-options.model';
 
 @Injectable({ providedIn: 'root' })
 export class RestService extends AbstractRestService {

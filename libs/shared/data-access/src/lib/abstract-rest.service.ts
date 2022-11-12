@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { RequestOptions } from '@demo/shared/data-model';
 import { Observable } from 'rxjs';
-import { RequestOptions } from './models/request-options.model';
 
 /**
  * Provides common Rest service functionality to load, query, create, update, patch and delete resources.

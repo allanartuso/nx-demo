@@ -2,14 +2,13 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import {
-  createFilteringByResourceIds,
   DEFAULT_PAGE_SIZE,
   ErrorDto,
   FilteringOptions,
   ListService,
   PagingOptions,
   SortingOptions
-} from '@demo/shared/data-access';
+} from '@demo/shared/data-model';
 import { ConfirmationDialogComponent } from '@demo/shared/ui-notification';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { ActionCreator, createAction, select, Store } from '@ngrx/store';
@@ -17,6 +16,7 @@ import { TypedAction } from '@ngrx/store/src/models';
 import { Observable, of } from 'rxjs';
 import { catchError, concatMap, exhaustMap, filter, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import { handleFailureEffect } from '../../utils/effects-handle-failure';
+import { createFilteringByResourceIds } from '../../utils/filtering-options.util';
 import { ListActions, ListSelectors } from '../models/list.model';
 
 export abstract class AbstractListEffects<T, S = T> {

@@ -1,5 +1,5 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RequestState } from '@demo/shared/data-access';
+import { RequestState } from '@demo/shared/data-model';
 import { ConfigurationService } from '@demo/shared/util-configuration';
 import { DemoCancelButtonComponent } from '../cancel-button/cancel-button.component';
 import { DemoInputComponent } from '../input/input.component';

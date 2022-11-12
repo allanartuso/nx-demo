@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { UserDto, USERS_RESOURCE_BASE_PATH } from '@demo/demo/data-model/users';
-import { ErrorDto, FormService, ListService, RequestOptions, RestService } from '@demo/shared/data-access';
+import { RestService } from '@demo/shared/data-access';
+import { ErrorDto, FormService, ListService, RequestOptions } from '@demo/shared/data-model';
 import { Observable } from 'rxjs';
 
 @Injectable({

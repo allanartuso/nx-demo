@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import { RequestState } from '@demo/shared/data-access';
+import { RequestState } from '@demo/shared/data-model';
 import { createSelector, DefaultProjectorFn, MemoizedSelector } from '@ngrx/store';
 import { FormSelectors, FormState } from '../models/form.model';
 

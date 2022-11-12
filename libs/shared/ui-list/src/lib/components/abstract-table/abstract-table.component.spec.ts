@@ -4,7 +4,7 @@ import {
   PagingOptions,
   SortingDirection,
   SortingField
-} from '@demo/shared/data-access';
+} from '@demo/shared/data-model';
 import { createSummaries, TestTableComponent } from './abstract-table.component.fixture';
 
 describe('ListComponent', () => {
