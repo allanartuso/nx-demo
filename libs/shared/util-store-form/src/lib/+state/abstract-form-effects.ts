@@ -1,10 +1,9 @@
 import { Router } from '@angular/router';
-import { FormService } from '@demo/shared/data-model';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
 import { catchError, exhaustMap, map, switchMap, tap } from 'rxjs/operators';
-import { FormActions, NotificationService } from '../models/form.model';
+import { FormActions, FormService, NgDuxFormNotificationService } from '../models/form.model';
 
 export abstract class AbstractFormEffects<T, E> {
   load$ = createEffect(() =>
@@ -124,6 +123,6 @@ export abstract class AbstractFormEffects<T, E> {
     protected readonly store: Store,
     private readonly service: FormService<T>,
     private readonly formActions: FormActions<T, E>,
-    private readonly notificationService: NotificationService<E>
+    private readonly notificationService: NgDuxFormNotificationService<E>
   ) {}
 }

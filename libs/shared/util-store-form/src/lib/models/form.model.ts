@@ -1,5 +1,6 @@
 import { ActionCreator, MemoizedSelector } from '@ngrx/store';
 import { TypedAction } from '@ngrx/store/src/models';
+import { Observable } from 'rxjs';
 import { RequestState } from '../common/request-state.model';
 import { ApiRequestState, LoadingState } from '../common/utils/action-handlers';
 
@@ -39,7 +40,17 @@ export interface FormActions<T, E> {
   copySelected: ActionCreator<string, (props: { id: string }) => { id: string } & TypedAction<string>>;
 }
 
-export interface NotificationService<E> {
+export interface NgDuxFormNotificationService<E> {
   onErrors: (errors: E) => void;
   onDelete: (id: string) => void;
+}
+
+export interface FormService<T> {
+  loadResource(id: string): Observable<T>;
+
+  saveResource?(resource: T): Observable<T>;
+
+  deleteResource?(id: string): Observable<void>;
+
+  createResource?(resource: T): Observable<T>;
 }

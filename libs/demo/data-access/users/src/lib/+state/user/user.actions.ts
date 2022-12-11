@@ -1,4 +1,5 @@
 import { UserDto } from '@demo/demo/data-model/users';
-import { createFormActions } from '@demo/shared/util-store';
+import { ErrorDto } from '@demo/shared/data-model';
+import { createFormActions } from '@ngdux/form';
 
-export const formActions = createFormActions<UserDto>('User');
+export const formActions = createFormActions<UserDto, ErrorDto>('User');

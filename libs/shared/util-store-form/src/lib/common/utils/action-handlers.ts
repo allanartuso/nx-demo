@@ -1,5 +1,5 @@
-import { PagingOptions, RequestState } from '@demo/shared/data-model';
 import { ActionCreator, createAction, on, ReducerTypes } from '@ngrx/store';
+import { RequestState } from '../request-state.model';
 
 export interface ApiRequestState<E> {
   requestState: RequestState;
@@ -46,16 +46,4 @@ export function createLoadingStateActionHandlers<T extends LoadingState>(
     on(loadSuccessAction, state => ({ ...state, loadingState: RequestState.SUCCESS })),
     on(loadFailureAction, state => ({ ...state, loadingState: RequestState.FAILURE }))
   ];
-}
-
-export function getLastPageNumber<T>(summaries: T[], pagingOptions: PagingOptions): number {
-  if (!summaries.length) {
-    return pagingOptions.page - 1;
-  }
-
-  if (summaries.length < pagingOptions.pageSize) {
-    return pagingOptions.page;
-  }
-
-  return undefined;
 }

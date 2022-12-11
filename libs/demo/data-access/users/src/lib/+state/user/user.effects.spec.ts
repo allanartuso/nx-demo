@@ -1,4 +1,4 @@
-import { AbstractFormEffects } from '@demo/shared/util-store';
+import { AbstractFormEffects } from '@ngdux/form';
 import { UserEffects } from './user.effects';
 
 describe('UserEffects', () => {

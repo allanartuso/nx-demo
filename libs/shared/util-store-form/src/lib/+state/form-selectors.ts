@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/ban-types */
-import { RequestState } from '@demo/shared/data-model';
 import { createSelector, DefaultProjectorFn, MemoizedSelector } from '@ngrx/store';
+import { RequestState } from '../common/request-state.model';
 import { FormSelectors, FormState } from '../models/form.model';
 
 export function createFormSelectors<T, E>(
