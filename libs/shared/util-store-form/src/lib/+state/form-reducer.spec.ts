@@ -1,19 +1,19 @@
-import { RequestState } from '@demo/shared/data-model';
-import { createTestResource, TestResource } from '../../models/store.fixture';
-import { createLoadingStateActionHandlers, createRequestStateActionHandlers } from '../../utils/action-handlers';
+import { RequestState } from '../common/request-state.model';
+import { createTestResource, TestResource } from '../common/store.fixture';
+import { createLoadingStateActionHandlers, createRequestStateActionHandlers } from '../common/utils/action-handlers';
 import { FormState } from '../models/form.model';
 import { createFormActions } from './form-actions';
 import { createFormReducer } from './form-reducer';
 
-jest.mock('../../utils/action-handlers', () => ({
+jest.mock('../common/utils/action-handlers', () => ({
   createLoadingStateActionHandlers: jest.fn().mockReturnValue([]),
   createRequestStateActionHandlers: jest.fn().mockReturnValue([])
 }));
 
 describe('createFormReducer', () => {
-  const testFormActions = createFormActions<TestResource>('testFeature');
-  const testReducer = createFormReducer<TestResource>(testFormActions);
-  let testInitialState: FormState<TestResource>;
+  const testFormActions = createFormActions<TestResource, string[]>('testFeature');
+  const testReducer = createFormReducer<TestResource, string[]>(testFormActions);
+  let testInitialState: FormState<TestResource, string[]>;
   let resource: TestResource;
 
   beforeEach(() => {
@@ -23,7 +23,7 @@ describe('createFormReducer', () => {
       resource: undefined,
       loadingState: RequestState.IDLE,
       requestState: RequestState.IDLE,
-      error: undefined
+      errors: undefined
     };
   });
 
@@ -70,7 +70,7 @@ describe('createFormReducer', () => {
     it('sets the loaded resource', () => {
       const action = testFormActions.loadSuccess({ resource });
 
-      const state: FormState<TestResource> = testReducer(testInitialState, action);
+      const state: FormState<TestResource, string[]> = testReducer(testInitialState, action);
 
       expect(state).toStrictEqual({ ...testInitialState, resource });
     });
@@ -80,7 +80,7 @@ describe('createFormReducer', () => {
     it('sets the saved resource', () => {
       const action = testFormActions.saveSuccess({ resource });
 
-      const state: FormState<TestResource> = testReducer(testInitialState, action);
+      const state: FormState<TestResource, string[]> = testReducer(testInitialState, action);
 
       expect(state).toStrictEqual({ ...testInitialState, resource });
     });
@@ -89,12 +89,12 @@ describe('createFormReducer', () => {
   describe(testFormActions.deleteSuccess.type, () => {
     it('sets the resource to undefined', () => {
       const action = testFormActions.deleteSuccess({ id: resource.id });
-      const initialState: FormState<TestResource> = {
+      const initialState: FormState<TestResource, string[]> = {
         ...testInitialState,
         resource
       };
 
-      const state: FormState<TestResource> = testReducer(initialState, action);
+      const state: FormState<TestResource, string[]> = testReducer(initialState, action);
 
       expect(state).toStrictEqual({ ...initialState, resource: undefined });
     });
@@ -104,7 +104,7 @@ describe('createFormReducer', () => {
     it('resets the state', () => {
       const action = testFormActions.reset();
 
-      const state: FormState<TestResource> = testReducer(
+      const state: FormState<TestResource, string[]> = testReducer(
         {
           ...testInitialState,
           resource
@@ -120,7 +120,7 @@ describe('createFormReducer', () => {
     it('sets loading state and request state to idle', () => {
       const action = testFormActions.copy();
 
-      const state: FormState<TestResource> = testReducer(
+      const state: FormState<TestResource, string[]> = testReducer(
         {
           ...testInitialState,
           loadingState: RequestState.SUCCESS,

@@ -1,4 +1,5 @@
 {
+  "name": "demo-ui-users",
   "projectType": "library",
   "sourceRoot": "libs/demo/ui/users/src",
   "prefix": "demo",

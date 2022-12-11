@@ -1,4 +1,5 @@
 {
+  "name": "demo-data-model-users",
   "sourceRoot": "libs/demo/data-model/users/src",
   "projectType": "library",
   "targets": {

@@ -1,4 +1,5 @@
 {
+  "name": "shared-ui-sidebar",
   "projectType": "library",
   "sourceRoot": "libs/shared/ui-sidebar/src",
   "prefix": "demo",

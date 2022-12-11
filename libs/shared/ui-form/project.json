@@ -1,4 +1,5 @@
 {
+  "name": "shared-ui-form",
   "projectType": "library",
   "sourceRoot": "libs/shared/ui-form/src",
   "prefix": "demo",

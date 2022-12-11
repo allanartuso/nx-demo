@@ -1,21 +1,19 @@
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { ErrorDto, FormService } from '@demo/shared/data-model';
+import { FormService } from '@demo/shared/data-model';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
 import { catchError, exhaustMap, map, switchMap, tap } from 'rxjs/operators';
-import { handleFailureEffect } from '../../utils/effects-handle-failure';
-import { FormActions } from '../models/form.model';
+import { FormActions, NotificationService } from '../models/form.model';
 
-export abstract class AbstractFormEffects<T> {
+export abstract class AbstractFormEffects<T, E> {
   load$ = createEffect(() =>
     this.actions$.pipe(
       ofType(this.formActions.load),
       switchMap(({ id }) =>
         this.service.loadResource(id).pipe(
           map(resource => this.formActions.loadSuccess({ resource })),
-          catchError((error: ErrorDto) => of(this.formActions.loadFailure({ error })))
+          catchError((errors: E) => of(this.formActions.loadFailure({ errors })))
         )
       )
     )
@@ -27,7 +25,7 @@ export abstract class AbstractFormEffects<T> {
       switchMap(action =>
         this.service.createResource(action.resource).pipe(
           map(resource => this.formActions.createSuccess({ resource })),
-          catchError((error: ErrorDto) => of(this.formActions.createFailure({ error })))
+          catchError((errors: E) => of(this.formActions.createFailure({ errors })))
         )
       )
     )
@@ -39,7 +37,7 @@ export abstract class AbstractFormEffects<T> {
       switchMap(({ resource }) =>
         this.service.saveResource(resource).pipe(
           map(response => this.formActions.saveSuccess({ resource: response })),
-          catchError((error: ErrorDto) => of(this.formActions.saveFailure({ error })))
+          catchError((errors: E) => of(this.formActions.saveFailure({ errors })))
         )
       )
     )
@@ -51,7 +49,7 @@ export abstract class AbstractFormEffects<T> {
       exhaustMap(action =>
         this.service.deleteResource(action.id).pipe(
           map(() => this.formActions.deleteSuccess({ id: action.id })),
-          catchError((error: ErrorDto) => of(this.formActions.deleteFailure({ error })))
+          catchError((errors: E) => of(this.formActions.deleteFailure({ errors })))
         )
       )
     )
@@ -60,8 +58,8 @@ export abstract class AbstractFormEffects<T> {
   deleteSuccess$ = createEffect(() =>
     this.actions$.pipe(
       ofType(this.formActions.deleteSuccess),
-      tap(() => {
-        this.snackBar.open('The resource was removed successfully', 'OK');
+      tap(({ id }) => {
+        this.notificationService.onDelete(id);
         this.router.navigate(['..']);
       })
     )
@@ -104,13 +102,20 @@ export abstract class AbstractFormEffects<T> {
     )
   );
 
-  handleFailure$ = handleFailureEffect(
-    this.snackBar,
-    this.actions$,
-    this.formActions.saveFailure,
-    this.formActions.loadFailure,
-    this.formActions.deleteFailure,
-    this.formActions.createFailure
+  errorsHandler$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(
+          this.formActions.saveFailure,
+          this.formActions.loadFailure,
+          this.formActions.deleteFailure,
+          this.formActions.createFailure
+        ),
+        tap(({ errors }) => {
+          this.notificationService.onErrors(errors);
+        })
+      ),
+    { dispatch: false }
   );
 
   protected constructor(
@@ -118,7 +123,7 @@ export abstract class AbstractFormEffects<T> {
     protected readonly actions$: Actions,
     protected readonly store: Store,
     private readonly service: FormService<T>,
-    private readonly formActions: FormActions<T>,
-    private readonly snackBar: MatSnackBar
+    private readonly formActions: FormActions<T, E>,
+    private readonly notificationService: NotificationService<E>
   ) {}
 }

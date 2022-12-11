@@ -1,20 +1,20 @@
 import { RequestState } from '@demo/shared/data-model';
 import { createFeatureSelector } from '@ngrx/store';
-import { createTestResource, TestResource } from '../../models/store.fixture';
+import { createTestResource, TestResource } from '../common/store.fixture';
 import { FormState } from '../models/form.model';
 import { createFormSelectors } from './form-selectors';
 
 describe('form selectors', () => {
-  let state: FormState<TestResource>;
+  let state: FormState<TestResource, string[]>;
 
-  const formSelectors = createFormSelectors<FormState<TestResource>>(createFeatureSelector('testFeature'));
+  const formSelectors = createFormSelectors<TestResource, string[]>(createFeatureSelector('testFeature'));
 
   beforeEach(() => {
     state = {
       resource: createTestResource(),
       loadingState: RequestState.IDLE,
       requestState: RequestState.IDLE,
-      error: undefined
+      errors: undefined
     };
   });
 
@@ -31,7 +31,7 @@ describe('form selectors', () => {
   });
 
   it('getFieldErrors', () => {
-    expect(formSelectors.getFieldErrors.projector(state)).toBe(state.error?.fieldErrors);
+    expect(formSelectors.getErrors.projector(state)).toBe(state.errors);
   });
 
   describe('isReady', () => {

@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { FormService } from '@demo/shared/data-model';
 import { Actions } from '@ngrx/effects';
@@ -7,14 +6,17 @@ import { createFeatureSelector, Store } from '@ngrx/store';
 import { AbstractFormEffects } from '../+state/abstract-form-effects';
 import { createFormActions } from '../+state/form-actions';
 import { createFormSelectors } from '../+state/form-selectors';
-import { featureKey } from '../../list/models/list.fixture';
-import { TestResource } from '../../models/store.fixture';
+import { TestResource } from '../common/store.fixture';
+import { NotificationService } from './form.model';
 
-export const formActions = createFormActions<TestResource>(featureKey);
-export const formSelectors = createFormSelectors<TestResource>(createFeatureSelector(featureKey));
-const mockSnackBar = {
-  open: jest.fn()
-} as unknown as MatSnackBar;
+export const featureKey = 'testFeature';
+
+export const formActions = createFormActions<TestResource, string[]>(featureKey);
+export const formSelectors = createFormSelectors<TestResource, string[]>(createFeatureSelector(featureKey));
+const mockNotificationService: NotificationService<string[]> = {
+  onErrors: jest.fn(),
+  onDelete: jest.fn()
+};
 
 @Injectable()
 export class TestFormService implements FormService<TestResource> {
@@ -25,8 +27,8 @@ export class TestFormService implements FormService<TestResource> {
 }
 
 @Injectable()
-export class TestFormEffects extends AbstractFormEffects<TestResource> {
+export class TestFormEffects extends AbstractFormEffects<TestResource, string[]> {
   constructor(router: Router, actions$: Actions, store: Store, testService: TestFormService) {
-    super(router, actions$, store, testService, formActions, mockSnackBar);
+    super(router, actions$, store, testService, formActions, mockNotificationService);
   }
 }

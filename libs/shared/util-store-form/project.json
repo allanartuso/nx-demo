@@ -1,0 +1,40 @@
+{
+  "name": "shared-util-store-form",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/shared/util-store-form/src",
+  "prefix": "demo",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:package",
+      "outputs": ["dist/libs/shared/util-store-form"],
+      "options": {
+        "project": "libs/shared/util-store-form/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/shared/util-store-form/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/shared/util-store-form/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/shared/util-store-form"],
+      "options": {
+        "jestConfig": "libs/shared/util-store-form/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/shared/util-store-form/**/*.ts", "libs/shared/util-store-form/**/*.html"]
+      }
+    }
+  },
+  "tags": []
+}

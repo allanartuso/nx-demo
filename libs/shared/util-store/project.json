@@ -1,4 +1,5 @@
 {
+  "name": "shared-util-store",
   "projectType": "library",
   "sourceRoot": "libs/shared/util-store/src",
   "prefix": "demo",

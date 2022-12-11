@@ -1,4 +1,5 @@
 {
+  "name": "shared-util-configuration",
   "projectType": "library",
   "sourceRoot": "libs/shared/util-configuration/src",
   "prefix": "demo",

@@ -1,4 +1,5 @@
 {
+  "name": "demo-data-access-users",
   "projectType": "library",
   "sourceRoot": "libs/demo/data-access/users/src",
   "prefix": "demo",

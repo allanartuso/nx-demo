@@ -1,4 +1,5 @@
 {
+  "name": "shared-data-access",
   "projectType": "library",
   "sourceRoot": "libs/shared/data-access/src",
   "prefix": "demo",

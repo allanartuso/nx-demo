@@ -1,14 +1,13 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ErrorDto, RequestState } from '@demo/shared/data-model';
-import { errorFixture } from '@demo/shared/data-model/test';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Action } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { hot } from 'jasmine-marbles';
 import { EMPTY, Observable, of, throwError } from 'rxjs';
-import { createTestResource, featureKey, TestResource } from '../../models/store.fixture';
+import { RequestState } from '../common/request-state.model';
+import { createTestResource, featureKey, TestResource } from '../common/store.fixture';
 import { formActions, TestFormEffects, TestFormService } from '../models/form.fixture';
 import { FormState } from '../models/form.model';
 
@@ -16,7 +15,7 @@ describe('TestEffects', () => {
   let actions: Observable<Action>;
   let effects: TestFormEffects;
   let testService: TestFormService;
-  const errorDto: ErrorDto = errorFixture.createErrorDto();
+  const errors = ['testError'];
   let resource: TestResource;
 
   beforeEach(() => {
@@ -29,11 +28,11 @@ describe('TestEffects', () => {
       saveResource: jest.fn().mockImplementation(() => of(resource))
     };
 
-    const initialState: FormState<TestResource> = {
+    const initialState: FormState<TestResource, string[]> = {
       resource,
       loadingState: RequestState.IDLE,
       requestState: RequestState.IDLE,
-      error: undefined
+      errors: undefined
     };
 
     TestBed.configureTestingModule({
@@ -70,12 +69,12 @@ describe('TestEffects', () => {
     });
 
     it('should emit failure when error is thrown', () => {
-      testService.loadResource = jest.fn().mockImplementation(() => throwError(errorDto));
+      testService.loadResource = jest.fn().mockImplementation(() => throwError(errors));
       actions = hot('a', {
         a: formActions.load({ id: resource.id })
       });
       const expected = hot('a', {
-        a: formActions.loadFailure({ error: errorDto })
+        a: formActions.loadFailure({ errors })
       });
 
       expect(effects.load$).toBeObservable(expected);
@@ -94,10 +93,10 @@ describe('TestEffects', () => {
     });
 
     it('should emit failure when error is thrown', () => {
-      testService.createResource = jest.fn().mockImplementation(() => throwError(errorDto));
+      testService.createResource = jest.fn().mockImplementation(() => throwError(errors));
       actions = hot('a', { a: formActions.create({ resource }) });
       const expected = hot('a', {
-        a: formActions.createFailure({ error: errorDto })
+        a: formActions.createFailure({ errors })
       });
 
       expect(effects.create$).toBeObservable(expected);
@@ -139,10 +138,10 @@ describe('TestEffects', () => {
     });
 
     it('should emit failure when error is thrown', () => {
-      testService.saveResource = jest.fn().mockImplementation(() => throwError(errorDto));
+      testService.saveResource = jest.fn().mockImplementation(() => throwError(errors));
       actions = hot('a', { a: formActions.save({ resource }) });
       const expected = hot('a', {
-        a: formActions.saveFailure({ error: errorDto })
+        a: formActions.saveFailure({ errors })
       });
 
       expect(effects.update$).toBeObservable(expected);
@@ -162,12 +161,12 @@ describe('TestEffects', () => {
     });
 
     it('should emit failure when error is thrown', () => {
-      testService.deleteResource = jest.fn().mockImplementation(() => throwError(errorDto));
+      testService.deleteResource = jest.fn().mockImplementation(() => throwError(errors));
       actions = hot('a', {
         a: formActions.delete({ id: resource.id })
       });
       const expected = hot('a', {
-        a: formActions.deleteFailure({ error: errorDto })
+        a: formActions.deleteFailure({ errors })
       });
 
       expect(effects.delete$).toBeObservable(expected);

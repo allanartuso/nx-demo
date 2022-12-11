@@ -1,4 +1,5 @@
 {
+  "name": "shared-ui-list",
   "projectType": "library",
   "sourceRoot": "libs/shared/ui-list/src",
   "prefix": "demo",
