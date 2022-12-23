@@ -1,29 +1,25 @@
 {
   "name": "shared-data-model-common",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/shared/data-model/common/src",
   "projectType": "library",
+  "sourceRoot": "libs/shared/data-model/common/src",
+  "prefix": "demo",
   "targets": {
     "build": {
-      "executor": "@nrwl/js:tsc",
-      "outputs": ["{options.outputPath}"],
+      "executor": "@nrwl/angular:package",
+      "outputs": ["dist/libs/shared/data-model/common"],
       "options": {
-        "outputPath": "dist/libs/shared/data-model/common",
-        "main": "libs/shared/data-model/common/src/index.ts",
-        "tsConfig": "libs/shared/data-model/common/tsconfig.lib.json",
-        "assets": ["libs/shared/data-model/common/*.md"]
-      }
-    },
-    "lint": {
-      "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": [
-          "libs/shared/data-model/common/**/*.ts",
-          "libs/shared/data-model/common/test/**/*.ts",
-          "libs/shared/data-model/common/test/**/*.html"
-        ]
-      }
+        "project": "libs/shared/data-model/common/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/shared/data-model/common/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/shared/data-model/common/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
     },
     "test": {
       "executor": "@nrwl/jest:jest",
@@ -31,6 +27,17 @@
       "options": {
         "jestConfig": "libs/shared/data-model/common/jest.config.ts",
         "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/shared/data-model/common/**/*.ts",
+          "libs/shared/data-model/common/**/*.html",
+          "libs/shared/data-model/common/test/**/*.ts",
+          "libs/shared/data-model/common/test/**/*.html"
+        ]
       }
     }
   },
