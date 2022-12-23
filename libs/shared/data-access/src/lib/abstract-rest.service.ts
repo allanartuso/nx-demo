@@ -200,7 +200,7 @@ export abstract class AbstractRestService {
    */
   public deleteResource<T>(resourcePath = ''): Observable<T> {
     const url = this.createUrl(resourcePath);
-    return this.http.request<T>('delete', url);
+    return this.http.delete<T>(url);
   }
 
   /**
