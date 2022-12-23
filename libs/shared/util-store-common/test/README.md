@@ -1,3 +1,3 @@
-# @demo/shared/util-store-common/test
+# @ngdux/store-common/test
 
-Secondary entry point of `@demo/shared/util-store-common`. It can be used by importing from `@demo/shared/util-store-common/test`.
+Secondary entry point of `@ngdux/store-common`. It can be used by importing from `@ngdux/store-common/test`.

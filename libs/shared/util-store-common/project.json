@@ -6,7 +6,7 @@
   "prefix": "demo",
   "targets": {
     "build": {
-      "executor": "@nrwl/angular:ng-packagr-lite",
+      "executor": "@nrwl/angular:package",
       "outputs": ["dist/libs/shared/util-store-common"],
       "options": {
         "project": "libs/shared/util-store-common/ng-package.json"
