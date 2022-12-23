@@ -1,19 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormService } from '@demo/shared/data-model';
 import { Actions } from '@ngrx/effects';
 import { createFeatureSelector, Store } from '@ngrx/store';
 import { AbstractFormEffects } from '../+state/abstract-form-effects';
 import { createFormActions } from '../+state/form-actions';
 import { createFormSelectors } from '../+state/form-selectors';
 import { TestResource } from '../common/store.fixture';
-import { NotificationService } from './form.model';
+import { FormNotificationService, FormService } from './form.model';
 
 export const featureKey = 'testFeature';
 
 export const formActions = createFormActions<TestResource, string[]>(featureKey);
 export const formSelectors = createFormSelectors<TestResource, string[]>(createFeatureSelector(featureKey));
-const mockNotificationService: NotificationService<string[]> = {
+const mockNotificationService: FormNotificationService<string[]> = {
   onErrors: jest.fn(),
   onDelete: jest.fn()
 };

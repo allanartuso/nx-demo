@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ErrorDto } from '@demo/shared/data-model';
-import { NgduxFormNotificationService } from '@ngdux/form';
+import { FormNotificationService as NgduxFormNotificationService } from '@ngdux/form';
 
 @Injectable({
   providedIn: 'root'

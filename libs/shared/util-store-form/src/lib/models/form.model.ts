@@ -40,12 +40,12 @@ export interface FormActions<T, E> {
   copySelected: ActionCreator<string, (props: { id: string }) => { id: string } & TypedAction<string>>;
 }
 
-export interface NgduxFormNotificationService<E> {
+export interface FormNotificationService<E> {
   onErrors: (errors: E) => void;
   onDelete: (id: string) => void;
 }
 
-export interface NgduxFormService<T> {
+export interface FormService<T> {
   loadResource(id: string): Observable<T>;
 
   saveResource?(resource: T): Observable<T>;

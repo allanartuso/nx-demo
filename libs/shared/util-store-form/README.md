@@ -92,14 +92,14 @@ export class UserEffects extends AbstractFormEffects<User, Error> {
 ```
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { NgduxFormService } from '@ngdux/form';
+import { FormService } from '@ngdux/form';
 import { User, USERS_RESOURCE_BASE_PATH } from '../models';
 import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserService implements NgduxFormService<User> {
+export class UserService implements FormService<User> {
   constructor(private httpClient: HttpClient) {}
 
   loadResource(id: string): Observable<User> {
@@ -126,13 +126,13 @@ export class UserService implements NgduxFormService<User> {
 ```
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { NgduxFormNotificationService } from '@ngdux/form';
+import { FormNotificationService } from '@ngdux/form';
 import { Error } from '.../models';
 
 @Injectable({
   providedIn: 'root'
 })
-export class FormNotificationService implements NgduxFormNotificationService<Error> {
+export class FormNotificationService implements FormNotificationService<Error> {
   constructor(private readonly snackBar: MatSnackBar) {}
 
   onErrors(errors: Error): void {

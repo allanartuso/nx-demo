@@ -28,7 +28,8 @@
     "update": "nx migrate latest",
     "workspace-generator": "nx workspace-generator",
     "dep-graph": "nx dep-graph",
-    "help": "nx help"
+    "help": "nx help",
+    "publish:ngdux/form": "npm publish dist/libs/shared/util-store-form"
   },
   "private": true,
   "dependencies": {

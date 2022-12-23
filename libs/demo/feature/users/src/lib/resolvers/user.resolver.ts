@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
-import { formActions, formSelectors } from '@demo/demo/data-access/users';
+import { userActions, userSelectors } from '@demo/demo/data-access/users';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
@@ -12,10 +12,10 @@ export class UserResolver implements Resolve<boolean> {
   resolve(route: ActivatedRouteSnapshot): Observable<boolean> {
     const id = route.params['id'];
 
-    this.store.dispatch(formActions.load({ id }));
+    this.store.dispatch(userActions.load({ id }));
 
     return this.store.pipe(
-      select(formSelectors.isReady),
+      select(userSelectors.isReady),
       first(userReady => userReady)
     );
   }

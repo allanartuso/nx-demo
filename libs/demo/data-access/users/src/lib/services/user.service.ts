@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import { UserDto, USERS_RESOURCE_BASE_PATH } from '@demo/demo/data-model/users';
 import { RestService } from '@demo/shared/data-access';
 import { ErrorDto, ListService, RequestOptions } from '@demo/shared/data-model';
-import { NgduxFormService } from '@ngdux/form';
+import { FormService } from '@ngdux/form';
 import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserService implements NgduxFormService<UserDto>, ListService<UserDto> {
+export class UserService implements FormService<UserDto>, ListService<UserDto> {
   constructor(private readonly restService: RestService) {}
 
   loadResource(id: string): Observable<UserDto> {
