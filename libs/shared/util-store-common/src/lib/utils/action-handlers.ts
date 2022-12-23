@@ -1,5 +1,5 @@
+import { RequestState } from '@demo/shared/data-model/common';
 import { ActionCreator, createAction, on, ReducerTypes } from '@ngrx/store';
-import { RequestState } from '../request-state.model';
 
 export interface ApiRequestState<E> {
   requestState: RequestState;

@@ -1,7 +1,13 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { ErrorDto, FilteringLogic, FilteringOperator, RequestOptions, SortingDirection } from '@demo/shared/data-model';
+import {
+  ErrorDto,
+  FilteringLogic,
+  FilteringOperator,
+  RequestOptions,
+  SortingDirection
+} from '@demo/shared/data-model/common';
 import { errorFixture } from '@demo/shared/data-model/test';
 import { ConfigurationService } from '@demo/shared/util-configuration';
 import { EMPTY } from 'rxjs';

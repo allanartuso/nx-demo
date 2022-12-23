@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RequestState } from '@demo/shared/data-model';
+import { RequestState } from '@demo/shared/data-model/common';
 import { cold } from 'jasmine-marbles';
 import { AbstractFormComponent } from './abstract-form-component';
 

@@ -25,7 +25,8 @@
       "@demo/demo/ui/users": ["libs/demo/ui/users/src/index.ts"],
       "@demo/shared/data-access": ["libs/shared/data-access/src/index.ts"],
       "@demo/shared/data-access/test": ["libs/shared/data-access/src/index-test.ts"],
-      "@demo/shared/data-model": ["libs/shared/data-model/src/index.ts"],
+      "@demo/shared/data-model/common": ["libs/shared/data-model/common/src/index.ts"],
+      "@demo/shared/data-model/common/test": ["libs/shared/data-model/common/test/src/index.ts"],
       "@demo/shared/data-model/test": ["libs/shared/data-model/src/index-test.ts"],
       "@demo/shared/ui-form": ["libs/shared/ui-form/src/index.ts"],
       "@demo/shared/ui-list": ["libs/shared/ui-list/src/index.ts"],
@@ -34,6 +35,7 @@
       "@demo/shared/util-notification": ["libs/shared/util-notification/src/index.ts"],
       "@demo/shared/util-store": ["libs/shared/util-store/src/index.ts"],
       "@demo/shared/util-store-common": ["libs/shared/util-store-common/src/index.ts"],
+      "@demo/shared/util-store-common/test": ["libs/shared/util-store-common/test/src/index.ts"],
       "@ngdux/form": ["libs/shared/util-store-form/src/index.ts"]
     }
   },

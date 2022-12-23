@@ -1,6 +1,6 @@
+import { RequestState } from '@demo/shared/util-store-common';
+import { createTestResource, TestResource } from '@demo/shared/util-store-common/test';
 import { createFeatureSelector } from '@ngrx/store';
-import { RequestState } from '../common/request-state.model';
-import { createTestResource, TestResource } from '../common/store.fixture';
 import { FormState } from '../models/form.model';
 import { createFormSelectors } from './form-selectors';
 

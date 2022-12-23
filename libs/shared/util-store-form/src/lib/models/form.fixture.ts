@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { FormService } from '@demo/shared/data-model/common';
+import { TestResource } from '@demo/shared/util-store-common/test';
 import { Actions } from '@ngrx/effects';
 import { createFeatureSelector, Store } from '@ngrx/store';
 import { AbstractFormEffects } from '../+state/abstract-form-effects';
 import { createFormActions } from '../+state/form-actions';
 import { createFormSelectors } from '../+state/form-selectors';
-import { TestResource } from '../common/store.fixture';
-import { FormNotificationService, FormService } from './form.model';
+import { FormNotificationService } from './form.model';
 
 export const featureKey = 'testFeature';
 

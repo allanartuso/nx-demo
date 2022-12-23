@@ -1,5 +1,4 @@
-// TODO: move to a common lib
-import { commonFixture } from '@demo/shared/data-model/test';
+import { commonFixture } from '@demo/shared/data-model/common/test';
 
 export interface TestResource {
   id: string;

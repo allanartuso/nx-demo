@@ -1,6 +1,6 @@
 import { Component, NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DEFAULT_FILTERING_LOGIC, FilteringOperator } from '@demo/shared/data-model';
+import { DEFAULT_FILTERING_LOGIC, FilteringOperator } from '@demo/shared/data-model/common';
 import { commonFixture } from '@demo/shared/data-model/test';
 import { TableColumn } from '../../models/table.model';
 import { SharedUiListModule } from '../../shared-ui-list.module';

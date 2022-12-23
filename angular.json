@@ -9,7 +9,7 @@
     "demo-feature-users": "libs/demo/feature/users",
     "demo-ui-users": "libs/demo/ui/users",
     "shared-data-access": "libs/shared/data-access",
-    "shared-data-model": "libs/shared/data-model",
+    "shared-data-model-common": "libs/shared/data-model/common",
     "shared-ui-form": "libs/shared/ui-form",
     "shared-ui-list": "libs/shared/ui-list",
     "shared-ui-sidebar": "libs/shared/ui-sidebar",

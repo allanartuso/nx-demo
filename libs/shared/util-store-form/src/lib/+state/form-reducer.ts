@@ -1,6 +1,6 @@
+import { RequestState } from '@demo/shared/data-model/common';
+import { createLoadingStateActionHandlers, createRequestStateActionHandlers } from '@demo/shared/util-store-common';
 import { ActionCreator, ActionReducer, createReducer, Creator, on, ReducerTypes } from '@ngrx/store';
-import { RequestState } from '../common/request-state.model';
-import { createLoadingStateActionHandlers, createRequestStateActionHandlers } from '../common/utils/action-handlers';
 import { FormActions, FormState } from '../models/form.model';
 
 export function createFormReducer<T, E>(

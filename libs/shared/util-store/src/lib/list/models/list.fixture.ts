@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { ErrorDto, ListService } from '@demo/shared/data-model';
+import { ErrorDto, ListService } from '@demo/shared/data-model/common';
 import { Actions } from '@ngrx/effects';
 import { ActionCreator, createFeatureSelector, Store } from '@ngrx/store';
 import { TypedAction } from '@ngrx/store/src/models';

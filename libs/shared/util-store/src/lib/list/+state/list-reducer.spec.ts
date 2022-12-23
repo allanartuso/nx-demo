@@ -17,7 +17,7 @@ import {
   RequestState,
   SortingDirection,
   SortingField
-} from '@demo/shared/data-model';
+} from '@demo/shared/data-model/common';
 import { EntityAdapter } from '@ngrx/entity';
 import { ActionReducer } from '@ngrx/store';
 import { createTestResource, createTestResources, TestResource } from '../../models/store.fixture';

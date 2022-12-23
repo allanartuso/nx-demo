@@ -1,5 +1,5 @@
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ErrorDto } from '@demo/shared/data-model';
+import { ErrorDto } from '@demo/shared/data-model/common';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Action, ActionCreator } from '@ngrx/store';
 import { filter, tap } from 'rxjs/operators';

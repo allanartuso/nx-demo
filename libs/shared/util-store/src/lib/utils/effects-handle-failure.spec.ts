@@ -1,5 +1,5 @@
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ErrorDto } from '@demo/shared/data-model';
+import { ErrorDto } from '@demo/shared/data-model/common';
 import { errorFixture } from '@demo/shared/data-model/test';
 import { Action, createAction, props } from '@ngrx/store';
 import { hot } from 'jasmine-marbles';

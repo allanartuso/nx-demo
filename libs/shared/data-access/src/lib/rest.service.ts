@@ -7,7 +7,7 @@ import {
   RequestOptions,
   SortingDirection,
   SortingOptions
-} from '@demo/shared/data-model';
+} from '@demo/shared/data-model/common';
 import { ConfigurationService } from '@demo/shared/util-configuration';
 import { Observable } from 'rxjs';
 import { AbstractRestService } from './abstract-rest.service';

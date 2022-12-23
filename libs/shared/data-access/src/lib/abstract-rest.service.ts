@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { RequestOptions } from '@demo/shared/data-model';
+import { RequestOptions } from '@demo/shared/data-model/common';
 import { Observable } from 'rxjs';
 
 /**

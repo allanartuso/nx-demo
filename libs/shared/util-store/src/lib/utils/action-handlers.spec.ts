@@ -1,4 +1,4 @@
-import { ErrorDto, RequestState } from '@demo/shared/data-model';
+import { ErrorDto, RequestState } from '@demo/shared/data-model/common';
 import { Action, createAction, createReducer, props } from '@ngrx/store';
 import {
   ApiRequestState,

@@ -1,13 +1,13 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { RequestState } from '@demo/shared/data-model/common';
+import { createTestResource, featureKey, TestResource } from '@demo/shared/util-store-common/test';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Action } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { hot } from 'jasmine-marbles';
 import { EMPTY, Observable, of, throwError } from 'rxjs';
-import { RequestState } from '../common/request-state.model';
-import { createTestResource, featureKey, TestResource } from '../common/store.fixture';
 import { formActions, TestFormEffects, TestFormService } from '../models/form.fixture';
 import { FormState } from '../models/form.model';
 

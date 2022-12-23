@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { DEFAULT_REQUEST_OPTIONS, ErrorDto, ListService, RequestState } from '@demo/shared/data-model';
+import { DEFAULT_REQUEST_OPTIONS, ErrorDto, ListService, RequestState } from '@demo/shared/data-model/common';
 import { errorFixture } from '@demo/shared/data-model/test';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Action } from '@ngrx/store';

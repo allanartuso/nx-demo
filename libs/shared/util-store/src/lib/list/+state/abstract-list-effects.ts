@@ -8,7 +8,7 @@ import {
   ListService,
   PagingOptions,
   SortingOptions
-} from '@demo/shared/data-model';
+} from '@demo/shared/data-model/common';
 import { ConfirmationDialogComponent } from '@demo/shared/util-notification';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { ActionCreator, createAction, select, Store } from '@ngrx/store';

@@ -1,6 +1,6 @@
 import { UserDto } from '@demo/demo/data-model/users';
 import { createPersistentUsers } from '@demo/demo/data-model/users/test';
-import { DEFAULT_PAGE_SIZE, QueryOptionsDto, SortingField } from '@demo/shared/data-model';
+import { DEFAULT_PAGE_SIZE, QueryOptionsDto, SortingField } from '@demo/shared/data-model/common';
 
 export const usersListSelectors = {
   nextPageButton: '[aria-label="Next page"]',

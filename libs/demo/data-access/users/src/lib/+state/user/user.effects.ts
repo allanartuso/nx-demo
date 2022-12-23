@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserDto } from '@demo/demo/data-model/users';
-import { ErrorDto } from '@demo/shared/data-model';
+import { ErrorDto } from '@demo/shared/data-model/common';
 import { FormNotificationService } from '@demo/shared/util-notification';
 import { AbstractFormEffects } from '@ngdux/form';
 import { Actions } from '@ngrx/effects';

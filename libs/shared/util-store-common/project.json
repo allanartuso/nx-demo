@@ -32,7 +32,12 @@
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
-        "lintFilePatterns": ["libs/shared/util-store-common/**/*.ts", "libs/shared/util-store-common/**/*.html"]
+        "lintFilePatterns": [
+          "libs/shared/util-store-common/**/*.ts",
+          "libs/shared/util-store-common/**/*.html",
+          "libs/shared/util-store-common/test/**/*.ts",
+          "libs/shared/util-store-common/test/**/*.html"
+        ]
       }
     }
   },

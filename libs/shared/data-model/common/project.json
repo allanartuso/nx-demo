@@ -1,0 +1,38 @@
+{
+  "name": "shared-data-model-common",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/shared/data-model/common/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/shared/data-model/common",
+        "main": "libs/shared/data-model/common/src/index.ts",
+        "tsConfig": "libs/shared/data-model/common/tsconfig.lib.json",
+        "assets": ["libs/shared/data-model/common/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "libs/shared/data-model/common/**/*.ts",
+          "libs/shared/data-model/common/test/**/*.ts",
+          "libs/shared/data-model/common/test/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/shared/data-model/common"],
+      "options": {
+        "jestConfig": "libs/shared/data-model/common/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

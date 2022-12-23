@@ -1,6 +1,6 @@
 import { Directive, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { ControlValueAccessor, UntypedFormGroup } from '@angular/forms';
-import { RequestState } from '@demo/shared/data-model';
+import { RequestState } from '@demo/shared/data-model/common';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 

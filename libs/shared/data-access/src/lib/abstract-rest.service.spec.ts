@@ -1,5 +1,5 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { RequestOptions } from '@demo/shared/data-model';
+import { RequestOptions } from '@demo/shared/data-model/common';
 import { cold } from 'jasmine-marbles';
 import { of } from 'rxjs';
 import { AbstractRestService } from './abstract-rest.service';

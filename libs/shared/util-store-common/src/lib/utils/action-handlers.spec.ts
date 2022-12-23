@@ -1,10 +1,9 @@
-import { RequestState } from '@demo/shared/data-model';
+import { RequestState } from '@demo/shared/data-model/common';
 import { Action, createAction, createReducer, props } from '@ngrx/store';
 import {
   ApiRequestState,
   createLoadingStateActionHandlers,
   createRequestStateActionHandlers,
-  getLastPageNumber,
   LoadingState
 } from './action-handlers';
 
@@ -108,23 +107,5 @@ describe('actionHandlers testReducer', () => {
         requestState: RequestState.FAILURE
       });
     });
-  });
-});
-
-describe('getLastPageNumber', () => {
-  it('return the previous page number if the current page is empty', () => {
-    const page = 3;
-
-    const lastPageNumber = getLastPageNumber([], { page, pageSize: 5 });
-
-    expect(lastPageNumber).toBe(page - 1);
-  });
-
-  it('return the current page number if the current page length is smaller then the page size', () => {
-    const page = 3;
-
-    const lastPageNumber = getLastPageNumber([''], { page, pageSize: 5 });
-
-    expect(lastPageNumber).toBe(page);
   });
 });
