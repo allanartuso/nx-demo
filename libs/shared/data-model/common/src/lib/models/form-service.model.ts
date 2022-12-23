@@ -20,3 +20,8 @@ export interface FormService<T> {
 
   createResource?(resource: T): Observable<T>;
 }
+
+export interface FormNotificationService<E> {
+  onErrors: (errors: E) => void;
+  onDelete: (id: string) => void;
+}

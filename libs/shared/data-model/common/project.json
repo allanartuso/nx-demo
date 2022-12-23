@@ -34,5 +34,5 @@
       }
     }
   },
-  "tags": []
+  "tags": ["scope:shared", "type:data-model:shared-common"]
 }

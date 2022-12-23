@@ -38,8 +38,3 @@ export interface FormActions<T, E> {
   copy: ActionCreator<string, () => TypedAction<string>>;
   copySelected: ActionCreator<string, (props: { id: string }) => { id: string } & TypedAction<string>>;
 }
-
-export interface FormNotificationService<E> {
-  onErrors: (errors: E) => void;
-  onDelete: (id: string) => void;
-}
