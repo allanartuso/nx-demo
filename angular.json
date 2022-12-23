@@ -16,6 +16,7 @@
     "shared-util-configuration": "libs/shared/util-configuration",
     "shared-util-notification": "libs/shared/util-notification",
     "shared-util-store": "libs/shared/util-store",
+    "shared-util-store-common": "libs/shared/util-store-common",
     "shared-util-store-form": "libs/shared/util-store-form"
   }
 }

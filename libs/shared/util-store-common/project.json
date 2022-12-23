@@ -1,0 +1,40 @@
+{
+  "name": "shared-util-store-common",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/shared/util-store-common/src",
+  "prefix": "demo",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:ng-packagr-lite",
+      "outputs": ["dist/libs/shared/util-store-common"],
+      "options": {
+        "project": "libs/shared/util-store-common/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/shared/util-store-common/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/shared/util-store-common/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/shared/util-store-common"],
+      "options": {
+        "jestConfig": "libs/shared/util-store-common/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/shared/util-store-common/**/*.ts", "libs/shared/util-store-common/**/*.html"]
+      }
+    }
+  },
+  "tags": []
+}
