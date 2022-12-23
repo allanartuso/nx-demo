@@ -1,4 +1,4 @@
-import * as errorFixture from '../../src/lib/models/error.fixture';
-import * as commonFixture from '../../src/lib/utils/common.fixture';
+import * as commonFixture from './lib/common.fixture';
+import * as errorFixture from './lib/error.fixture';
 
 export { commonFixture, errorFixture };

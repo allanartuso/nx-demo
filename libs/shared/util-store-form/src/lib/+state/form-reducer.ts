@@ -1,5 +1,5 @@
-import { RequestState } from '@demo/shared/data-model/common';
-import { createLoadingStateActionHandlers, createRequestStateActionHandlers } from '@demo/shared/util-store-common';
+import { RequestState } from '@ngdux/data-model-common';
+import { createLoadingStateActionHandlers, createRequestStateActionHandlers } from '@ngdux/store-common';
 import { ActionCreator, ActionReducer, createReducer, Creator, on, ReducerTypes } from '@ngrx/store';
 import { FormActions, FormState } from '../models/form.model';
 

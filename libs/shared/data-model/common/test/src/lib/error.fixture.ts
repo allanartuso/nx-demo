@@ -1,4 +1,4 @@
-import { ErrorDto } from './error.dto';
+import { ErrorDto } from '@ngdux/data-model-common';
 
 export function createErrorDto(): ErrorDto {
   return {

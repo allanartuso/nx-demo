@@ -1,5 +1,5 @@
-import { RequestState } from '@demo/shared/data-model/common';
-import { ApiRequestState, LoadingState } from '@demo/shared/util-store-common';
+import { RequestState } from '@ngdux/data-model-common';
+import { ApiRequestState, LoadingState } from '@ngdux/store-common';
 import { ActionCreator, MemoizedSelector } from '@ngrx/store';
 import { TypedAction } from '@ngrx/store/src/models';
 

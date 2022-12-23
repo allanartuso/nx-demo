@@ -29,7 +29,7 @@
     "workspace-generator": "nx workspace-generator",
     "dep-graph": "nx dep-graph",
     "help": "nx help",
-    "publish:ngdux/form": "npm publish dist/libs/shared/util-store-form"
+    "publish:ngdux/form": "npm publish dist/libs/shared/data-model/common && npm publish dist/libs/shared/util-store-common && npm publish dist/libs/shared/util-store-form"
   },
   "private": true,
   "dependencies": {

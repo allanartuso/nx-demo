@@ -1,4 +1,4 @@
-import { RequestState } from '@demo/shared/data-model/common';
+import { RequestState } from '@ngdux/data-model-common';
 import { createSelector, DefaultProjectorFn, MemoizedSelector } from '@ngrx/store';
 import { FormSelectors, FormState } from '../models/form.model';
 
