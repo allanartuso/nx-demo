@@ -1,5 +1,5 @@
 import { UserDto } from '@demo/demo/data-model/users';
-import { ErrorDto } from '@demo/shared/data-model/common';
+import { ErrorDto } from '@ngdux/data-model-common';
 import { createFormState } from '@ngdux/form';
 
 export const USER_FEATURE_KEY = 'user';

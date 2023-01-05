@@ -14,3 +14,7 @@ export interface ListService<T, S = T> {
 
   patchResources?(resourceIds: string[], resource: Partial<T>): Observable<Array<T | ErrorDto>>;
 }
+
+export interface ListNotificationService {
+  openConfirmationDialog: (data: { message: string; title: string }) => Observable<boolean>;
+}

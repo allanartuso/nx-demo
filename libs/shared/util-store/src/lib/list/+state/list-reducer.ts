@@ -4,7 +4,7 @@ import {
   PagingOptions,
   RequestState,
   SortingDirection
-} from '@demo/shared/data-model/common';
+} from '@ngdux/data-model-common';
 import { createEntityAdapter, EntityAdapter } from '@ngrx/entity';
 import { ActionReducer, createReducer, on, ReducerTypes } from '@ngrx/store';
 import { ActionCreator } from '@ngrx/store/src/models';

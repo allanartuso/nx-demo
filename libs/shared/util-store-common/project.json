@@ -41,5 +41,5 @@
       }
     }
   },
-  "tags": ["scope:shared", "type:util:shared-common"]
+  "tags": ["scope:shared-common", "type:util"]
 }

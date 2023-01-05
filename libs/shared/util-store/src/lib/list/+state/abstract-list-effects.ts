@@ -1,15 +1,14 @@
-import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import {
   DEFAULT_PAGE_SIZE,
   ErrorDto,
   FilteringOptions,
+  ListNotificationService,
   ListService,
   PagingOptions,
   SortingOptions
-} from '@demo/shared/data-model/common';
-import { ConfirmationDialogComponent } from '@demo/shared/util-notification';
+} from '@ngdux/data-model-common';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { ActionCreator, createAction, select, Store } from '@ngrx/store';
 import { TypedAction } from '@ngrx/store/src/models';
@@ -155,10 +154,10 @@ export abstract class AbstractListEffects<T, S = T> {
     this.actions$.pipe(
       ofType(this.listActions.showRemovalsConfirmation),
       switchMap(() => {
-        const dialog = this.dialog.open(ConfirmationDialogComponent, {
-          data: { message: this.texts.deleteConfirmationMessage, title: this.texts.deleteConfirmationTitle }
+        return this.notificationService.openConfirmationDialog({
+          message: this.texts.deleteConfirmationMessage,
+          title: this.texts.deleteConfirmationTitle
         });
-        return dialog.afterClosed();
       }),
       filter(confirmed => confirmed),
       withLatestFrom(this.store.pipe(select(this.listSelectors.getSelectedResourceIds))),
@@ -258,7 +257,7 @@ export abstract class AbstractListEffects<T, S = T> {
     private readonly service: ListService<T, S>,
     private readonly listActions: ListActions<T, S>,
     private readonly listSelectors: ListSelectors<S>,
-    private readonly dialog: MatDialog
+    private readonly notificationService: ListNotificationService
   ) {}
 
   protected addGeneralErrorsArguments$(

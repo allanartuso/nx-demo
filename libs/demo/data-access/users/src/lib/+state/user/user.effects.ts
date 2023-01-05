@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserDto } from '@demo/demo/data-model/users';
-import { ErrorDto } from '@demo/shared/data-model/common';
-import { FormNotificationService } from '@demo/shared/util-notification';
+import { NotificationService } from '@demo/shared/util-notification';
+import { ErrorDto } from '@ngdux/data-model-common';
 import { AbstractFormEffects } from '@ngdux/form';
 import { Actions } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
@@ -16,7 +16,7 @@ export class UserEffects extends AbstractFormEffects<UserDto, ErrorDto> {
     actions$: Actions,
     store: Store,
     userService: UserService,
-    formNotificationService: FormNotificationService
+    formNotificationService: NotificationService
   ) {
     super(router, actions$, store, userService, userActions, formNotificationService);
   }

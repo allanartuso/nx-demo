@@ -1,6 +1,6 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RequestState } from '@demo/shared/data-model/common';
 import { ConfigurationService } from '@demo/shared/util-configuration';
+import { RequestState } from '@ngdux/data-model-common';
 import { DemoCancelButtonComponent } from '../cancel-button/cancel-button.component';
 import { DemoInputComponent } from '../input/input.component';
 import { DemoSubmitButtonComponent } from '../submit-button/submit-button.component';

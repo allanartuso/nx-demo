@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { UserDto } from '@demo/demo/data-model/users';
+import { NotificationService } from '@demo/shared/util-notification';
 import { AbstractListEffects } from '@demo/shared/util-store';
 import { Actions } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
@@ -24,8 +24,8 @@ export class UsersEffects extends AbstractListEffects<UserDto> {
     store: Store,
     snackBar: MatSnackBar,
     usersService: UserService,
-    dialog: MatDialog
+    notificationService: NotificationService
   ) {
-    super(router, actions$, store, snackBar, usersService, listActions, listSelectors, dialog);
+    super(router, actions$, store, snackBar, usersService, listActions, listSelectors, notificationService);
   }
 }

@@ -14,153 +14,51 @@
             "depConstraints": [
               {
                 "sourceTag": "scope:shared",
-                "onlyDependOnLibsWithTags": ["scope:shared"]
+                "onlyDependOnLibsWithTags": ["scope:shared-common"]
               },
               {
                 "sourceTag": "scope:demo",
-                "onlyDependOnLibsWithTags": ["scope:shared", "scope:demo"]
-              },
-              {
-                "sourceTag": "type:data-model:shared-common",
-                "onlyDependOnLibsWithTags": []
-              },
-              {
-                "sourceTag": "type:data-model:shared",
-                "onlyDependOnLibsWithTags": ["type:data-model:shared-common"]
+                "onlyDependOnLibsWithTags": ["scope:shared-common", "scope:shared", "scope:demo"]
               },
               {
                 "sourceTag": "type:data-model",
-                "onlyDependOnLibsWithTags": ["type:data-model:shared", "type:data-model:shared-common"]
-              },
-              {
-                "sourceTag": "type:util:shared-common",
-                "onlyDependOnLibsWithTags": [
-                  "type:data-model",
-                  "type:data-model:shared",
-                  "type:data-model:shared-common"
-                ]
-              },
-              {
-                "sourceTag": "type:util:shared",
-                "onlyDependOnLibsWithTags": [
-                  "type:util:shared-common",
-                  "type:data-model",
-                  "type:data-model:shared",
-                  "type:data-model:shared-common"
-                ]
+                "onlyDependOnLibsWithTags": ["type:data-model"]
               },
               {
                 "sourceTag": "type:util",
-                "onlyDependOnLibsWithTags": [
-                  "type:util:shared",
-                  "type:util:shared-common",
-                  "type:data-model",
-                  "type:data-model:shared",
-                  "type:data-model:shared-common"
-                ]
-              },
-              {
-                "sourceTag": "type:ui:shared-common",
-                "onlyDependOnLibsWithTags": [
-                  "type:data-model",
-                  "type:data-model:shared",
-                  "type:data-model:shared-common",
-                  "type:util",
-                  "type:util:shared",
-                  "type:util:shared-common"
-                ]
-              },
-              {
-                "sourceTag": "type:ui:shared",
-                "onlyDependOnLibsWithTags": [
-                  "type:ui:shared-common",
-                  "type:data-model",
-                  "type:data-model:shared",
-                  "type:data-model:shared-common",
-                  "type:util",
-                  "type:util:shared",
-                  "type:util:shared-common"
-                ]
+                "onlyDependOnLibsWithTags": ["type:util", "type:data-model"]
               },
               {
                 "sourceTag": "type:ui",
+                "onlyDependOnLibsWithTags": ["type:data-model", "type:util", "type:ui"]
+              },
+              {
+                "sourceTag": "type:data-access",
+                "onlyDependOnLibsWithTags": ["type:data-access", "type:data-model", "type:util"]
+              },
+              {
+                "sourceTag": "type:feature",
                 "onlyDependOnLibsWithTags": [
-                  "type:ui:shared",
-                  "type:ui:shared-common",
+                  "type:feature",
+                  "type:data-access",
                   "type:data-model",
-                  "type:data-model:shared",
-                  "type:data-model:shared-common",
                   "type:util",
-                  "type:util:shared",
-                  "type:util:shared-common"
+                  "type:ui"
                 ]
               },
               {
                 "sourceTag": "type:feature",
                 "onlyDependOnLibsWithTags": [
-                  "type:feature:shared",
-                  "type:feature:shared-common",
+                  "type:feature",
                   "type:data-access",
-                  "type:data-access:shared",
-                  "type:data-access:shared-common",
                   "type:data-model",
-                  "type:data-model:shared",
-                  "type:data-model:shared-common",
                   "type:util",
-                  "type:util:shared",
-                  "type:util:shared-common",
-                  "type:ui",
-                  "type:ui:shared",
-                  "type:ui:shared-common"
+                  "type:ui"
                 ]
               },
               {
-                "sourceTag": "type:feature:shared",
-                "onlyDependOnLibsWithTags": [
-                  "type:feature:shared-common",
-                  "type:data-access",
-                  "type:data-access:shared",
-                  "type:data-access:shared-common",
-                  "type:data-model",
-                  "type:data-model:shared",
-                  "type:data-model:shared-common",
-                  "type:util",
-                  "type:util:shared",
-                  "type:util:shared-common",
-                  "type:ui",
-                  "type:ui:shared",
-                  "type:ui:shared-common"
-                ]
-              },
-              {
-                "sourceTag": "type:feature:shared-common",
-                "onlyDependOnLibsWithTags": [
-                  "type:data-access",
-                  "type:data-access:shared",
-                  "type:data-access:shared-common",
-                  "type:data-model",
-                  "type:data-model:shared",
-                  "type:data-model:shared-common",
-                  "type:util",
-                  "type:util:shared",
-                  "type:util:shared-common",
-                  "type:ui",
-                  "type:ui:shared",
-                  "type:ui:shared-common"
-                ]
-              },
-              {
-                "sourceTag": "type:data-access",
-                "onlyDependOnLibsWithTags": [
-                  "type:data-access:shared",
-                  "type:data-access:shared-common",
-                  "type:data-model",
-                  "type:data-model:shared",
-                  "type:data-model:shared-common",
-                  "type:util",
-                  "type:util:shared",
-                  "type:util:shared-common"
-                ]
+                "sourceTag": "type:feature",
+                "onlyDependOnLibsWithTags": ["type:data-access", "type:data-model", "type:util", "type:ui"]
               }
             ]
           }
