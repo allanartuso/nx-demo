@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { ActivatedRouteSnapshot } from '@angular/router';
-import { formActions, formSelectors } from '@demo/demo/data-access/users';
+import { userActions, userSelectors } from '@demo/demo/data-access/users';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { UserResolver } from './user.resolver';
 
@@ -27,13 +27,13 @@ describe('UserResolver', () => {
     store = TestBed.inject(MockStore);
 
     jest.spyOn(store, 'dispatch');
-    store.overrideSelector(formSelectors.isReady, true);
+    store.overrideSelector(userSelectors.isReady, true);
   });
 
   it('should dispatch initial actions', () => {
     resolver.resolve(mockRouteSnapshot).subscribe();
 
-    expect(store.dispatch).toHaveBeenCalledWith(formActions.load({ id }));
+    expect(store.dispatch).toHaveBeenCalledWith(userActions.load({ id }));
   });
 
   it('should emit true if the users are already loaded', done => {
@@ -44,7 +44,7 @@ describe('UserResolver', () => {
   });
 
   it('should wait until the loading state is loaded', () => {
-    store.overrideSelector(formSelectors.isReady, false);
+    store.overrideSelector(userSelectors.isReady, false);
     let emitted = false;
 
     resolver.resolve(mockRouteSnapshot).subscribe(() => {

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { userActions, userSelectors } from '@demo/demo/data-access/users';
 import { UserDto } from '@demo/demo/data-model/users';
-import { RequestState } from '@demo/shared/data-model/common';
+import { RequestState } from '@ngdux/data-model-common';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 

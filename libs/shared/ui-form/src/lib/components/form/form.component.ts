@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { RequestState } from '@demo/shared/data-model/common';
+import { RequestState } from '@ngdux/data-model-common';
 
 @Component({
   selector: 'demo-form',

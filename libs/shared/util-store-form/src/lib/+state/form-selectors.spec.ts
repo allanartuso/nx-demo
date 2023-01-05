@@ -1,5 +1,5 @@
-import { RequestState } from '@demo/shared/util-store-common';
-import { createTestResource, TestResource } from '@demo/shared/util-store-common/test';
+import { RequestState } from '@ngdux/data-model-common';
+import { createTestResource, TestResource } from '@ngdux/store-common/test';
 import { createFeatureSelector } from '@ngrx/store';
 import { FormState } from '../models/form.model';
 import { createFormSelectors } from './form-selectors';

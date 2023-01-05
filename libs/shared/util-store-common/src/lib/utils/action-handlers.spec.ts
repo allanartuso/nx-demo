@@ -1,4 +1,4 @@
-import { RequestState } from '@demo/shared/data-model/common';
+import { RequestState } from '@ngdux/data-model-common';
 import { Action, createAction, createReducer, props } from '@ngrx/store';
 import {
   ApiRequestState,

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { listActions, listSelectors } from '@demo/demo/data-access/users';
 import { UserDto, USERS_RESOURCE_BASE_PATH } from '@demo/demo/data-model/users';
-import { FilteringOptions, PagingOptions, SortingField, SortingOptions } from '@demo/shared/data-model/common';
+import { FilteringOptions, PagingOptions, SortingField, SortingOptions } from '@ngdux/data-model-common';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators';

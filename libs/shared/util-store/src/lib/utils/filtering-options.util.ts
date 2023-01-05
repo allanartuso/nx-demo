@@ -1,4 +1,4 @@
-import { FilteringLogic, FilteringOperator, FilteringOptions } from '@demo/shared/data-model/common';
+import { FilteringLogic, FilteringOperator, FilteringOptions } from '@ngdux/data-model-common';
 
 export function createFilteringByResourceIds(resourceIds: string[]): FilteringOptions {
   return {

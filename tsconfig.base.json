@@ -25,8 +25,6 @@
       "@demo/demo/ui/users": ["libs/demo/ui/users/src/index.ts"],
       "@demo/shared/data-access": ["libs/shared/data-access/src/index.ts"],
       "@demo/shared/data-access/test": ["libs/shared/data-access/src/index-test.ts"],
-      "@demo/shared/data-model/common/test": ["libs/shared/data-model/common/test/src/index.ts"],
-      "@demo/shared/data-model/test": ["libs/shared/data-model/src/index-test.ts"],
       "@demo/shared/ui-form": ["libs/shared/ui-form/src/index.ts"],
       "@demo/shared/ui-list": ["libs/shared/ui-list/src/index.ts"],
       "@demo/shared/ui-sidebar": ["libs/shared/ui-sidebar/src/index.ts"],

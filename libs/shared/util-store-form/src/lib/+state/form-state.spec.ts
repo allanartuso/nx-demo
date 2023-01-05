@@ -1,9 +1,3 @@
-import { createFeatureSelector } from '@ngrx/store';
-import { createFormActions } from './form-actions';
-import { createFormReducer } from './form-reducer';
-import { createFormSelectors } from './form-selectors';
-import { createFormState } from './form-state';
-
 const mockActions = 'mockActions';
 jest.mock('./form-actions', () => ({
   createFormActions: jest.fn().mockReturnValue(mockActions)
@@ -11,7 +5,7 @@ jest.mock('./form-actions', () => ({
 
 const mockReducer = 'mockReducer';
 jest.mock('./form-reducer', () => ({
-  createFormReducer: jest.fn().mockReturnValue(mockReducer)
+  createFormReducer: jest.fn().mockReturnValue(() => mockReducer)
 }));
 
 const mockSelectors = 'mockSelectors';
@@ -24,6 +18,12 @@ jest.mock('@ngrx/store', () => ({
   createFeatureSelector: jest.fn().mockReturnValue(mockFeatureSelector)
 }));
 
+import { createFeatureSelector } from '@ngrx/store';
+import { createFormActions } from './form-actions';
+import { createFormReducer } from './form-reducer';
+import { createFormSelectors } from './form-selectors';
+import { createFormState } from './form-state';
+
 describe('formState', () => {
   const featureName = 'testFeatureName';
   const { actions, reducer, selectors } = createFormState(featureName);
@@ -34,7 +34,7 @@ describe('formState', () => {
 
   it('create form reducer', () => {
     expect(createFormReducer).toHaveBeenCalledWith(actions);
-    expect(reducer(undefined, { type: '' })).toHaveBeenCalledWith(mockReducer);
+    expect(reducer(undefined, { type: '' })).toBe(mockReducer);
   });
 
   it('create form selectors', () => {

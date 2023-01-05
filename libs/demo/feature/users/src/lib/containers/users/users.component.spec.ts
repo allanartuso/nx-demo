@@ -14,7 +14,7 @@ import {
   PagingOptions,
   SortingDirection,
   SortingField
-} from '@demo/shared/data-model/common';
+} from '@ngdux/data-model-common';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { UsersComponent } from './users.component';
 

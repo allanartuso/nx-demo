@@ -1,11 +1,11 @@
-import { RequestState } from '@demo/shared/data-model/common';
-import { createLoadingStateActionHandlers, createRequestStateActionHandlers } from '@demo/shared/util-store-common';
-import { createTestResource, TestResource } from '@demo/shared/util-store-common/test';
+import { RequestState } from '@ngdux/data-model-common';
+import { createLoadingStateActionHandlers, createRequestStateActionHandlers } from '@ngdux/store-common';
+import { createTestResource, TestResource } from '@ngdux/store-common/test';
 import { FormState } from '../models/form.model';
 import { createFormActions } from './form-actions';
 import { createFormReducer } from './form-reducer';
 
-jest.mock('../common/utils/action-handlers', () => ({
+jest.mock('@ngdux/store-common', () => ({
   createLoadingStateActionHandlers: jest.fn().mockReturnValue([]),
   createRequestStateActionHandlers: jest.fn().mockReturnValue([])
 }));

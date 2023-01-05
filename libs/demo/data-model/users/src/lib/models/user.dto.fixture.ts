@@ -1,4 +1,4 @@
-import { commonFixture } from '@demo/shared/data-model/test';
+import { commonFixture } from '@ngdux/data-model-common/test';
 import { UserDto } from './user.dto';
 
 export function createPersistentUsers(n = 3): UserDto[] {

@@ -1,4 +1,4 @@
-import { DEFAULT_REQUEST_OPTIONS, DEFAULT_STORED_PAGES, RequestState } from '@demo/shared/data-model/common';
+import { DEFAULT_REQUEST_OPTIONS, DEFAULT_STORED_PAGES, RequestState } from '@ngdux/data-model-common';
 import { createFeatureSelector } from '@ngrx/store';
 import { createTestResources, TestResource } from '../../models/store.fixture';
 import { ListState } from '../models/list.model';

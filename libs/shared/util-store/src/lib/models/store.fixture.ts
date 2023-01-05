@@ -1,4 +1,4 @@
-import { commonFixture } from '@demo/shared/data-model/test';
+import { commonFixture } from '@ngdux/data-model-common/test';
 
 export interface TestResource {
   id: string;

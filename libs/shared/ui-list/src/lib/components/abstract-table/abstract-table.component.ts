@@ -1,5 +1,5 @@
 import { Directive, EventEmitter, Input, Output, ViewChild } from '@angular/core';
-import { FilteringOptions, PagingOptions, SortingField, SortingOptions } from '@demo/shared/data-model/common';
+import { FilteringOptions, PagingOptions, SortingField, SortingOptions } from '@ngdux/data-model-common';
 import { TableComponent } from '../table/table.component';
 
 @Directive()

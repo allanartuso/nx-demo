@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { ConfigurationService } from '@demo/shared/util-configuration';
 import {
   FilteringField,
   FilteringOptions,
@@ -7,8 +8,7 @@ import {
   RequestOptions,
   SortingDirection,
   SortingOptions
-} from '@demo/shared/data-model/common';
-import { ConfigurationService } from '@demo/shared/util-configuration';
+} from '@ngdux/data-model-common';
 import { Observable } from 'rxjs';
 import { AbstractRestService } from './abstract-rest.service';
 

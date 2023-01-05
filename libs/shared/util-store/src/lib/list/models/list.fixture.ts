@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { ErrorDto, ListService } from '@demo/shared/data-model/common';
+import { ErrorDto, ListNotificationService, ListService } from '@ngdux/data-model-common';
 import { Actions } from '@ngrx/effects';
 import { ActionCreator, createFeatureSelector, Store } from '@ngrx/store';
 import { TypedAction } from '@ngrx/store/src/models';
@@ -26,7 +25,7 @@ export class TestListService implements ListService<TestResource> {
 }
 
 const mockSnackBar = { open: jest.fn() } as unknown as MatSnackBar;
-const mockDialog = { open: jest.fn(), afterClosed: jest.fn() } as unknown as MatDialog;
+const mockDialog: ListNotificationService = { openConfirmationDialog: jest.fn() };
 
 @Injectable()
 export class TestListEffects extends AbstractListEffects<TestResource> {

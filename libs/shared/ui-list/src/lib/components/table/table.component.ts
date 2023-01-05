@@ -10,7 +10,7 @@ import {
   SortingDirection,
   SortingField,
   SortingOptions
-} from '@demo/shared/data-model/common';
+} from '@ngdux/data-model-common';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { TableColumn } from '../../models/table.model';

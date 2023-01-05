@@ -1,9 +1,9 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { formActions, formSelectors } from '@demo/demo/data-access/users';
+import { userActions, userSelectors } from '@demo/demo/data-access/users';
 import { UserDto } from '@demo/demo/data-model/users';
 import { createPersistentUser, createTransientUser } from '@demo/demo/data-model/users/test';
-import { RequestState } from '@demo/shared/data-model/common';
+import { RequestState } from '@ngdux/data-model-common';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 
 import { UserComponent } from './user.component';
@@ -22,8 +22,8 @@ describe('UserComponent', () => {
       providers: [
         provideMockStore({
           selectors: [
-            { selector: formSelectors.getResource, value: user },
-            { selector: formSelectors.getRequestState, value: RequestState.IDLE }
+            { selector: userSelectors.getResource, value: user },
+            { selector: userSelectors.getRequestState, value: RequestState.IDLE }
           ]
         })
       ],
@@ -48,7 +48,7 @@ describe('UserComponent', () => {
     component.onUserSaved(user);
 
     expect(store.dispatch).toHaveBeenCalledTimes(1);
-    expect(store.dispatch).toHaveBeenCalledWith(formActions.save({ resource: user }));
+    expect(store.dispatch).toHaveBeenCalledWith(userActions.save({ resource: user }));
   });
 
   it('saves the user', () => {
@@ -57,6 +57,6 @@ describe('UserComponent', () => {
     component.onUserSaved(newUser);
 
     expect(store.dispatch).toHaveBeenCalledTimes(1);
-    expect(store.dispatch).toHaveBeenCalledWith(formActions.create({ resource: newUser }));
+    expect(store.dispatch).toHaveBeenCalledWith(userActions.create({ resource: newUser }));
   });
 });

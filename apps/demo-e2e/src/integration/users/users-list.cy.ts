@@ -1,5 +1,5 @@
 import { UserDto } from '@demo/demo/data-model/users';
-import { SortingDirection, SortingField } from '@demo/shared/data-model/common';
+import { SortingDirection, SortingField } from '@ngdux/data-model-common';
 import {
   assertCorrectQueryRequested,
   stubDeleteUsers,
